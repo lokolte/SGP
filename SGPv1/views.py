@@ -6,4 +6,8 @@ from django.http import HttpResponse
 def index(request):
     return HttpResponse("You are logged in")
 
+@login_required(login_url='/login')
+def home(request):
+    return HttpResponse("<h1>HEADER</h1>");
+
 
