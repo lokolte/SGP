@@ -8,8 +8,8 @@ from rest_framework import status
 from authentication.serializers import UserSerializer
 
 from django.shortcuts import render
-from confproyecto.models import Usuario, Proyecto, Sprint, Flujo, Actividad, UserStory
-from confproyecto.serializers import UsuarioSerializer, ProyectoSerializer, SprintSerializer, FlujoSerializer, ActividadSerializer, UserStorySerializer
+from authentication.models import Usuario, Proyecto, Sprint, Flujo, Actividad, UserStory
+from authentication.serializers import UsuarioSerializer, ProyectoSerializer, SprintSerializer, FlujoSerializer, ActividadSerializer, UserStorySerializer
 from django.http import Http404
 from rest_framework.views import APIView
 

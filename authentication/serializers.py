@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 
 from rest_framework import serializers
 
-from confproyecto.models import Usuario, Proyecto, Sprint, Flujo, UserStory, Actividad
+from authentication.models import Usuario, Proyecto, Sprint, Flujo, UserStory, Actividad
 
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
