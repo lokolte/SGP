@@ -50,8 +50,7 @@ class UsuarioDetail(APIView):
 
     def delete(self, request, pk, format=None):
         usuario = self.get_object(pk)
-        usuario.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=405)
 
 
 class ProyectoList(APIView):
@@ -91,8 +90,7 @@ class ProyectoDetail(APIView):
 
     def delete(self, request, pk, format=None):
         proyecto = self.get_object(pk)
-        proyecto.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=405)
 
 
 class SprintList(APIView):
@@ -132,8 +130,7 @@ class SprintDetail(APIView):
 
     def delete(self, request, pk, format=None):
         sprint = self.get_object(pk)
-        sprint.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=405)
 
 
 class FlujoList(APIView):
@@ -173,8 +170,7 @@ class FlujoDetail(APIView):
 
     def delete(self, request, pk, format=None):
         flujo = self.get_object(pk)
-        flujo.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=405)
 
 
 class ActividadList(APIView):
@@ -214,8 +210,7 @@ class ActividadDetail(APIView):
 
     def delete(self, request, pk, format=None):
         actividad = self.get_object(pk)
-        actividad.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=405)
 
 
 class UserStoryList(APIView):
@@ -255,8 +250,7 @@ class UserStoryDetail(APIView):
 
     def delete(self, request, pk, format=None):
         userStory = self.get_object(pk)
-        userStory.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=405)
 
 
 class UserListCreateAPIView(generics.ListCreateAPIView):
@@ -301,4 +295,4 @@ class UserDetailAPIView(views.APIView):
         user = self.get_object(pk)
         user.is_valid = False
         user.save()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(status=status.HTTP_200_NO_CONTENT)

@@ -20,7 +20,7 @@ class SprintSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sprint
         fields = ('id', 'owner', 'proyecto', 'fecha_creacion', 'fecha_ini',
-                  'duracionHoras')
+                  'duracionHoras', 'estado')
 
 class FlujoSerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,7 +31,7 @@ class FlujoSerializer(serializers.ModelSerializer):
 class ActividadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Actividad
-        fields = ('id', 'owner', 'nombre', 'fecha_creacion', 'estado', 'flujo')
+        fields = ('id', 'owner', 'nombre', 'fecha_creacion', 'estado', 'flujo', 'orden')
 
 class UserStorySerializer(serializers.ModelSerializer):
     class Meta:
