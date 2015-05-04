@@ -1,15 +1,14 @@
-from django.contrib.auth.models import User
-
 from rest_framework import generics, permissions
 from rest_framework import views
 from rest_framework.response import Response
 from rest_framework import status
 
 from authentication.serializers import UserSerializer
+from django.contrib.auth.models import User
 
 from django.shortcuts import render
 from authentication.models import Usuario, Proyecto, Sprint, Flujo, Actividad, UserStory
-from authentication.serializers import UsuarioSerializer, ProyectoSerializer, SprintSerializer, FlujoSerializer, ActividadSerializer, UserStorySerializer
+from authentication.serializers import UserStorySerializer, ProyectoSerializer, SprintSerializer, FlujoSerializer, ActividadSerializer, UserStorySerializer
 from django.http import Http404
 from rest_framework.views import APIView
 
@@ -47,7 +46,6 @@ class UsuarioDetail(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
     def delete(self, request, pk, format=None):
         usuario = self.get_object(pk)
         return Response(status=405)

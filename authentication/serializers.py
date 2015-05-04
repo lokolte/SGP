@@ -7,7 +7,7 @@ from authentication.models import Usuario, Proyecto, Sprint, Flujo, UserStory, A
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = ('id', 'username', 'nombre', 'apellido', 'correo', 'tel', 'direccion',
+        fields = ('id', 'nombre', 'apellido', 'correo', 'telefono', 'direccion',
                   'fecha_creacion', 'estado', 'tipo')
 
 class ProyectoSerializer(serializers.ModelSerializer):
@@ -37,7 +37,8 @@ class UserStorySerializer(serializers.ModelSerializer):
     class Meta:
         model = UserStory
         fields = ('id', 'flujo_actual', 'sprint', 'actividad_actual', 'owner', 'descripcionC',
-                  'descripcionL', 'fecha_creacion', 'prioridad', 'tamanho', 'estado', 'fecha_ini', 'fecha_fin')
+                  'descripcionL', 'fecha_creacion', 'prioridad', 'tamanho', 'estado', 'fecha_ini', 'fecha_fin',
+                  'valorNegocio', 'valorTecnico')
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
