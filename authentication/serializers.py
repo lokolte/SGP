@@ -1,55 +1,41 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import update_session_auth_hash
 
 from rest_framework import serializers
 
-from authentication.models import Usuario, Proyecto, Sprint, Flujo, UserStory, Actividad
+from authentication.models import Usuario
+
 
 class UsuarioSerializer(serializers.ModelSerializer):
+    '''
+    @cvar UsuarioSerializer: clase que serializa los objetos usuarios
+    @type UsuarioSerializer: ModelSerializer
+    '''
+    password = serializers.CharField(write_only=True, required=False)
+    confirm_password = serializers.CharField(write_only=True, required=False)
+
     class Meta:
         model = Usuario
-        fields = ('id', 'nombre', 'apellido', 'correo', 'telefono', 'direccion',
-                  'fecha_creacion', 'estado', 'tipo')
+        fields = ('id', 'email', 'username', 'fecha_creacion', 'fecha_modificacion',
+                  'nombre', 'apellido', 'telefono', 'direccion', 'password',
+                  'confirm_password',)
+        read_only_fields = ('fecha_creacion', 'fecha_modificacion',)
 
-class ProyectoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Proyecto
-        fields = ('id', 'nombre', 'owner', 'cliente', 'fecha_creacion', 'estado', 'fecha_ini',
-                  'fecha_fin', 'observaciones')
+        def create(self, validated_data):
+            return Usuario.objects.create(**validated_data)
 
-class SprintSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Sprint
-        fields = ('id', 'owner', 'proyecto', 'fecha_creacion', 'fecha_ini',
-                  'duracionHoras', 'estado')
+        def update(self, instance, validated_data):
+            instance.username = validated_data.get('username', instance.username)
 
-class FlujoSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Flujo
-        fields = ('id', 'owner', 'nombre', 'fecha_creacion', 'estado', 'proyecto',
-                  'observaciones')
+            instance.save()
 
-class ActividadSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Actividad
-        fields = ('id', 'owner', 'nombre', 'fecha_creacion', 'estado', 'flujo', 'orden')
+            password = validated_data.get('password', None)
+            confirm_password = validated_data.get('confirm_password', None)
 
-class UserStorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserStory
-        fields = ('id', 'flujo_actual', 'sprint', 'actividad_actual', 'owner', 'descripcionC',
-                  'descripcionL', 'fecha_creacion', 'prioridad', 'tamanho', 'estado', 'fecha_ini', 'fecha_fin')
+            if password and confirm_password and password == confirm_password:
+                instance.set_password(password)
+                instance.save()
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'email', 'password')
-        write_only_fields = ('password',)
+            update_session_auth_hash(self.context.get('request'), instance)
 
-    def restore_object(self, attrs, instance=None):
-        user = super(UserSerializer, self).restore_object(attrs, instance)
-        password = attrs.get('password', None)
+            return instance
 
-        if password:
-            user.set_password(password)
-
-        return user

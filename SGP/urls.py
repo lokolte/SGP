@@ -1,14 +1,20 @@
-from django.conf.urls import patterns, url
-from django.views.generic import TemplateView
+from django.conf.urls import patterns, include, url
+from django.contrib import admin
+from rest_framework import routers
+from authentication.views import UsuarioViewSet, IndexView, LoginView, LogoutView
+from proyectos.views import ProyectoViewSet
 
-from authentication.views import UserListCreateAPIView, UserDetailAPIView
+from django.views.decorators.csrf import csrf_exempt
 
-urlpatterns = patterns(
-    '',
+router = routers.SimpleRouter()
+router.register(r'usuarios', UsuarioViewSet)
+router.register(r'proyectos', ProyectoViewSet)
 
-    url(r'^api/v1/auth/login/', 'rest_framework_jwt.views.obtain_jwt_token'),
-    url(r'^api/v1/users/', UserListCreateAPIView.as_view()),
-    url(r'^api/v1/users/(?P<pk>[0-9]+)/$', UserDetailAPIView.as_view()),
-
-    url(r'^.*$', TemplateView.as_view(template_name='index.html')),
+urlpatterns = patterns('',
+    url(r'^api/', include(router.urls)),
+    url(r'^api/login/', csrf_exempt(LoginView.as_view()), name='login'),
+    url(r'^api/logout/', LogoutView.as_view(), name='logout'),
+    url(r'^/api/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^admin/', include(admin.site.urls)),
+    url('^.*$', IndexView.as_view(), name='index'),
 )

@@ -1,298 +1,106 @@
-from django.contrib.auth.models import User
-
-from rest_framework import generics, permissions
-from rest_framework import views
-from rest_framework.response import Response
-from rest_framework import status
-
-from authentication.serializers import UserSerializer
-
+# coding=utf-8
+import json
 from django.shortcuts import render
-from authentication.models import Usuario, Proyecto, Sprint, Flujo, Actividad, UserStory
-from authentication.serializers import UsuarioSerializer, ProyectoSerializer, SprintSerializer, FlujoSerializer, ActividadSerializer, UserStorySerializer
-from django.http import Http404
-from rest_framework.views import APIView
+from django.views.generic.base import TemplateView
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.contrib.auth import authenticate, login, logout
+from rest_framework import permissions, viewsets, status, views
+from rest_framework.response import Response
+from authentication.models import Usuario
+from authentication.permisos import IsAccountOwner, EsEmpleado
+from authentication.serializers import UsuarioSerializer
 
-class UsuarioList(APIView):
+####
+#from django.utils.six import BytesIO
+####
 
-    def get(self, request, format=None):
-        usuarios = Usuario.objects.all()
-        serializer = UsuarioSerializer(usuarios, many=True)
-        return Response(serializer.data)
+# Create your views here.
 
-    def post(self, request, format=None):
-        serializer = UsuarioSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+class IndexView(TemplateView):
+    template_name = 'index.html'
 
-class UsuarioDetail(APIView):
-
-    def get_object(self, pk):
-        try:
-            return Usuario.objects.get(pk=pk)
-        except Usuario.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        usuario = self.get_object(pk)
-        serializer = UsuarioSerializer(usuario)
-        return Response(serializer.data)
-
-    def put(self, request, pk, format=None):
-        usuario = self.get_object(pk)
-        serializer = UsuarioSerializer(usuario, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format=None):
-        usuario = self.get_object(pk)
-        return Response(status=405)
+    @method_decorator(ensure_csrf_cookie)
+    def dispatch(self, *args, **kwargs):
+        return super(IndexView, self).dispatch(*args, **kwargs)
 
 
-class ProyectoList(APIView):
-
-    def get(self, request, format=None):
-        proyectos = Proyecto.objects.all()
-        serializer = ProyectoSerializer(proyectos, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = ProyectoSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class ProyectoDetail(APIView):
-
-    def get_object(self, pk):
-        try:
-            return Proyecto.objects.get(pk=pk)
-        except Proyecto.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        proyecto = self.get_object(pk)
-        serializer = ProyectoSerializer(proyecto)
-        return Response(serializer.data)
-
-    def put(self, request, pk, format=None):
-        proyecto = self.get_object(pk)
-        serializer = ProyectoSerializer(proyecto, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format=None):
-        proyecto = self.get_object(pk)
-        return Response(status=405)
-
-
-class SprintList(APIView):
-
-    def get(self, request, format=None):
-        sprints = Sprint.objects.all()
-        serializer = SprintSerializer(sprints, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = SprintSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class SprintDetail(APIView):
-
-    def get_object(self, pk):
-        try:
-            return Sprint.objects.get(pk=pk)
-        except Sprint.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        sprint = self.get_object(pk)
-        serializer = SprintSerializer(sprint)
-        return Response(serializer.data)
-
-    def put(self, request, pk, format=None):
-        sprint = self.get_object(pk)
-        serializer = SprintSerializer(sprint, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format=None):
-        sprint = self.get_object(pk)
-        return Response(status=405)
-
-
-class FlujoList(APIView):
-
-    def get(self, request, format=None):
-        flujos = Flujo.objects.all()
-        serializer = FlujoSerializer(flujos, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = FlujoSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class FlujoDetail(APIView):
-
-    def get_object(self, pk):
-        try:
-            return Flujo.objects.get(pk=pk)
-        except Flujo.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        flujo = self.get_object(pk)
-        serializer = FlujoSerializer(flujo)
-        return Response(serializer.data)
-
-    def put(self, request, pk, format=None):
-        flujo = self.get_object(pk)
-        serializer = FlujoSerializer(flujo, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format=None):
-        flujo = self.get_object(pk)
-        return Response(status=405)
-
-
-class ActividadList(APIView):
-
-    def get(self, request, format=None):
-        actividades = Actividad.objects.all()
-        serializer = ActividadSerializer(actividades, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = ActividadSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class ActividadDetail(APIView):
-
-    def get_object(self, pk):
-        try:
-            return Actividad.objects.get(pk=pk)
-        except Actividad.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        actividad = self.get_object(pk)
-        serializer = ActividadSerializer(actividad)
-        return Response(serializer.data)
-
-    def put(self, request, pk, format=None):
-        actividad = self.get_object(pk)
-        serializer = ActividadSerializer(actividad, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format=None):
-        actividad = self.get_object(pk)
-        return Response(status=405)
-
-
-class UserStoryList(APIView):
-
-    def get(self, request, format=None):
-        userStories = UserStory.objects.all()
-        serializer = UserStorySerializer(userStories, many=True)
-        return Response(serializer.data)
-
-    def post(self, request, format=None):
-        serializer = UserStorySerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class UserStoryDetail(APIView):
-
-    def get_object(self, pk):
-        try:
-            return UserStory.objects.get(pk=pk)
-        except UserStory.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        userStory = self.get_object(pk)
-        serializer = UserStorySerializer(userStory)
-        return Response(serializer.data)
-
-    def put(self, request, pk, format=None):
-        userStory = self.get_object(pk)
-        serializer = UserStorySerializer(userStory, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self, request, pk, format=None):
-        userStory = self.get_object(pk)
-        return Response(status=405)
-
-
-class UserListCreateAPIView(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
-#    def get(self, request, format=None):
-#        user = User.objects.all()
-#        serializer = UserSerializer(user, many=True)
-#        return Response(serializer.data)
+class UsuarioViewSet(viewsets.ModelViewSet):
+    '''
+    Conjunto de vistas que maneja el ABM de usuarios.
+    '''
+    lookup_field = 'username'
+    queryset = Usuario.objects.all()
+    serializer_class = UsuarioSerializer
 
     def get_permissions(self):
         if self.request.method in permissions.SAFE_METHODS:
-            return (permissions.IsAuthenticated(),)
-        return (permissions.AllowAny(),)
+            return (permissions.AllowAny(),)
 
+        #Todos tienen permiso de crear su propia cuenta
+        if self.request.method == 'POST':
+            return (permissions.AllowAny(),)
 
-class UserDetailAPIView(views.APIView):
-    """
-    Retrieve, update or delete a snippet instance.
-    """
-    def get_object(self, pk):
-        try:
-            return User.objects.get(pk=pk)
-        except User.DoesNotExist:
-            raise status.HTTP_404_NOT_FOUND
+        #Solo el dueño de una cuenta puede hacer update() o delete()
+        return (permissions.IsAuthenticated(), IsAccountOwner(),)
 
-    def get(self, request, pk):
-        user = self.get_object(pk)
-        serializer = UserSerializer(user)
-        return Response(serializer.data)
+    def create(self, request):
+        serializer = self.serializer_class(data=request.data)
 
-    def put(self, request, pk):
-        user = self.get_object(pk)
-        serializer = UserSerializer(user, data=request.data)
+        #print('body: ' + request.body)
+        #stream = BytesIO(request.data)
+        #dato = JSONParser().parse(stream)
+        #print('data: ' + dato)
+
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            print('entroo')
+            print(request.data)
+            Usuario.objects.create_user(**serializer.validated_data)
 
-    def delete(self, request, pk):
-        user = self.get_object(pk)
-        user.is_valid = False
-        user.save()
-        return Response(status=status.HTTP_200_NO_CONTENT)
+            return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
+
+        print('no entro :(')
+        return Response({
+            'status': 'Bad request',
+            'message': 'Account could not be created with received data.'
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+class LoginView(views.APIView):
+    def post(self, request, format=None):
+        print('llego? antes?')
+        data = json.loads(request.body)
+        print(request.body)
+        username = data.get('username', None)
+        password = data.get('password', None)
+        print('llego?')
+
+        usuario = authenticate(username=username, password=password)
+
+        if usuario is not None:
+            print(usuario.nombre)
+            if usuario.activo: #.is_active:
+                login(request, usuario)
+
+                serialized = UsuarioSerializer(usuario)
+
+                return Response(serialized.data)
+            else:
+                return Response({
+                    'status': 'Unauthorized',
+                    'message': 'Esta cuenta de usuario ha sido deshabilitada'
+                }, status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            return Response({
+                'status': 'Unauthorized',
+                'message': 'Nombre de usuario o contraseña inválidos.'
+            }, status=status.HTTP_401_UNAUTHORIZED)
+
+class LogoutView(views.APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def post(self, request, format=None):
+        logout(request)
+
+        return Response({'message': 'logout success'}, status=status.HTTP_204_NO_CONTENT)
