@@ -1,25 +1,23 @@
 {
-  "name": "django_angular_token_auth",
+  "name": "SGP",
   "version": "0.0.0",
-  "homepage": "https://github.com/brwr/django-angular-token-auth",
-  "authors": [
-    "James Brewer <james@jamesbrewer.io>"
-  ],
-  "description": "JSON Web Token-based Authentication with Django and AngularJS",
-  "license": "GPL",
+  "homepage": "https://github.com/lokolte/SGP",
+  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
-    "tests",
-    "static/bower_components"
+    "tests"
   ],
   "dependencies": {
-    "angular": "~1.3.15",
-    "angular-route": "~1.3.15",
-    "bootstrap": "~3.3.4",
-    "jquery": "~2.1.4",
-    "angular-bootstrap": "~0.12.1"
+    "angular": "~1.3.1",
+    "angular-route": "~1.3.1",
+    "angular-cookies": "~1.3.1",
+    "bootstrap": "~3.3.0",
+    "bootstrap-material-design": "~0.1.5",
+    "jquery": "~2.1.1",
+    "ngDialog": "~0.3.3",
+    "underscore": "~1.7.0"
   }
 }

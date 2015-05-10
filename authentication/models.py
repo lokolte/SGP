@@ -1,147 +1,133 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
-#########    Usuario     ############
+# Create your models here.
 
-class Usuario(models.Model):
-    # Un usuario tendra un nombre identificador, contrasenha, estado, tipo de usuario, nombre,
-    # apellido, direccion de correo electronico, numeros de telefono, direccion del domicilio.
-    ESTADOS_U = (
-        ('A', 'Activo'),
-        ('I', 'Inactivo'),
-    )
+class UsuarioManager(BaseUserManager):
+    '''
+       @cvar UsuarioManager: controlador de la clase B{Usuario}
+       @param nombre de usuario
+    '''
+    def create_user(self, username, password=None, **kwargs):
+        '''
+        :param username: nombre del usuario del sistema
+        @type username: string de 40 caracteres
+        :param password: contrasenha del usuario
+        @type password: string heredado del framework
+        :param kwargs: otros datos
+        :return: usuario
+        '''
+        if not username:
+            raise ValueError('Debe existir un nombre de usuario')
+
+        if not kwargs.get('email'):
+            raise ValueError('Debe tener una direccion de correo valida')
+
+        if not kwargs.get('nombre'):
+            raise ValueError('El usuario debe tener un nombre')
+
+        if not kwargs.get('apellido'):
+            raise ValueError('El usuario debe tener un apellido')
+
+        usuario = self.model(
+            username=username,
+            email=self.normalize_email(kwargs.get('email')),
+            nombre=kwargs.get('nombre'),
+            apellido=kwargs.get('apellido')
+        )
+
+        usuario.set_password(password)
+        usuario.save()
+        return usuario
+
+    def create_superuser(self, username, password=None, **kwargs):
+        '''
+        funcion B{crear superusuario} funcion para crear un superusuario
+        @param username:: nombre del usuario del sistema
+        @type username: string de 40 caracteres
+        @param password: contrasenha del usuario
+        @type password: string agregado por el framework
+        @param kwargs: otros datos
+        '''
+        usuario = self.create_user(username, password, **kwargs)
+        usuario.is_admin = True
+        usuario.save()
+        return usuario
+
+    def crear_cliente(self, username, password=None, **kwargs):
+        '''
+        funcion B{crear cliente} funcion que crea usuarios de tipo cliente
+        @param username:: nombre del usuario del sistema
+        @type username: string de 40 caracteres
+        @param password: contrasenha del usuario
+        @type password: string agregado por el framework
+        @param kwargs: otros datos
+        '''
+        usuario = self.create_user(username, password, **kwargs)
+        usuario.tipo=Usuario.T_CLIENTE
+        usuario.save()
+        return usuario
+
+    def crear_empleado(self, username, password=None, **kwargs):
+        '''
+        funcion B{crear empleado} funcion que crea usuarios de tipo empleado
+        @param username:: nombre del usuario del sistema
+        @type username: string de 40 caracteres
+        @param password: contrasenha del usuario
+        @type password: string agregado por el framework
+        @param kwargs: otros datos
+        '''
+        usuario = self.create_user(username, password, **kwargs)
+        usuario.tipo=Usuario.T_EMPLEADO
+        usuario.save()
+        return usuario
+
+    def buscar_usuario(self, id):
+        try:
+            return Usuario.objects.get(pk=id)
+        except Usuario.DoesNotExist:
+            return
+
+class Usuario(AbstractBaseUser):
+    '''
+    @cvar Usuario: con I{nombre}, I{apellido}, I{email}, I{telefono}, I{direccion}, I{tipo de usuario} y I{estado}
+    I{email}, I{nombre} y I{apellido}
+    I{nombre},I{apellido}: para I{get_nombre_completo}
+    '''
+    T_CLIENTE='C'
+    T_EMPLEADO='E'
     TIPOS_U = (
         ('C', 'Cliente'),
         ('E', 'Empleado')
     )
-    id = models.AutoField(primary_key=True)
-    user = models.OneToOneField(User)
 
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
-    correo = models.EmailField(max_length=75)
+    username = models.CharField(max_length=40, unique=True)
 
-    telefono = models.TextField()
-    direccion = models.CharField(max_length=100)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)  #fecha de creacion de usuario
-    #El usuario debera tener uno de los siguientes dos estados:
-    #A (Activo): El usuario esta habilitado para utilizar el sistema.
-    #I (Inactivo): El usuario no esta habilitado para utilizar el sistema
-    estado = models.CharField(max_length=1, choices=ESTADOS_U, default='A')
-    tipo = models.CharField(max_length=1, choices=TIPOS_U)  #tipo empleado o cliente setteado en el post al crear
+    nombre = models.CharField(max_length=40, blank=True)
+    apellido = models.CharField(max_length=40, blank=True)
+    email = models.EmailField(unique=True)
+    telefono = models.CharField(max_length=15, blank=True)
+    direccion = models.CharField(max_length=50, blank=True)
 
-##############################    Proyecto    ########################################
+    #tipo = models.CharField(max_length=23)
+    tipo = models.CharField(max_length=1, choices=TIPOS_U)
 
-class Proyecto(models.Model):
-    # Un proyecto tendra un codigo identificador, nombre, estado, clientes, fecha de inicio,
-    # fecha estimada de finalizacion, informacion de sincronizacion del versionador y observaciones.
-    ESTADOS_P = (
-        ('A', 'Activo'),
-        ('S', 'Suspendido'),
-        ('F', 'Finalizado'),
-    )
-    id = models.AutoField(primary_key=True)
-    owner = models.ForeignKey(User, null=True)#, editable=False )  #usuario que lo creo
-    cliente = models.ForeignKey(Usuario, null=True)#, editable=True)  #usuario que lo creo
+    ## el atributo activo representa el estado, si es activo o inactivo
+    activo = models.BooleanField(default=True)
+    is_admin = models.BooleanField(default=False)
 
-    nombre = models.CharField(max_length=100)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
-    #El proyecto debera tener uno de los siguientes tres estados:
-    # A (Activo): El proyecto se encuentra en desarrollo.
-    # S (Suspendido): El proyecto fue suspendido.
-    # F (Finalizado): El proyecto fue finalizado exitosamente.
-    estado = models.CharField(max_length=1, choices=ESTADOS_P, default='S')
-    #El estado por defecto de un proyecto sera'Suspendido' hasta que se cree un flujo,
-    fecha_ini = models.DateTimeField(auto_now_add=False)
-    fecha_fin = models.DateTimeField(auto_now_add=False)  #fecha entrega estimada
-    observaciones = models.TextField()
+    fecha_modificacion = models.DateTimeField(auto_now=True)
 
+    objects = UsuarioManager()
 
-#######################    Flujo         ########################
-class Flujo(models.Model):
-    # Un flujo tendra un codigo identificador, nombre, estado, actividades y observaciones.
-    ESTADOS_F = (
-        ('TD', 'To_Do'),
-        ('DG', 'Doing'),
-        ('DN', 'Done'),
-    )
-    id = models.AutoField(primary_key=True)
-    proyecto = models.ForeignKey(Proyecto)#, editable=False)  #Proyecto al que corresponde el flujo
-    owner = models.ForeignKey(User, null=True)#, editable=False)  #usuario que lo creo
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email', 'nombre', 'apellido']
+    def __unicode__(self):
+        return self.username
 
-    nombre = models.CharField(max_length=100)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
-    estado = models.TextField(max_length=2, choices=ESTADOS_F, default='TD')
-    observaciones = models.TextField()
+    def get_nombre_completo(self):
+        return ''.join([self.nombre, self.apellido])
 
-
-#######################    Actividades    #######################
-class Actividad(models.Model):
-    # Una actividad tendra un codigo identificador unico, flujo, estado, conjunto de US.
-    #Los estados seran estaticos: To do. Doing. Done.
-    ESTADOS_A = (
-        ('TD', 'To_Do'),
-        ('DG', 'Doing'),
-        ('DN', 'Done'),
-    )
-    #id = models.AutoField(primary_key=True)
-    flujo = models.ForeignKey(Flujo)#, editable=False)  #Flujo al que corresponde la actividad
-    owner = models.ForeignKey(User, null=True)#, editable=False)  #usuario que lo creo
-
-    nombre = models.CharField(max_length=50)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
-    estado = models.TextField(max_length=2, choices=ESTADOS_A, default='TD')
-    orden = models.DecimalField(max_digits=4, decimal_places=0, default=0)
-
-###################    Sprint     ######################
-class Sprint(models.Model):
-    ESTADOS_S = (
-        ('A', 'Activo'),
-        ('C', 'Cerrado'),
-    )
-    id = models.AutoField(primary_key=True)
-    owner = models.ForeignKey(User, null=True)#, editable=False)  # usuario que lo creo
-    proyecto = models.ForeignKey(Proyecto, null=True)#, editable=False)  # proyecto a quien pertenece
-    #El sprint debera tener uno de los siguientes dos estados:
-      #A (Activo): El sprint se encuentra activo.
-      #C (Cerrado): El sprint se encuentra cerrado.
-    estado = models.CharField(max_length=1, choices=ESTADOS_S, default='P')
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
-    fecha_ini = models.DateTimeField(auto_now_add=False)
-    duracionHoras = models.DecimalField(max_digits=6, decimal_places=2, default=300)
-
-#######################        UserStorys         #######################
-class UserStory(models.Model):
-    # US tendra un codigo identificador, descripcion corta para visualizacion y
-    # una larga para detallar el trabajo a realizar, prioridad,
-    # tamanho, estado, fecha de creacion, fecha de entrega estimada,
-    # archivos adjuntos, usuario asignado, el flujo actual con la actividad y
-    # el estado dentro del mismo, un historial de trabajo realizado y un historial
-    # de modificaciones realizados sobre la US.
-    ESTADOS_US = (
-        ('P', 'Pendiente'),
-        ('S', 'Suspendido'),
-        ('F', 'Finalizado'),
-    )
-    id = models.AutoField(primary_key=True)
-    flujo_actual = models.ForeignKey(Flujo, null=True)#, editable=True)
-    sprint = models.ForeignKey(Sprint, null=True)#, editable=True)
-    actividad_actual = models.ForeignKey(Actividad, null=True)#, editable=True)
-    owner = models.ForeignKey(User, null=True)#, editable=False)  # usuario que lo creo
-
-    descripcionC = models.CharField(max_length=50)
-    descripcionL = models.CharField(max_length=150)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
-    prioridad = models.IntegerField(default=1)
-    tamanho = models.IntegerField(default=50)
-    # La US debera tener uno de los siguientes tres estados:
-    # P (Pendiente): La US aun tiene trabajo pendiente a realizar y no cumple todavia las expectativas de los clientes.
-    # S (Suspendido): La US fue suspendida y ya no se realiza trabajo sobre la misma.
-    # F (Finalizado): La US fue finalizada exitosamente y cumple todas las expectativas de los clientes.
-    estado = models.CharField(max_length=1, choices=ESTADOS_US, default='P')
-    fecha_ini = models.DateTimeField(auto_now_add=False)
-    fecha_fin = models.DateTimeField(auto_now_add=False)  #fecha entrega estimada
-    valorNegocio = models.IntegerField(default=10)
-    valorTecnico = models.IntegerField(default=10)
-
-
+    def get_nombre(self):
+        return self.nombre

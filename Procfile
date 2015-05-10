@@ -1,0 +1,1 @@
+web: gunicorn SGP.wsgi --log-file -

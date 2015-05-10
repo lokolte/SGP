@@ -1,5 +1,5 @@
 """
-WSGI config for SGP project.
+WSGI config for SGP_Main project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
