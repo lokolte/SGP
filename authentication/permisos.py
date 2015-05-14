@@ -1,4 +1,4 @@
-__author__ = 'santiago'
+
 from rest_framework import permissions
 from authentication.models import Usuario
 

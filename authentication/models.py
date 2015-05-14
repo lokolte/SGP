@@ -119,7 +119,7 @@ class Usuario(AbstractBaseUser):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
 
-    objects = UsuarioManager()
+    obj = UsuarioManager()
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'nombre', 'apellido']
