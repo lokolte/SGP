@@ -47,7 +47,7 @@ class ProyectoManager(models.Manager):
         try:
             return Proyecto.objects.get(pk=id)
         except Proyecto.DoesNotExist:
-            return
+            return None
 
     def modificar_proyecto(self, id, **kwargs):
         proyecto = Proyecto.obj.buscar_proyecto(id)

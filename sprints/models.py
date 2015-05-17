@@ -38,9 +38,24 @@ class SprintManager(models.Manager):
             duracionHoras=kwargs.get('duracionHoras'),
             fecha_fin=fecha_fin,
         )
-
         sprint.save()
         return sprint
+
+    def buscar_sprint(self, id):
+        try:
+            return Sprint.objects.get(pk=id)
+        except Sprint.DoesNotExist:
+            return None
+
+    def cambiar_estado(self, id, **kwargs):
+        #cambiar el estado solo si
+        sprint = Sprint.obj.buscar_sprint(id)
+        if sprint.estado == Sprint.ACTIVO and kwargs.get('estado') == Sprint.CERRADO:
+            sprint.estado = kwargs.get('estado')
+        else:
+            print('No esta permitido cambiar el estado de un Sprint Cerrado')
+        sprint.save()
+
 
 class Sprint(models.Model):
     ACTIVO= 'A'

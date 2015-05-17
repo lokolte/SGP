@@ -33,23 +33,26 @@ class FlujoManager(models.Manager):
         try:
             return Flujo.objects.get(pk=id)
         except Flujo.DoesNotExist:
-            return
+            return None
 
     def modificar_flujo(self, id, **kwargs):
         flujo = Flujo.obj.buscar_flujo(id)
         flujo.nombre = kwargs.get('nombre')
         flujo.observaciones = kwargs.get('observaciones')
+        flujo.save()
 
     def cambiar_estado(self, id, **kwargs):
         flujo = Flujo.obj.buscar_flujo(id)
         if flujo.estado == Flujo.DOING and kwargs.get('estado') == Flujo.DONE: #si es el SCRUM
             #confirmar actividades en DONE
             flujo.estado = kwargs.get('estado')
-        if flujo.estado == Flujo.DONE and kwargs.get('estado') == Flujo.DOING: #si es el SCRUM
+        elif flujo.estado == Flujo.DONE and kwargs.get('estado') == Flujo.DOING: #si es el SCRUM
             flujo.estado = kwargs.get('estado')
-        if flujo.estado == Flujo.TODO and kwargs.get('estado') == Flujo.DOING:
+        elif flujo.estado == Flujo.TODO and kwargs.get('estado') == Flujo.DOING:
             flujo.estado = kwargs.get('estado')
             flujo.iniciado = True
+        flujo.save()
+
 
 class Flujo(models.Model):
     # Un flujo tendra un codigo identificador, nombre, estado, actividades y observaciones.
@@ -137,12 +140,12 @@ class ActividadManager(models.Manager):
             elif actividad.estado == Actividad.TODO and kwargs.get('estado') == Actividad.DOING:
                 actividad.estado = kwargs.get('estado')
             elif actividad.estado == Actividad.DONE and kwargs.get('estado') == Actividad.DOING: #solo el SCRUM
-                #que hacer con los US
                 actividad.estado = kwargs.get('estado')
             else:
                 print('No esta permitido')
         actividad.save()
 
+    # no utilizar x el momento
     def modificar_actividad(self, id, **kwargs):
         actividad = Actividad.obj.buscar_actividad(id)
         actividad.cantidadUS = kwargs.get('cantidadUS')#cantidad de US pendientes

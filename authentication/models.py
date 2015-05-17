@@ -86,7 +86,7 @@ class UsuarioManager(BaseUserManager):
         try:
             return Usuario.objects.get(pk=id)
         except Usuario.DoesNotExist:
-            return
+            return None
 
 class Usuario(AbstractBaseUser):
     '''

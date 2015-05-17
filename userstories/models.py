@@ -63,7 +63,7 @@ class USManager(models.Manager):
         try:
             return UserStory.objects.get(pk=id)
         except UserStory.DoesNotExist:
-            return
+            return None
 
     def modificar_us(self, id, **kwargs):
         userstory = UserStory.obj.buscar_userstory(id)
@@ -91,7 +91,7 @@ class USManager(models.Manager):
             print('No esta permitido')
         userstory.save()
 
-    #solo el Scrum llama a esta funcion
+    # solo el Scrum llama a esta funcion
     def verificar_us(self,id, **kwargs):
         userstory = UserStory.obj.buscar_userstory(id)
         if userstory.estado == UserStory.FINALIZADO:
@@ -100,11 +100,34 @@ class USManager(models.Manager):
             if userstory.confirmado == False:
                 userstory.estado = UserStory.PENDIENTE
             elif userstory.confirmado == True:
+                # un US pendiente menos
                 userstory.actividad_actual.cantidadUS = userstory.actividad_actual.cantidadUS - 1
-                actividades = Actividad
-                #userstory.actividad_actual =
+                actividades = Actividad.objects.all().filter(flujo=userstory.flujo_actual)
+                # conseguir la sigte actividad
+                max = userstory.actividad_actual.orden
+                id_sigte_act = -1
+                for a in actividades:
+                    if max+1 == a.orden:
+                        id_sigte_act = a.id
+                if id_sigte_act != -1:
+                    userstory.actividad_actual = id_sigte_act
 
+                if userstory.actividad_actual.cantidadUS == 0:
+                    if userstory.actividad_actual.orden == 1:
+                        Actividad.obj.cambiar_estado_actividad(id=userstory.actividad_actual, estado=Actividad.DONE)
+                    else:
+                        # conseguir la actividad anterior
+                        id_ant_act = -1
+                        for a in actividades:
+                            if max-1 == a.orden:
+                                id_ant_act = a.id
+                        actividadAnterior = Actividad.obj.buscar_actividad(id=id_ant_act)
+                        if actividadAnterior != None:
+                            if actividadAnterior.estado == Actividad.DONE:
+                                Actividad.obj.cambiar_estado_actividad(id=userstory.actividad_actual, estado=Actividad.DONE)
         userstory.save()
+
+    #def asignar_flujo()
 
 class UserStory(models.Model):
     # US tendra un codigo identificador, descripcion corta para visualizacion y
