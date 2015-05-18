@@ -25,6 +25,18 @@
             controller: 'LoginController',
             controllerAs: 'vm',
             templateUrl: '/static/templates/login.html'
+        }).when('/', {
+            controller: 'IndexController',
+            controllerAs: 'vm',
+            templateUrl: '/static/templates/layout/index.html'
+        }).when('/proyectos', {
+            controller: 'ProyectosController',
+            controllerAs: 'vm',
+            templateUrl: '/static/templates/proyecto/proyectos.html'
+        }).when('/flujos', {
+            controller: 'FlujosControllers',
+            controllerAs: 'vm',
+            templateUrl: '/static/templates/flujo/flujos.html'
         }).otherwise('/404');
     }
 })();

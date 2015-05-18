@@ -99,11 +99,11 @@ class ActividadManager(models.Manager):
         if not kwargs.get('nombre'):
             raise ValueError('Debe existir un nombre de Actividad')
 
-        flujo = Flujo.obj.buscar_flujo(id=kwargs.get('flujo_id'))
+        flujo = Flujo.objects.buscar_flujo(id=kwargs.get('flujo_id'))
         if not kwargs.get('flujo'):
             raise ValueError('Debe existir un Flujo propietario')
 
-        owner = Usuario.obj.buscar_usuario(id=kwargs.get('owner_id'))
+        owner = Usuario.objects.buscar_usuario(id=kwargs.get('owner_id'))
         if not owner:
             raise ValueError('Debe existir un Usuario responsable')
 
@@ -129,7 +129,7 @@ class ActividadManager(models.Manager):
 
     #
     def cambiar_estado_actividad(self, id, **kwargs):
-        actividad = Actividad.obj.buscar_actividad(id)#.get(id)
+        actividad = Actividad.objects.buscar_actividad(id)#.get(id)
         if(actividad is not None):
             if actividad.estado == Actividad.DOING and kwargs.get('estado') == Actividad.DONE:
                 #confirmar que se hallan finalizado los US correspondientes
@@ -147,7 +147,7 @@ class ActividadManager(models.Manager):
 
     # no utilizar x el momento
     def modificar_actividad(self, id, **kwargs):
-        actividad = Actividad.obj.buscar_actividad(id)
+        actividad = Actividad.objects.buscar_actividad(id)
         actividad.cantidadUS = kwargs.get('cantidadUS')#cantidad de US pendientes
         actividad.save()
 

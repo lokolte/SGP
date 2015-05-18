@@ -1,0 +1,133 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Proyectos</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-hover ">
+            <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Observacion</th>
+                <th>Estado</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="p in vm.proyectos">
+                <td>{{ p.nombre }}</td>
+                <td>{{ p.observacion }}</td>
+                <td>{{ p.estado }}</td>
+                <td>
+                    <a ng-click="vm.editar(p)" class="btn btn-info">Editar</a>
+                    <a ng-click="vm.irFlujos(p)" class="btn btn-info">Crear Flujos</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Proyecto {{ vm.proyecto.nombre }}</h3>
+    </div>
+    <div class="panel-body">
+        <form name="alta_proyectos" class="form-horizontal">
+            <!--debemos tener nombre, owner automatico, cliente, estado, fecha_ini, fecha_fin, observacion-->
+            <fieldset>
+                <legend>Datos del Proyecto</legend>
+
+                <div class="form-group">
+                    <label for="inputNombreProyecto" class="col-lg-2 control-label">Nombre Proyecto</label>
+
+                    <div class="col-lg-10">
+                        <input class="form-control" id="inputNombreProyecto"
+                               placeholder="Ex. Sistema de Gestion de Versiones" type="text"
+                               ng-model="vm.proyecto.nombre">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Seleccione un Cliente</label>
+
+                    <div class="col-lg-10">
+                        <select ng-model="idCliente">
+                            <option ng-repeat="c in vm.clientes | filter:nombre">{{ c.id }}; {{ c.nombre }}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Seleccione el Estado</label>
+
+                    <div class="col-lg-10">
+                        <select ng-model="idEstado">
+                            <option ng-repeat="e in vm.estados | filter:estado">{{ e.id }}; {{ e.estado }}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- <div class="form-group">
+                    <row>
+                        <div class="col-md-6">
+                            <label>Fecha Inicio:</label>
+
+                            <p class="input-group">
+                                <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy"
+                                       ng-model="vm.dt_ini" is-open="vm.openedini" ng-required="true" close-text="Close"/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="vm.openini($event)">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Fecha Fin:</label>
+
+                            <p class="input-group">
+                                <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy"
+                                       ng-model="vm.dt_fin" is-open="vm.openedfin" ng-required="true" close-text="Close"/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="vm.openfin($event)">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                                </span>
+                            </p>
+                        </div>
+                    </row>
+                </div> -->
+
+                <div>
+                    <label for="f_ini_input" class="col-lg-2 control-label">Fecha Inicio</label>
+                    <input type="date" id="f_ini_input" name="f_ini" ng-model="vm.proyecto.fecha_ini"
+                           placeholder="yyyy-MM-dd" min="2013-01-01" max="new Date()" required/>
+
+                    <div role="alert">
+                        <span class="error" ng-show="alta_proyectos.f_ini.$error.required">
+                            Requerido!</span>
+                        <span class="error" ng-show="alta_proyectos.f_ini.$error.date">
+                            Fecha invalida!</span>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="inputObservacion" class="col-lg-2 control-label">Observacion</label>
+
+                    <div class="col-lg-10">
+                        <input class="form-control" id="inputObservacion"
+                               placeholder="Ex. Sistema utilizado por desarrolladores." type="text"
+                               ng-model="vm.proyecto.observacion">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <button type="reset" class="btn btn-fab-success" ng-click="vm.clear()">Cancel</button>
+                        <button class="btn btn-primary" ng-click="vm.guardar()">Guardar</button>
+                        <!-- <button class="btn btn-primary" ng-click="vm.irFlujos()">Crear Flujo</button> -->
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

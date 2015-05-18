@@ -9,7 +9,11 @@
             'managers.config',
             'managers.routes',
             'managers.authentication',
-            'managers.layout'
+            'managers.layout',
+            'managers.utils',
+            'managers.proyecto',
+            'managers.flujo'
+            //'managers.angular-bootstrap'
         ]);
 
     angular

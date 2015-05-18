@@ -5,7 +5,7 @@ from flujos.models import Flujo
 from proyectos.models import Proyecto
 from flujos.models import Actividad
 
-class USManager(models.Manager):
+class UserStoryManager(models.Manager):
 
     def crear_us(self, **kwargs):
 
@@ -28,7 +28,7 @@ class USManager(models.Manager):
         if not kwargs.get('valorTecnico'):
             raise ValueError('Debe existir un valor tecnico')
 
-        descriplarga=''
+        descriplarga = ''
         if kwargs.get('descripcionL'):
             descriplarga= kwargs.get('descripcionL')
 
@@ -38,9 +38,9 @@ class USManager(models.Manager):
         if not kwargs.get('prioridad'):
             raise ValueError('Debe existir un valor de prioridad')
 
-        if not kwargs.get('tamanho'):
+        tamanho = kwargs.get('fecha_fin')-kwargs.get('fecha_ini')
+        if not tamanho:
             raise ValueError('Debe existir un tamanho en horas')
-
 
         userstory = self.model(
             nombre=kwargs.get('nombre'),
@@ -53,7 +53,7 @@ class USManager(models.Manager):
             descripcionC=kwargs.get('descripcionC'),
             descripcionL=descriplarga,
             prioridad=kwargs.get('prioridad'),
-            tamanho=kwargs.get('tamanho'),
+            tamanho=tamanho.hours,
         )
 
         userstory.save()
@@ -78,6 +78,25 @@ class USManager(models.Manager):
             userstory.fecha_fin = kwargs.get('fecha_fin')
             userstory.prioridad = kwargs.get('prioridad')
         userstory.save()
+
+    def asignar_us_sprint(self, id_us, id_sprint, **kwargs):
+        sprint = Sprint.objects.buscar_sprint(id_sprint)
+        userstory = UserStory.objects.buscar_userstory(id_us)
+        userstory.sprint = sprint
+        if userstory.tamanho <= sprint.horasRest:
+            sprint.horasRest = sprint.horasRest-userstory.tamanho
+        else:
+            print('No permitido;ta manho de US mayor al ttiempo restate del sprint')
+        userstory.save()
+
+    def asignar_us_flujo(self, id_us, id_flujo, **kwargs):
+        userstory = UserStory.objects.buscar_userstory(id_us)
+        flujo = Flujo.objects.buscar_flujo(id_flujo)
+        actividad = Actividad.objects.filter(flujo=id_flujo, orden=1)
+        userstory.flujo_actual = flujo
+        userstory.actividad_actual = actividad
+        userstory.save()
+
 
     def cambiar_estado_us(self, id, **kwargs):
         userstory = UserStory.objects.buscar_userstory(id)#.get(id)
@@ -168,7 +187,7 @@ class UserStory(models.Model):
     confirmado = models.BooleanField(default=False)
     revisado = models.BooleanField(default=False)
 
-    objects = USManager()
+    objects = UserStoryManager()
 
     REQUIRED_FIELDS = ['nombre', 'owner', 'fecha_ini', 'fecha_fin', 'tamanho', 'descripcionC']
 

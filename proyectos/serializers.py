@@ -11,10 +11,10 @@ class ProyectoSerializer(serializers.ModelSerializer):
         read_only_fields = ('fecha_creacion', 'fecha_modificacion',)
 
         def create(self, validated_data):
-            return Proyecto.crear_proyecto(**validated_data)
+            return Proyecto.objects.crear_proyecto(**validated_data)
 
         def update(self, instance, validated_data):
-            instance.nombre = validated_data.get('nombre', instance.nombre_proyecto)
-            instance.observacion = validated_data.get('observacion', instance.descripcion)
+            instance.nombre = validated_data.get('nombre', instance.nombre)
+            instance.observacion = validated_data.get('observacion', instance.observacion)
             return instance
 

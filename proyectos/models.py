@@ -2,7 +2,6 @@ from authentication.models import Usuario
 from django.db import models
 # Create your models here.
 
-
 class ProyectoManager(models.Manager):
     #recibe nombre, owner_id, cliente_id, estado,
     def crear_proyecto(self, **kwargs):
@@ -11,7 +10,7 @@ class ProyectoManager(models.Manager):
             raise ValueError('Debe existir un nombre de Proyecto')
 
         owner = Usuario.objects.buscar_usuario(id=kwargs.get('owner_id'))
-        if not owner:
+        if not kwargs.get('owner'):
             raise ValueError('Debe existir un Usuario responsable')
 
         cliente = Usuario.objects.buscar_usuario(id=kwargs.get('cliente_id'))

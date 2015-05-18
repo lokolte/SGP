@@ -1,6 +1,5 @@
 # coding=utf-8
 import json
-from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import ensure_csrf_cookie
@@ -8,12 +7,8 @@ from django.contrib.auth import authenticate, login, logout
 from rest_framework import permissions, viewsets, status, views
 from rest_framework.response import Response
 from authentication.models import Usuario
-from authentication.permisos import IsAccountOwner, EsEmpleado
+from authentication.permisos import IsAccountOwner
 from authentication.serializers import UsuarioSerializer
-
-####
-#from django.utils.six import BytesIO
-####
 
 # Create your views here.
 
@@ -23,7 +18,6 @@ class IndexView(TemplateView):
     @method_decorator(ensure_csrf_cookie)
     def dispatch(self, *args, **kwargs):
         return super(IndexView, self).dispatch(*args, **kwargs)
-
 
 class UsuarioViewSet(viewsets.ModelViewSet):
     '''
@@ -45,12 +39,8 @@ class UsuarioViewSet(viewsets.ModelViewSet):
         return (permissions.IsAuthenticated(), IsAccountOwner(),)
 
     def create(self, request):
-        serializer = self.serializer_class(data=request.data)
 
-        #print('body: ' + request.body)
-        #stream = BytesIO(request.data)
-        #dato = JSONParser().parse(stream)
-        #print('data: ' + dato)
+        serializer = self.serializer_class(data=request.data)
 
         if serializer.is_valid():
             print('entroo')
@@ -65,26 +55,33 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             'message': 'Account could not be created with received data.'
         }, status=status.HTTP_400_BAD_REQUEST)
 
+#    def destroy(self, request, *args, **kwargs):
+#        serializer = self.serializer_class(data=request.data)
+
+#        if serializer.is_valid():
 
 
 class LoginView(views.APIView):
+
+    #def get_permissions(self):
+
     def post(self, request, format=None):
-        print('llego? antes?')
+        print('Llegada de solicitud..')
         data = json.loads(request.body)
         print(request.body)
         username = data.get('username', None)
         password = data.get('password', None)
-        print('llego?')
+        print('Procesando..')
 
         usuario = authenticate(username=username, password=password)
 
         if usuario is not None:
+
             print(usuario.nombre)
+
             if usuario.activo: #.is_active:
                 login(request, usuario)
-
                 serialized = UsuarioSerializer(usuario)
-
                 return Response(serialized.data)
             else:
                 return Response({
@@ -98,9 +95,11 @@ class LoginView(views.APIView):
             }, status=status.HTTP_401_UNAUTHORIZED)
 
 class LogoutView(views.APIView):
+
     permission_classes = (permissions.IsAuthenticated,)
 
     def post(self, request, format=None):
+
         logout(request)
 
         return Response({'message': 'logout success'}, status=status.HTTP_204_NO_CONTENT)

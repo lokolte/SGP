@@ -3,7 +3,6 @@ from authentication.models import Usuario
 from proyectos.models import Proyecto
 from datetime import datetime, timedelta
 
-
 class SprintManager(models.Manager):
     def hallarFechaFin(self, fecha_ini, duracion):
             duracion = duracion/8
@@ -31,11 +30,12 @@ class SprintManager(models.Manager):
             raise ValueError('No se pudo calcular la fecha final')
 
         sprint = self.model(
-            owner= owner,
-            proyecto= proyecto,
+            owner=owner,
+            proyecto=proyecto,
             estado=Sprint.ACTIVO,
             fecha_ini=kwargs.get('fecha_ini'),
             duracionHoras=kwargs.get('duracionHoras'),
+            horasRest=kwargs.get('duracionHoras'),
             fecha_fin=fecha_fin,
         )
         sprint.save()
@@ -76,6 +76,7 @@ class Sprint(models.Model):
     fecha_ini = models.DateTimeField(auto_now_add=False)
     duracionHoras = models.DecimalField(max_digits=6, decimal_places=2, default=300)
     fecha_fin = models.DateTimeField(auto_now_add=False)
+    horasRest = models.DecimalField(max_digits=6, decimal_places=2, default=300)
 
     objects = SprintManager()
 
