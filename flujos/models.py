@@ -10,11 +10,11 @@ class FlujoManager(models.Manager):
         if not kwargs.get('nombre'):
             raise ValueError('Debe existir un nombre de Proyecto')
 
-        proyecto=Proyecto.obj.buscar_proyecto(id=kwargs.get('proyecto_id'))
+        proyecto=Proyecto.objects.buscar_proyecto(id=kwargs.get('proyecto_id'))
         if not kwargs.get('proyecto'):
             raise ValueError('Debe existir un Proyecto porpietario')
 
-        owner=Usuario.obj.buscar_usuario(id=kwargs.get('owner_id'))
+        owner=Usuario.objects.buscar_usuario(id=kwargs.get('owner_id'))
         if not owner:
             raise ValueError('Debe existir un Usuario responsable')
 
@@ -36,13 +36,13 @@ class FlujoManager(models.Manager):
             return None
 
     def modificar_flujo(self, id, **kwargs):
-        flujo = Flujo.obj.buscar_flujo(id)
+        flujo = Flujo.objects.buscar_flujo(id)
         flujo.nombre = kwargs.get('nombre')
         flujo.observaciones = kwargs.get('observaciones')
         flujo.save()
 
     def cambiar_estado(self, id, **kwargs):
-        flujo = Flujo.obj.buscar_flujo(id)
+        flujo = Flujo.objects.buscar_flujo(id)
         if flujo.estado == Flujo.DOING and kwargs.get('estado') == Flujo.DONE: #si es el SCRUM
             #confirmar actividades en DONE
             flujo.estado = kwargs.get('estado')
@@ -73,7 +73,7 @@ class Flujo(models.Model):
     observaciones = models.TextField()
     iniciado = models.BooleanField(default=False)
 
-    obj = FlujoManager()
+    objects = FlujoManager()
 
     REQUIRED_FIELDS = ['nombre', 'proyecto', 'owner']
 
@@ -99,11 +99,11 @@ class ActividadManager(models.Manager):
         if not kwargs.get('nombre'):
             raise ValueError('Debe existir un nombre de Actividad')
 
-        flujo = Flujo.obj.buscar_flujo(id=kwargs.get('flujo_id'))
+        flujo = Flujo.objects.buscar_flujo(id=kwargs.get('flujo_id'))
         if not kwargs.get('flujo'):
             raise ValueError('Debe existir un Flujo propietario')
 
-        owner = Usuario.obj.buscar_usuario(id=kwargs.get('owner_id'))
+        owner = Usuario.objects.buscar_usuario(id=kwargs.get('owner_id'))
         if not owner:
             raise ValueError('Debe existir un Usuario responsable')
 
@@ -129,7 +129,7 @@ class ActividadManager(models.Manager):
 
     #completar
     def cambiar_estado_actividad(self, id, **kwargs):
-        actividad = Actividad.obj.buscar_actividad(id)#.get(id)
+        actividad = Actividad.objects.buscar_actividad(id)#.get(id)
         if(actividad is not None):
             if actividad.estado == Actividad.DOING and kwargs.get('estado') == Actividad.DONE:
                 #confirmar que se hallan finalizado los US correspondientes
@@ -147,7 +147,7 @@ class ActividadManager(models.Manager):
 
     # no utilizar x el momento
     def modificar_actividad(self, id, **kwargs):
-        actividad = Actividad.obj.buscar_actividad(id)
+        actividad = Actividad.objects.buscar_actividad(id)
         actividad.cantidadUS = kwargs.get('cantidadUS')#cantidad de US pendientes
         actividad.save()
 
@@ -173,7 +173,7 @@ class Actividad(models.Model):
     orden = models.DecimalField(max_digits=4, decimal_places=0, default=0)
     cantidadUS = models.DecimalField(max_digits=4, decimal_places=0, default=0)#cantidad de US pendientes
 
-    obj = ActividadManager()
+    objects = ActividadManager()
 
     REQUIRED_FIELDS = ['nombre', 'owner', 'flujo', 'orden']
 

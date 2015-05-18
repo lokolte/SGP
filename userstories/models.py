@@ -5,14 +5,14 @@ from flujos.models import Flujo
 from proyectos.models import Proyecto
 from flujos.models import Actividad
 
-class USManager(models.Manager):
+class UserStoryManager(models.Manager):
 
     def crear_us(self, **kwargs):
 
         if not kwargs.get('nombre'):
             raise ValueError('Debe existir un nombre de US')
 
-        owner = Usuario.obj.buscar_usuario(id=kwargs.get('owner_id'))
+        owner = Usuario.objects.buscar_usuario(id=kwargs.get('owner_id'))
         if not owner:
             raise ValueError('Debe existir un Usuario responsable')
 
@@ -66,7 +66,7 @@ class USManager(models.Manager):
             return None
 
     def modificar_us(self, id, **kwargs):
-        userstory = UserStory.obj.buscar_userstory(id)
+        userstory = UserStory.objects.buscar_userstory(id)
         if userstory.estado == UserStory.PENDIENTE:
             #Y verificar si es el final de un sprint para realizar los cambios
             userstory.nombre = kwargs.get('nombre')
@@ -80,7 +80,7 @@ class USManager(models.Manager):
         userstory.save()
 
     def cambiar_estado_us(self, id, **kwargs):
-        userstory = UserStory.obj.buscar_userstory(id)#.get(id)
+        userstory = UserStory.objects.buscar_userstory(id)#.get(id)
         if userstory.estado == UserStory.SUSPENDIDO and kwargs.get('estado') == UserStory.PENDIENTE:
             userstory.estado = kwargs.get('estado')
         elif userstory.estado == UserStory.PENDIENTE and kwargs.get('estado') == UserStory.SUSPENDIDO:
@@ -93,7 +93,7 @@ class USManager(models.Manager):
 
     # solo el Scrum llama a esta funcion
     def verificar_us(self,id, **kwargs):
-        userstory = UserStory.obj.buscar_userstory(id)
+        userstory = UserStory.objects.buscar_userstory(id)
         if userstory.estado == UserStory.FINALIZADO:
             userstory.confirmado = kwargs.get('confirmado')
             userstory.revisado = True
@@ -114,17 +114,17 @@ class USManager(models.Manager):
 
                 if userstory.actividad_actual.cantidadUS == 0:
                     if userstory.actividad_actual.orden == 1:
-                        Actividad.obj.cambiar_estado_actividad(id=userstory.actividad_actual, estado=Actividad.DONE)
+                        Actividad.objects.cambiar_estado_actividad(id=userstory.actividad_actual, estado=Actividad.DONE)
                     else:
                         # conseguir la actividad anterior
                         id_ant_act = -1
                         for a in actividades:
                             if max-1 == a.orden:
                                 id_ant_act = a.id
-                        actividadAnterior = Actividad.obj.buscar_actividad(id=id_ant_act)
+                        actividadAnterior = Actividad.objects.buscar_actividad(id=id_ant_act)
                         if actividadAnterior != None:
                             if actividadAnterior.estado == Actividad.DONE:
-                                Actividad.obj.cambiar_estado_actividad(id=userstory.actividad_actual, estado=Actividad.DONE)
+                                Actividad.objects.cambiar_estado_actividad(id=userstory.actividad_actual, estado=Actividad.DONE)
         userstory.save()
 
     #def asignar_flujo()
@@ -168,7 +168,7 @@ class UserStory(models.Model):
     confirmado = models.BooleanField(default=False)
     revisado = models.BooleanField(default=False)
 
-    obj = USManager()
+    objects = UserStoryManager()
 
     REQUIRED_FIELDS = ['nombre', 'owner', 'fecha_ini', 'fecha_fin', 'tamanho', 'descripcionC']
 

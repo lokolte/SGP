@@ -41,7 +41,9 @@ INSTALLED_APPS = (
     'compressor',
     'authentication',
     'proyectos',
-    'flujos'
+    'flujos',
+    'sprints',
+    'userstories'
 )
 
 MIDDLEWARE_CLASSES = (

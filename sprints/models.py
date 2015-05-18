@@ -3,7 +3,6 @@ from authentication.models import Usuario
 from proyectos.models import Proyecto
 from datetime import datetime, timedelta
 
-
 class SprintManager(models.Manager):
     def hallarFechaFin(self, fecha_ini,duracion):
             duracion= duracion/8
@@ -49,7 +48,7 @@ class SprintManager(models.Manager):
 
     def cambiar_estado(self, id, **kwargs):
         #cambiar el estado solo si
-        sprint = Sprint.obj.buscar_sprint(id)
+        sprint = Sprint.objects.buscar_sprint(id)
         if sprint.estado == Sprint.ACTIVO and kwargs.get('estado') == Sprint.CERRADO:
             sprint.estado = kwargs.get('estado')
         else:
@@ -77,7 +76,7 @@ class Sprint(models.Model):
     duracionHoras = models.DecimalField(max_digits=6, decimal_places=2, default=300)
     fecha_fin= models.DateTimeField(auto_now_add=False)
 
-    obj = SprintManager()
+    objects = SprintManager()
 
     REQUIRED_FIELDS = ['owner', 'proyecto', 'fecha_ini', 'duracionhoras']
 

@@ -29,11 +29,21 @@ class UsuarioManager(BaseUserManager):
         if not kwargs.get('apellido'):
             raise ValueError('El usuario debe tener un apellido')
 
+        telefono=''
+        if kwargs.get('telefono'):
+            telefono=kwargs.get('telefono')
+
+        direccion=''
+        if kwargs.get('direccion'):
+            direccion=kwargs.get('direccion')
+
         usuario = self.model(
             username=username,
             email=self.normalize_email(kwargs.get('email')),
             nombre=kwargs.get('nombre'),
-            apellido=kwargs.get('apellido')
+            apellido=kwargs.get('apellido'),
+            telefono=telefono,
+            direccion=direccion
         )
 
         usuario.set_password(password)
@@ -50,6 +60,7 @@ class UsuarioManager(BaseUserManager):
         @param kwargs: otros datos
         '''
         usuario = self.create_user(username, password, **kwargs)
+        usuario.tipo=Usuario.T_EMPLEADO
         usuario.is_admin = True
         usuario.save()
         return usuario
@@ -119,7 +130,7 @@ class Usuario(AbstractBaseUser):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
 
-    obj = UsuarioManager()
+    objects = UsuarioManager()
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'nombre', 'apellido']
