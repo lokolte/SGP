@@ -78,7 +78,7 @@ class UsuarioManager(BaseUserManager):
         @param kwargs: otros datos
         '''
         usuario = self.create_user(username, password, **kwargs)
-        usuario.tipo=Usuario.T_EMPLEADO
+        usuario.tipo = Usuario.T_EMPLEADO
         usuario.save()
         return usuario
 
@@ -119,7 +119,7 @@ class Usuario(AbstractBaseUser):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)
 
-    obj = UsuarioManager()
+    objects = UsuarioManager()
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'nombre', 'apellido']

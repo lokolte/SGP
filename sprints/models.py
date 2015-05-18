@@ -5,9 +5,9 @@ from datetime import datetime, timedelta
 
 
 class SprintManager(models.Manager):
-    def hallarFechaFin(self, fecha_ini,duracion):
-            duracion= duracion/8
-            fecha_fin= fecha_ini+timedelta(days=duracion)
+    def hallarFechaFin(self, fecha_ini, duracion):
+            duracion = duracion/8
+            fecha_fin = fecha_ini+timedelta(days=duracion)
             return fecha_fin
 
     def crear_sprint(self, **kwargs):
@@ -49,7 +49,7 @@ class SprintManager(models.Manager):
 
     def cambiar_estado(self, id, **kwargs):
         #cambiar el estado solo si
-        sprint = Sprint.obj.buscar_sprint(id)
+        sprint = Sprint.objects.buscar_sprint(id)
         if sprint.estado == Sprint.ACTIVO and kwargs.get('estado') == Sprint.CERRADO:
             sprint.estado = kwargs.get('estado')
         else:
@@ -75,9 +75,9 @@ class Sprint(models.Model):
     fecha_modificacion = models.DateTimeField(auto_now=True)
     fecha_ini = models.DateTimeField(auto_now_add=False)
     duracionHoras = models.DecimalField(max_digits=6, decimal_places=2, default=300)
-    fecha_fin= models.DateTimeField(auto_now_add=False)
+    fecha_fin = models.DateTimeField(auto_now_add=False)
 
-    obj = SprintManager()
+    objects = SprintManager()
 
     REQUIRED_FIELDS = ['owner', 'proyecto', 'fecha_ini', 'duracionhoras']
 

@@ -10,11 +10,11 @@ class ProyectoManager(models.Manager):
         if not kwargs.get('nombre'):
             raise ValueError('Debe existir un nombre de Proyecto')
 
-        owner = Usuario.obj.buscar_usuario(id=kwargs.get('owner_id'))
-        if not kwargs.get('owner'):
+        owner = Usuario.objects.buscar_usuario(id=kwargs.get('owner_id'))
+        if not owner:
             raise ValueError('Debe existir un Usuario responsable')
 
-        cliente = Usuario.obj.buscar_usuario(id=kwargs.get('cliente_id'))
+        cliente = Usuario.objects.buscar_usuario(id=kwargs.get('cliente_id'))
         if not cliente:
             raise ValueError('Debe existir un cliente de Proyecto')
 
@@ -50,7 +50,7 @@ class ProyectoManager(models.Manager):
             return None
 
     def modificar_proyecto(self, id, **kwargs):
-        proyecto = Proyecto.obj.buscar_proyecto(id)
+        proyecto = Proyecto.objects.buscar_proyecto(id)
         if proyecto.estado == Proyecto.ACTIVO:
             #solo se cambian los campos que no es estado y solo si el proyecto esta activo
             proyecto.nombre = kwargs.get('nombre')
@@ -60,7 +60,7 @@ class ProyectoManager(models.Manager):
 
     def cambiar_estado(self, id, **kwargs):
         #cambiar el estado solo si no esta finalizado
-        proyecto = Proyecto.obj.buscar_proyecto(id)
+        proyecto = Proyecto.objects.buscar_proyecto(id)
         if proyecto.estado == Proyecto.ACTIVO:
             if kwargs.get('estado') == Proyecto.SUSPENDIDO or kwargs.get('estado') == Proyecto.FINALIZADO:
                 proyecto.estado = kwargs.get('estado')
@@ -90,7 +90,7 @@ class Proyecto(models.Model):
     fecha_fin = models.DateTimeField(auto_now_add=False)  #fecha entrega estimada
     observacion = models.TextField()
 
-    obj = ProyectoManager()
+    objects = ProyectoManager()
 
     REQUIRED_FIELDS = ['nombre', 'owner', 'cliente', 'fecha_ini', 'fecha_fin']
 
