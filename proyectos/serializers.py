@@ -17,4 +17,3 @@ class ProyectoSerializer(serializers.ModelSerializer):
             instance.nombre = validated_data.get('nombre', instance.nombre)
             instance.observacion = validated_data.get('observacion', instance.observacion)
             return instance
-

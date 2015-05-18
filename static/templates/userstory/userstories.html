@@ -1,24 +1,25 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h3 class="panel-title">Actividades</h3>
+        <h3 class="panel-title">Proyectos</h3>
     </div>
     <div class="panel-body">
         <table class="table table-striped table-hover ">
             <thead>
             <tr>
                 <th>Nombre</th>
+                <th>Descripcion corta</th>
                 <th>Estado</th>
-                <th>Orden</th>
+                <th>Tamanho</th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="a in vm.actividades">
-                <td>{{ a.nombre }}</td>
-                <td>{{ a.estado }}</td>
-                <td>{{ a.orden }}</td>
+            <tr ng-repeat="us in vm.userstories">
+                <td>{{ us.nombre }}</td>
+                <td>{{ us.descripcionC }}</td>
+                <td>{{ us.estado }}</td>
+                <td>{{ us.tamanho }}</td>
                 <td>
-                    <a ng-click="vm.editar(a)" class="btn btn-info">Editar</a>
-                    <!--<a ng-click="vm.irFlujos(a)" class="btn btn-info">Crear Flujos</a>-->
+                    <a ng-click="vm.editar(us)" class="btn btn-info">Editar</a>
                 </td>
             </tr>
             </tbody>
@@ -27,21 +28,32 @@
 </div>
 <div class="panel panel-primary">
     <div class="panel-heading">
-        <h3 class="panel-title">Actividad {{ vm.actividad.nombre }}</h3>
+        <h3 class="panel-title">Proyecto {{ vm.proyecto.nombre }}</h3>
     </div>
     <div class="panel-body">
         <form name="alta_proyectos" class="form-horizontal">
             <!--debemos tener nombre, owner automatico, cliente, estado, fecha_ini, fecha_fin, observacion-->
             <fieldset>
-                <legend>Datos de la actividad</legend>
+                <legend>Datos del User Story</legend>
 
                 <div class="form-group">
-                    <label for="inputNombreActividad" class="col-lg-2 control-label">Nombre Actividad</label>
+                    <label for="inputNombre" class="col-lg-2 control-label">Nombre</label>
 
                     <div class="col-lg-10">
-                        <input class="form-control" id="inputNombreActividad"
-                               placeholder="Ex. Actividad de desarrollo." type="text"
-                               ng-model="vm.actividad.nombre">
+                        <input class="form-control" id="inputNombre"
+                               placeholder="Ex. Disenhar Diagrama de flujo" type="text"
+                               ng-model="vm.userstory.nombre">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">Seleccione un Flujo</label>
+
+                    <div class="col-lg-10">
+                        <select ng-model="vm.idFlujo" ng-options="f.index as e.nombre for e in vm.flujos"
+                                ng-change="vm.agregarFlujo()">
+                            <option value="">-- elegir flujo --</option>
+                        </select>
                     </div>
                 </div>
 
@@ -57,12 +69,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="inputOrden" class="col-lg-2 control-label">Orden</label>
+                    <label for="inputDescripcion" class="col-lg-2 control-label">Descripcion corta</label>
 
                     <div class="col-lg-10">
-                        <input class="form-control" id="inputOrden"
-                               placeholder="Ex. 2." type="text"
-                               ng-model="vm.actividad.orden">
+                        <input class="form-control" id="inputDescripcion"
+                               placeholder="Ex. El disnho refleja los procesos de negocio." type="text"
+                               ng-model="vm.userstory.descripcionC">
                     </div>
                 </div>
 

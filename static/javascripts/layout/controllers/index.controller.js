@@ -32,7 +32,7 @@
 
             // If the user is authenticated, they should not be here.
             if (Authentication.isAuthenticated()) {
-                Snackbar.error('Usuario logueado!!');
+                //Snackbar.error('Usuario logueado!!');
                 //$location.url('/');
             }
 

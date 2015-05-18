@@ -46,70 +46,16 @@
                     </div>
                 </div>
 
-                <!-- <div class="form-group">
-                    <label class="col-lg-2 control-label">Seleccione un Cliente</label>
-
-                    <div class="col-lg-10">
-                        <select ng-model="idCliente">
-                            <option ng-repeat="c in vm.clientes | filter:nombre">{{ c.id }}; {{ c.nombre }}</option>
-                        </select>
-                    </div>
-                </div> -->
-
                 <div class="form-group">
                     <label class="col-lg-2 control-label">Seleccione el Estado</label>
 
                     <div class="col-lg-10">
-                        <select ng-model="idEstado">
-                            <option ng-repeat="e in vm.estados | filter:estado">{{ e.id }}; {{ e.estado }}</option>
+                        <select ng-model="vm.idEstado" ng-options="e.id as e.estado for e in vm.estados"
+                                ng-change="vm.agregarEstado()">
+                            <option value="">-- elegir estado --</option>
                         </select>
                     </div>
                 </div>
-
-                <!-- <div class="form-group">
-                    <row>
-                        <div class="col-md-6">
-                            <label>Fecha Inicio:</label>
-
-                            <p class="input-group">
-                                <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy"
-                                       ng-model="vm.dt_ini" is-open="vm.openedini" ng-required="true" close-text="Close"/>
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ng-click="vm.openini($event)">
-                                        <i class="glyphicon glyphicon-calendar"></i>
-                                    </button>
-                                </span>
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <label>Fecha Fin:</label>
-
-                            <p class="input-group">
-                                <input type="text" class="form-control" datepicker-popup="dd-MMMM-yyyy"
-                                       ng-model="vm.dt_fin" is-open="vm.openedfin" ng-required="true" close-text="Close"/>
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-default" ng-click="vm.openfin($event)">
-                                        <i class="glyphicon glyphicon-calendar"></i>
-                                    </button>
-                                </span>
-                            </p>
-                        </div>
-                    </row>
-                </div> -->
-
-                <!-- <div>
-                    <label for="f_ini_input" class="col-lg-2 control-label">Fecha Inicio</label>
-                    <input type="date" id="f_ini_input" name="f_ini" ng-model="vm.dt_ini"
-                           placeholder="yyyy-MM-dd" min="2013-01-01" max="2013-12-31" required/>
-
-                    <div role="alert">
-                        <span class="error" ng-show="alta_proyectos.f_ini.$error.required">
-                            Requerido!</span>
-                        <span class="error" ng-show="alta_proyectos.f_ini.$error.date">
-                            Fecha invalida!</span>
-                    </div>
-
-                </div> -->
 
                 <div class="form-group">
                     <label for="inputObservacion" class="col-lg-2 control-label">Observacion</label>

@@ -12,7 +12,10 @@
             'managers.layout',
             'managers.utils',
             'managers.proyecto',
-            'managers.flujo'
+            'managers.flujo',
+            'managers.actividad',
+            'managers.sprint',
+            'managers.userstory'
             //'managers.angular-bootstrap'
         ]);
 

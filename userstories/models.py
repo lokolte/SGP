@@ -86,7 +86,7 @@ class UserStoryManager(models.Manager):
         if userstory.tamanho <= sprint.horasRest:
             sprint.horasRest = sprint.horasRest-userstory.tamanho
         else:
-            print('No permitido;ta manho de US mayor al ttiempo restate del sprint')
+            print('No permitido; tamanho de US mayor al tiempo restate del sprint')
         userstory.save()
 
     def asignar_us_flujo(self, id_us, id_flujo, **kwargs):

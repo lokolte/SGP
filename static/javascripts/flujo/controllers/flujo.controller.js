@@ -10,20 +10,24 @@
 
     angular
         .module('managers.flujo.controllers')//, ['ui.bootstrap', 'ui.bootstrap.datepicker'])
-        .controller('FlujosControllers', FlujosControllers);
+        .controller('FlujosController', FlujosController);
 
-    FlujosControllers.$inject = ['$location', '$scope', 'Flujos', 'Proyectos', 'Authentication'];
+    FlujosController.$inject = ['$location', '$scope', 'Flujos', 'Proyectos', 'Authentication'];
 
     /**
      * @namespace FlujosControllers
      */
-    function FlujosControllers($location, $scope, Flujos, Proyectos, Authentication) {
+    function FlujosController($location, $scope, Flujos, Proyectos, Authentication) {
 
         var vm = this;
 
+        //variables
         vm.isExistProyecto = false;
+
         vm.flujos = [];
         vm.flujo = {};
+        vm.flujoNulo = {};
+
         vm.proyecto = {};
         vm.estados = [];
 
@@ -34,9 +38,21 @@
          * vm.flujo.observacion = '';
          */
 
+        //funciones
+        vm.cambiarEstado = cambiarEstado;
+        vm.editar = editar;
+        vm.guardar = guardar;
+        vm.clear = clear;
+
+        vm.irActividades = irActividades;
+        vm.definirEstado = definirEstado;
+        vm.agregarEstado = agregarEstado;
+
         init();
 
         function init() {
+
+            Flujos.deleteFlujoCookie();
 
             vm.isExistProyecto = Proyectos.isExistProyecto();
 
@@ -60,7 +76,7 @@
                     'estado': 'Done'
                 }
             ];
-            //hacer el get para los flujos
+            //hacer el get para los flujos con vm.proyecto
             vm.flujos = [
                 {
                     'nombre': 'Analisis',
@@ -69,24 +85,14 @@
                 },
                 {
                     'nombre': 'Desarrollo',
-                    'estado': 'To_do',
+                    'estado': 'To_Do',
                     'observacion': 'alguna observacion'
                 }
             ];
+            vm.flujoNulo.nombre = '';
+            vm.flujoNulo.estado = '';
+            vm.flujoNulo.observacion = '';
         }
-
-        //vm.dt_ini = new Date();
-        //vm.dt_fin = new Date();
-        //vm.openedini = false;
-        //vm.openedfin = false;
-
-        vm.cambiarEstado = cambiarEstado;
-        vm.editar = editar;
-        vm.guardar = guardar;
-        vm.clear = clear;
-        vm.irActividades = irActividades;
-        //vm.openini = openini;
-        //vm.openfin = openfin;
 
         activate();
 
@@ -107,11 +113,12 @@
 
         function editar(flujo_in) {
             vm.flujo = flujo_in;
+            definirEstado(flujo_in.estado);
+            console.log('EL estado es: ' + vm.flujo.estado);
         }
 
         function clear() {
-            //vm.dt_ini = new Date();
-            //return vm.dt_ini;
+            vm.flujo=vm.flujoNulo;
         }
 
         function irActividades(flujo){
@@ -119,20 +126,19 @@
             $location.url('/actividades');
         }
 
-        /*
-         function openini($event) {
-         $event.preventDefault();
-         $event.stopPropagation();
+        function definirEstado(e){
+            if(e == 'To_Do' || e == 'TD'){
+                vm.idEstado = vm.estados[0];
+            }else if(e == 'Doing' || e == 'DG'){
+                vm.idEstado = vm.estados[1];
+            }else if(e == 'Done' || e == 'DN'){
+                vm.idEstado = vm.estados[2];
+            }
+        }
 
-         vm.openedini = true;
-         }
-
-         function openfin($event) {
-         $event.preventDefault();
-         $event.stopPropagation();
-
-         vm.openedfin = true;
-         }
-         */
+        function agregarEstado(){
+            vm.flujo.estado = vm.estados[vm.idEstado-1].estado;
+            console.log(vm.flujo.estado);
+        }
     }
 })();

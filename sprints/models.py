@@ -3,6 +3,7 @@ from authentication.models import Usuario
 from proyectos.models import Proyecto
 from datetime import datetime, timedelta
 
+
 class SprintManager(models.Manager):
     def hallarFechaFin(self, fecha_ini, duracion):
             duracion = duracion/8
@@ -80,7 +81,7 @@ class Sprint(models.Model):
 
     objects = SprintManager()
 
-    REQUIRED_FIELDS = ['owner', 'proyecto', 'fecha_ini', 'duracionhoras']
+    REQUIRED_FIELDS = ['owner', 'proyecto', 'fecha_ini', 'duracionHoras']
 
 
     def get_owner(self):

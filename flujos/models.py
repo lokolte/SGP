@@ -159,7 +159,7 @@ class Actividad(models.Model):
     DOING = 'DG'
     DONE = 'DN'
     ESTADOS_A = (
-        ('TD', 'ToDo'),
+        ('TD', 'To_Do'),
         ('DG', 'Doing'),
         ('DN', 'Done'),
     )

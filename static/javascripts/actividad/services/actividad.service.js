@@ -1,6 +1,6 @@
 
 /**
- * Flujos
+ * Actividades
  * @namespace managers.actividad.services
  */
 (function () {
@@ -10,60 +10,36 @@
         .module('managers.actividad.services')
         .factory('Actividades', Actividades);
 
-    Actividades.$inject = ['$http', '$cookies'];
+    Actividades.$inject = ['$http'];
 
-    function Actividades($http, $cookies) {
+    function Actividades($http) {
         var Actividades = {
             all: all,
             create: create,
             get: get,
             modificar: modificar
-            /*setAcCookie: setFlujoCookie,
-            getFlujoCookie: getFlujoCookie,
-            isExistFlujo: isExistFlujo,
-            deleteFlujoCookie: deleteFlujoCookie*/
+
         };
 
         return Actividades;
 
         function all() {
-            return $http.get('/api/flujos/');
+            return $http.get('/api/actividades/');
         }
 
         function create(content) {
-            return $http.post('/api/flujos/', {
-                content: content //proyecto
+            return $http.post('/api/actividades/', {
+                content: content
             });
         }
 
-        function get(id_flujo) {
-            return $http.get('/api/flujos/' + id_flujo);
+        function get(id_actividad) {
+            return $http.get('/api/actividades/' + id_actividad);
         }
 
-        function modificar(id_flujo) {
-            return $http.put('/api/flujos/' + id_flujo);
+        function modificar(id_actividad) {
+            return $http.put('/api/actividades/' + id_actividad);
         }
-
-        /*function setFlujoCookie(flujo){
-            $cookies.byFlujo = JSON.stringify(flujo);
-            console.log(getFlujoCookie());
-        }
-
-        function getFlujoCookie(){
-            if(!isExistFlujo()) {
-                return ;
-            }
-            console.log('hola json: '+angular.toJson($cookies.byFlujo));
-            return JSON.parse($cookies.byFlujo);
-        }
-
-        function isExistFlujo(){
-            return !!$cookies.byFlujo;
-        }
-
-        function deleteFlujoCookie(){
-            delete $cookies.byFlujo;
-        }*/
 
     }
 })();

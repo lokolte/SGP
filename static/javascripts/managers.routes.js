@@ -34,9 +34,21 @@
             controllerAs: 'vm',
             templateUrl: '/static/templates/proyecto/proyectos.html'
         }).when('/flujos', {
-            controller: 'FlujosControllers',
+            controller: 'FlujosController',
             controllerAs: 'vm',
             templateUrl: '/static/templates/flujo/flujos.html'
+        }).when('/actividades', {
+            controller: 'ActividadesController',
+            controllerAs: 'vm',
+            templateUrl: '/static/templates/actividad/actividades.html'
+        }).when('/sprints', {
+            controller: 'SprintsController',
+            controllerAs: 'vm',
+            templateUrl: '/static/templates/sprint/sprints.html'
+        }).when('/userstories', {
+            controller: 'UserStoriesController',
+            controllerAs: 'vm',
+            templateUrl: '/static/templates/userstory/userstories.html'
         }).otherwise('/404');
     }
 })();

@@ -18,16 +18,15 @@
 
         var vm = this;
 
-        vm.dt_ini = new Date();
-        vm.dt_fin = new Date();
         //vm.openedini = false;
         //vm.openedfin = false;
 
         vm.proyectos = [];
+        vm.proyecto = {};
+        vm.proyectoNulo = {};
 
         vm.clientes = [];
 
-        vm.proyecto = {};
 
         /**
          *Datos del proyecto
@@ -43,11 +42,17 @@
         vm.guardar = guardar;
         vm.clear = clear;
         vm.irFlujos = irFlujos;
+        vm.definirEstado = definirEstado;
+        vm.agregarEstado = agregarEstado;
+        vm.irSprint = irSprint;
 
         //vm.openini = openini;
         //vm.openfin = openfin;
 
+        activate();
+
         init();
+
         function init() {
             Proyectos.deleteProyectoCookie();
 
@@ -55,15 +60,15 @@
                 {
                     'nombre': 'Sistema de ventas',
                     'estado': 'Activo',
-                    'fecha_ini': '2014-10-10',
-                    'fecha_fin': '2015-10-10',
+                    'fecha_ini': new Date(),
+                    'fecha_fin': new Date(),
                     'observacion': 'alguna observacion'
                 },
                 {
                     'nombre': 'Sistema de compras',
                     'estado': 'Activo',
-                    'fecha_ini': '2014-10-10',
-                    'fecha_fin': '2015-10-10',
+                    'fecha_ini': new Date(),
+                    'fecha_fin': new Date(),
                     'observacion': 'alguna observacion'
                 }
             ];
@@ -82,9 +87,18 @@
                     'estado': 'Finalizado'
                 }
             ];
-        }
 
-        activate();
+            //inicializando un proyecto nulo
+            vm.proyectoNulo.nombre = '';
+            vm.proyectoNulo.estado = '';
+            vm.proyectoNulo.fecha_ini = new Date();
+            vm.proyectoNulo.fecha_fin = new Date();
+            vm.proyectoNulo.observacion = '';
+
+            vm.proyecto = vm.proyectoNulo;
+
+            console.log(new Date());
+        }
 
         function activate() {
             // If the user is authenticated, they should not be here.
@@ -94,6 +108,8 @@
         }
 
         function guardar(/**/) {
+            vm.proyectos.push(vm.proyecto);
+            vm.proyecto = vm.proyectoNulo;
             //Proyectos.create(/*datos del proyecto*/);
         }
 
@@ -103,35 +119,37 @@
 
         function editar(proyecto_input) {
             vm.proyecto = proyecto_input;
-            return vm.proyecto;
+            definirEstado(proyecto_input.estado);
+            console.log('EL estado es: ' + vm.proyecto.estado);
         }
 
-        function clear(dt_ini) {
-            dt_ini = new Date().setHours(0, 0, 0, 0);
-            console.log(dt_ini);
+        function clear() {
+            vm.proyecto = vm.proyectoNulo;
         }
 
         function irFlujos(proyecto) {
             Proyectos.setProyectoCookie(proyecto);
             $location.url('/flujos');
-            //JSON.stringify(usuario); convierte a algo para guardar
-            //JSON.parse($cookies.authenticatedUsuario); transforma nuevamente a json
         }
 
-        /*
-         function openini($event) {
-         $event.preventDefault();
-         $event.stopPropagation();
+        function definirEstado(e){
+            if(e == 'Activo' || e == 'A'){
+                vm.idEstado = vm.estados[0];
+            }else if(e == 'Suspendido' || e == 'S'){
+                vm.idEstado = vm.estados[1];
+            }else if(e == 'Finalizado' || e == 'F'){
+                vm.idEstado = vm.estados[2];
+            }
+        }
 
-         vm.openedini = true;
-         }
+        function agregarEstado(){
+            vm.proyecto.estado = vm.estados[vm.idEstado-1].estado;
+            console.log(vm.proyecto.estado);
+        }
 
-         function openfin($event) {
-         $event.preventDefault();
-         $event.stopPropagation();
-
-         vm.openedfin = true;
-         }
-         */
+        function irSprint(proyecto){
+            Proyectos.setProyectoCookie(proyecto);
+            $location.url('/sprints');
+        }
     }
 })();
