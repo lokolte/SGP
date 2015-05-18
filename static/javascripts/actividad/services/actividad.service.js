@@ -1,29 +1,30 @@
+
 /**
  * Flujos
- * @namespace managers.flujo.services
+ * @namespace managers.actividad.services
  */
 (function () {
     'use strict';
 
     angular
-        .module('managers.flujo.services')
-        .factory('Flujos', Flujos);
+        .module('managers.actividad.services')
+        .factory('Actividades', Actividades);
 
-    Flujos.$inject = ['$http', '$cookies'];
+    Actividades.$inject = ['$http', '$cookies'];
 
-    function Flujos($http, $cookies) {
-        var Flujos = {
+    function Actividades($http, $cookies) {
+        var Actividades = {
             all: all,
             create: create,
             get: get,
-            modificar: modificar,
-            setFlujoCookie: setFlujoCookie,
+            modificar: modificar
+            /*setAcCookie: setFlujoCookie,
             getFlujoCookie: getFlujoCookie,
             isExistFlujo: isExistFlujo,
-            deleteFlujoCookie: deleteFlujoCookie
+            deleteFlujoCookie: deleteFlujoCookie*/
         };
 
-        return Flujos;
+        return Actividades;
 
         function all() {
             return $http.get('/api/flujos/');
@@ -43,7 +44,7 @@
             return $http.put('/api/flujos/' + id_flujo);
         }
 
-        function setFlujoCookie(flujo){
+        /*function setFlujoCookie(flujo){
             $cookies.byFlujo = JSON.stringify(flujo);
             console.log(getFlujoCookie());
         }
@@ -62,7 +63,7 @@
 
         function deleteFlujoCookie(){
             delete $cookies.byFlujo;
-        }
+        }*/
 
     }
 })();
