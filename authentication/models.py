@@ -8,6 +8,7 @@ class UsuarioManager(BaseUserManager):
        @cvar UsuarioManager: controlador de la clase B{Usuario}
        @param nombre de usuario
     '''
+
     def create_user(self, username, password=None, **kwargs):
         '''
         :param username: nombre del usuario del sistema
@@ -29,13 +30,15 @@ class UsuarioManager(BaseUserManager):
         if not kwargs.get('apellido'):
             raise ValueError('El usuario debe tener un apellido')
 
-        telefono=''
         if kwargs.get('telefono'):
-            telefono=kwargs.get('telefono')
+            telefono = kwargs.get('telefono')
+        else:
+            telefono = ''
 
-        direccion=''
         if kwargs.get('direccion'):
-            direccion=kwargs.get('direccion')
+            direccion = kwargs.get('direccion')
+        else:
+            direccion = ''
 
         usuario = self.model(
             username=username,
@@ -60,7 +63,7 @@ class UsuarioManager(BaseUserManager):
         @param kwargs: otros datos
         '''
         usuario = self.create_user(username, password, **kwargs)
-        usuario.tipo=Usuario.T_EMPLEADO
+        usuario.tipo = Usuario.T_EMPLEADO
         usuario.is_admin = True
         usuario.save()
         return usuario
@@ -75,7 +78,7 @@ class UsuarioManager(BaseUserManager):
         @param kwargs: otros datos
         '''
         usuario = self.create_user(username, password, **kwargs)
-        usuario.tipo=Usuario.T_CLIENTE
+        usuario.tipo = Usuario.T_CLIENTE
         usuario.save()
         return usuario
 
@@ -99,14 +102,15 @@ class UsuarioManager(BaseUserManager):
         except Usuario.DoesNotExist:
             return None
 
+
 class Usuario(AbstractBaseUser):
     '''
     @cvar Usuario: con I{nombre}, I{apellido}, I{email}, I{telefono}, I{direccion}, I{tipo de usuario} y I{estado}
     I{email}, I{nombre} y I{apellido}
     I{nombre},I{apellido}: para I{get_nombre_completo}
     '''
-    T_CLIENTE='C'
-    T_EMPLEADO='E'
+    T_CLIENTE = 'C'
+    T_EMPLEADO = 'E'
     TIPOS_U = (
         ('C', 'Cliente'),
         ('E', 'Empleado')
@@ -120,7 +124,7 @@ class Usuario(AbstractBaseUser):
     telefono = models.CharField(max_length=15, blank=True)
     direccion = models.CharField(max_length=50, blank=True)
 
-    #tipo = models.CharField(max_length=23)
+    # tipo = models.CharField(max_length=23)
     tipo = models.CharField(max_length=1, choices=TIPOS_U)
 
     ## el atributo activo representa el estado, si es activo o inactivo
@@ -134,6 +138,7 @@ class Usuario(AbstractBaseUser):
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email', 'nombre', 'apellido']
+
     def __unicode__(self):
         return self.username
 

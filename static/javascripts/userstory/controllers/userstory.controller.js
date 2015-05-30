@@ -10,12 +10,12 @@
         .controller('UserStoriesController', UserStoriesController);
 
     UserStoriesController
-        .$inject = ['$location', '$scope', 'Flujos', 'Proyectos', 'Actividades', 'Authentication', 'Sprints'];
+        .$inject = ['$location', '$scope', '$cookies', 'Flujos', 'Proyectos', 'Actividades', 'Authentication', 'Sprints', 'HistorialUS'];
 
     /**
      * @namespace UserStoriesController
      */
-    function UserStoriesController($location, $scope, Flujos, Proyectos, Actividades, Authentication, Sprints) {
+    function UserStoriesController($location, $scope, $cookies, Flujos, Proyectos, Actividades, Authentication, Sprints, HistorialUS) {
 
         var vm = this;
         //variables
@@ -25,6 +25,7 @@
         vm.userstory = {};
         vm.userstoryNulo = {};
         vm.estados = [];
+        vm.hus=[];
 
         vm.flujos = [];
         vm.flujo = {};
@@ -40,6 +41,7 @@
         vm.definirEstado = definirEstado;
         vm.agregarEstado = agregarEstado;
         vm.agregarFlujo = agregarFlujo;
+        vm.verHistorial = verHistorial;
 
         activate();
 
@@ -54,7 +56,7 @@
                 vm.sprint = Sprints.getSprintCookie();
                 console.log(vm.proyecto);
                 console.log(vm.sprint);
-                console.log(Authentication.getAuthenticatedUsuario());
+                //console.log(Authentication.getAuthenticatedUsuario());
             }
 
             vm.estados = [
@@ -72,20 +74,37 @@
                 }
             ];
             //hacer el get para los flujos
-            vm.userstories = [
-                {
-                    'nombre': 'Desarrollo Login backend',
-                    'descripcionC': 'Dede ser Restful con djangorestframework',
-                    'estado': 'Finalizado',
-                    'tamanho': 5.00
-                },
-                {
-                    'nombre': 'Desarrollo Login frontend',
-                    'descripcionC': 'Dede ser con AngularJS',
-                    'estado': 'Pendiente',
-                    'tamanho': 4.00
-                }
-            ];
+
+            vm.userstoryNulo.nombre = '';
+            vm.userstoryNulo.descripcionC = '';
+            vm.userstoryNulo.estado = '';
+            vm.userstoryNulo.tamanho = '';
+
+            if (!!$cookies.UserStories) {
+                vm.userstories = JSON.parse($cookies.UserStories);
+            } else {
+                vm.userstories = [
+                    {
+                        'nombre': 'Desarrollo Login backend',
+                        'descripcionC': 'Dede ser Restful con djangorestframework',
+                        'estado': 'Finalizado',
+                        'tamanho': 5.00,
+                        'fila': 1
+                    },
+                    {
+                        'nombre': 'Desarrollo Login frontend',
+                        'descripcionC': 'Dede ser con AngularJS',
+                        'estado': 'Pendiente',
+                        'tamanho': 4.00,
+                        'fila': 2
+                    }
+                ];
+
+                $cookies.UserStories = JSON.stringify(vm.userstories);
+            }
+
+            console.log('user story actual');
+            console.log(vm.userstories);
 
             vm.flujos = [
                 {
@@ -101,11 +120,6 @@
                     'observacion': 'alguna observacion'
                 }
             ];
-
-            vm.userstoryNulo.nombre = '';
-            vm.userstoryNulo.descripcionC = '';
-            vm.userstoryNulo.estado = '';
-            vm.userstoryNulo.tamanho = '';
 
             vm.flujoNulo.nombre = '';
             vm.flujoNulo.estado = '';
@@ -155,6 +169,11 @@
 
         function agregarFlujo(){
             vm.flujo = vm.flujos[vm.idFlujo-1];
+        }
+
+        function verHistorial(us){
+            $cookies.USActual = JSON.stringify(us);
+            $location.url('/historial');
         }
     }
 })();

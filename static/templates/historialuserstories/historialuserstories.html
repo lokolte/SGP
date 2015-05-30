@@ -1,0 +1,40 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">User Story {{ vm.us.nombre }}</h3>
+    </div>
+    <div class="panel-body">
+        <form name="alta_proyectos" class="form-horizontal">
+            <!--debemos tener nombre, owner automatico, cliente, estado, fecha_ini, fecha_fin, observacion-->
+            <fieldset>
+                <legend>Datos del User Story</legend>
+
+                <div class="form-group">
+                    <label for="inputHoras" class="col-lg-2 control-label">Horas de Trabajo</label>
+
+                    <div class="col-lg-10">
+                        <input class="form-control" id="inputHoras"
+                               placeholder="Ex. 10." type="text"
+                               ng-model="vm.historialus.horas_trabajas">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputDescripcion" class="col-lg-2 control-label">Descripcion de Trabajo</label>
+
+                    <div class="col-lg-10">
+                        <input class="form-control" id="inputDescripcion"
+                               placeholder="Ex. Se desarrollo las vistas." type="text"
+                               ng-model="vm.historialus.descripcion_trabajo">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <button type="reset" class="btn btn-fab-success" ng-click="vm.clear()">Cancel</button>
+                        <button class="btn btn-primary" ng-click="vm.guardar()">Guardar</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>

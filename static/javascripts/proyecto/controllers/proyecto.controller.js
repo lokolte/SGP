@@ -96,8 +96,6 @@
             vm.proyectoNulo.observacion = '';
 
             vm.proyecto = vm.proyectoNulo;
-
-            console.log(new Date());
         }
 
         function activate() {

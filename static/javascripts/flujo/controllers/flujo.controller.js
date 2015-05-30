@@ -47,6 +47,7 @@
         vm.irActividades = irActividades;
         vm.definirEstado = definirEstado;
         vm.agregarEstado = agregarEstado;
+        vm.irKanban = irKanban;
 
         init();
 
@@ -124,6 +125,11 @@
         function irActividades(flujo){
             Flujos.setFlujoCookie(flujo);
             $location.url('/actividades');
+        }
+
+        function irKanban(flujo){
+            Flujos.setFlujoCookie(flujo);
+            $location.url('/kanban');
         }
 
         function definirEstado(e){

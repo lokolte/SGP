@@ -15,5 +15,9 @@ class ProyectoSerializer(serializers.ModelSerializer):
 
         def update(self, instance, validated_data):
             instance.nombre = validated_data.get('nombre', instance.nombre)
+            instance.save()
+            instance.fecha_fin = validated_data.get('fecha_fin', instance.fecha_fin)
+            instance.save()
             instance.observacion = validated_data.get('observacion', instance.observacion)
+            instance.save()
             return instance

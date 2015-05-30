@@ -9,12 +9,12 @@
         .module('managers.sprint.controllers')//, ['ui.bootstrap', 'ui.bootstrap.datepicker'])
         .controller('SprintsController', SprintsController);
 
-    SprintsController.$inject = ['$location', '$scope', 'Proyectos', 'Authentication', 'Sprints'];
+    SprintsController.$inject = ['$location', '$scope', '$cookies', 'Proyectos', 'Authentication', 'Sprints'];
 
     /**
      * @namespace SprintsController
      */
-    function SprintsController($location, $scope, Proyectos, Authentication, Sprints) {
+    function SprintsController($location, $scope, $cookies, Proyectos, Authentication, Sprints) {
 
         var vm = this;
 
@@ -63,6 +63,12 @@
                     'horasRest': 20.00
                 }
             ];
+
+            if(!$cookies.Sprints){
+                $cookies.Sprints = JSON.stringify(vm.sprints);
+            }else{
+                vm.sprints=JSON.parse($cookies.Sprints);
+            }
 
             if(Sprints.isExistSprint()){
                 var s = Sprints.getSprintCookie();

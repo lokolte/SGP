@@ -13,12 +13,12 @@
         .module('managers.layout.controllers')
         .controller('IndexController', IndexController);
 
-    IndexController.$inject = ['$scope', '$location', 'Authentication', 'Snackbar'];
+    IndexController.$inject = ['$scope', '$location', '$cookies', 'Authentication', 'Snackbar'];
 
     /**
      * @namespace IndexController
      */
-    function IndexController($scope, $location, Authentication, Snackbar) {
+    function IndexController($scope, $location, $cookies, Authentication, Snackbar) {
         var vm = this;
 
         activate();
@@ -32,6 +32,14 @@
 
             // If the user is authenticated, they should not be here.
             if (Authentication.isAuthenticated()) {
+                vm.sprint = {
+                    'lugar': 2,
+                    'fecha_ini': new Date(),
+                    'duracionHoras': 20.00,
+                    'estado': 'Activo',
+                    'horasRest': 20.00
+                };
+                $cookies.Sprintbl=JSON.stringify(vm.sprint);
                 //Snackbar.error('Usuario logueado!!');
                 //$location.url('/');
             }

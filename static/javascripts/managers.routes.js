@@ -49,6 +49,26 @@
             controller: 'UserStoriesController',
             controllerAs: 'vm',
             templateUrl: '/static/templates/userstory/userstories.html'
+        }).when('/kanban', {
+            controller: 'KanbansController',
+            controllerAs: 'vm',
+            templateUrl: '/static/templates/kanbans/kanbans.html'
+        }).when('/historialus', {
+            controller: 'HistorialUSController',
+            controllerAs: 'vm',
+            templateUrl: '/static/templates/historialuserstories/historialuserstories.html'
+        }).when('/historial', {
+            controller: 'HistorialController',
+            controllerAs: 'vm',
+            templateUrl: '/static/templates/historialuserstories/historial.html'
+        }).when('/sprintbacklog', {
+            controller: 'SprintsBLController',
+            controllerAs: 'vm',
+            templateUrl: '/static/templates/sprint/sprintbl.html'
+        }).when('/productbacklog', {
+            controller: 'ProductBLController',
+            controllerAs: 'vm',
+            templateUrl: '/static/templates/userstory/productbl.html'
         }).otherwise('/404');
     }
 })();

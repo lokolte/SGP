@@ -1,24 +1,40 @@
 from django.db import models
 from authentication.models import Usuario
 from proyectos.models import Proyecto
-from datetime import datetime, timedelta
-
+from datetime import timedelta
+from utilitarios.models import Utils
+#import time
 
 class SprintManager(models.Manager):
-    def hallarFechaFin(self, fecha_ini, duracion):
-            duracion = duracion/8
-            fecha_fin = fecha_ini+timedelta(days=duracion)
+
+    def hallarFechaFin(self, fecha_ini=None, duracion=None):
+
+        if fecha_ini != None and duracion != None:
+            duracion = duracion / 8
+            fecha_ini = Utils.objects.retornar_fecha(fecha_ini)
+            fecha_fin = fecha_ini + timedelta(days=duracion)
             return fecha_fin
+        else:
+            print('Imposible efectuar operacion sin datos')
+            return Utils.NO_PERMITIDO
 
     def crear_sprint(self, **kwargs):
 
-        owner = Usuario.objects.buscar_usuario(id=kwargs.get('owner_id'))
-        if not owner:
+        if not kwargs.get('owner_id'):
             raise ValueError('Debe existir un Usuario responsable')
+        else:
+            owner = Usuario.objects.buscar_usuario(id=kwargs.get('owner_id'))
+            if owner == None:
+                print('No existe el owner')
+                return Utils.NO_ENCONTRADO
 
-        proyecto = Proyecto.objects.buscar_proyecto(id=kwargs.get('proyecto_id'))
-        if not kwargs.get('proyecto'):
+        if not kwargs.get('proyecto_id'):
             raise ValueError('Debe existir un Proyecto propietario')
+        else:
+            proyecto = Proyecto.objects.buscar_proyecto(id=kwargs.get('proyecto_id'))
+            if proyecto == None:
+                print('No existe el proyecto')
+                return Utils.NO_ENCONTRADO
 
         if not kwargs.get('fecha_ini'):
             raise ValueError('Debe existir una Fecha de Inicio')
@@ -26,9 +42,12 @@ class SprintManager(models.Manager):
         if not kwargs.get('duracionHoras'):
             raise ValueError('Debe existir una duracion estimada')
 
-        fecha_fin = Sprint.objects.hallarFechaFin(fecha_ini=kwargs.get('fecha_ini'),duracion=kwargs.get('duracionHoras'))
-        if not fecha_fin:
-            raise ValueError('No se pudo calcular la fecha final')
+        if not kwargs.get('fecha_fin'):
+            print('La fecha de finalizacion fue calculada...')
+            fecha_fin = Sprint.objects.hallarFechaFin(fecha_ini=kwargs.get('fecha_ini'),
+                                                      duracion=kwargs.get('duracionHoras'))
+        else:
+            fecha_fin = kwargs.get('fecha_fin')
 
         sprint = self.model(
             owner=owner,
@@ -48,29 +67,35 @@ class SprintManager(models.Manager):
         except Sprint.DoesNotExist:
             return None
 
+    # dominio de estados: A = Activo, C = Cerrado. Utilizar las abreviaturas
     def cambiar_estado(self, id, **kwargs):
-        #cambiar el estado solo si
         sprint = Sprint.objects.buscar_sprint(id)
-        if sprint.estado == Sprint.ACTIVO and kwargs.get('estado') == Sprint.CERRADO:
-            sprint.estado = kwargs.get('estado')
-        else:
-            print('No esta permitido cambiar el estado de un Sprint Cerrado')
-        sprint.save()
 
+        if sprint != None:
+            if sprint.estado == Sprint.ACTIVO and kwargs.get('estado') == Sprint.CERRADO:
+                sprint.estado = kwargs.get('estado')
+                sprint.save()
+                return sprint
+            else:
+                print('No esta permitido cambiar el estado de un Sprint Cerrado')
+                return Utils.NO_PERMITIDO
+        else:
+            print('No existe el sprint')
+            return Utils.NO_ENCONTRADO
 
 class Sprint(models.Model):
-    ACTIVO= 'A'
-    CERRADO= 'C'
+    ACTIVO = 'A'
+    CERRADO = 'C'
     ESTADOS_S = (
         ('A', 'Activo'),
         ('C', 'Cerrado'),
     )
 
-    owner = models.ForeignKey(Usuario, null=True)#, editable=False)  # usuario que lo creo
-    proyecto = models.ForeignKey(Proyecto, null=True)#, editable=False)  # proyecto a quien pertenece
-    #El sprint debera tener uno de los siguientes dos estados:
-      #A (Activo): El sprint se encuentra activo.
-      #C (Cerrado): El sprint se encuentra cerrado.
+    owner = models.ForeignKey(Usuario, null=True)  # , editable=False)  # usuario que lo creo
+    proyecto = models.ForeignKey(Proyecto, null=True)  # , editable=False)  # proyecto a quien pertenece
+    # El sprint debera tener uno de los siguientes dos estados:
+    #A (Activo): El sprint se encuentra activo.
+    #C (Cerrado): El sprint se encuentra cerrado.
     estado = models.CharField(max_length=1, choices=ESTADOS_S, default=ACTIVO)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)

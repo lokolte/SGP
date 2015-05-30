@@ -4,6 +4,7 @@ from sprints.models import Sprint
 from flujos.models import Flujo
 from proyectos.models import Proyecto
 from flujos.models import Actividad
+from utilitarios.models import Utils
 
 class UserStoryManager(models.Manager):
 
@@ -12,9 +13,13 @@ class UserStoryManager(models.Manager):
         if not kwargs.get('nombre'):
             raise ValueError('Debe existir un nombre de US')
 
-        owner = Usuario.objects.buscar_usuario(id=kwargs.get('owner_id'))
-        if not owner:
+        if not kwargs.get('owner_id'):
             raise ValueError('Debe existir un Usuario responsable')
+        else:
+            owner = Usuario.objects.buscar_usuario(id=kwargs.get('owner_id'))
+            if owner==None:
+                print('No existe el usuario')
+                return Utils.NO_ENCONTRADO
 
         if not kwargs.get('fecha_ini'):
             raise ValueError('Debe existir una Fecha de Inicio')
@@ -28,8 +33,9 @@ class UserStoryManager(models.Manager):
         if not kwargs.get('valorTecnico'):
             raise ValueError('Debe existir un valor tecnico')
 
-        descriplarga = ''
-        if kwargs.get('descripcionL'):
+        if not kwargs.get('descripcionL'):
+            descriplarga = ''
+        else:
             descriplarga= kwargs.get('descripcionL')
 
         if not kwargs.get('descripcionC'):
@@ -38,9 +44,12 @@ class UserStoryManager(models.Manager):
         if not kwargs.get('prioridad'):
             raise ValueError('Debe existir un valor de prioridad')
 
-        tamanho = kwargs.get('fecha_fin')-kwargs.get('fecha_ini')
-        if not tamanho:
-            raise ValueError('Debe existir un tamanho en horas')
+        if not kwargs.get('tamanho'):
+            tamanho = Utils.objects.retornar_fecha(kwargs.get('fecha_fin')) - Utils.objects.retornar_fecha(kwargs.get('fecha_ini'))
+            print('Tamanho del US calculado en: ' + tamanho.hour + '...')
+        else:
+            print('El tamanho unicamente se calcula.')
+            #tamanho = kwargs.get('tamanho')
 
         userstory = self.model(
             nombre=kwargs.get('nombre'),
@@ -53,7 +62,7 @@ class UserStoryManager(models.Manager):
             descripcionC=kwargs.get('descripcionC'),
             descripcionL=descriplarga,
             prioridad=kwargs.get('prioridad'),
-            tamanho=tamanho.hours,
+            tamanho=tamanho.hour,
         )
 
         userstory.save()
@@ -77,74 +86,117 @@ class UserStoryManager(models.Manager):
             userstory.tamanho = kwargs.get('tamanho')
             userstory.fecha_fin = kwargs.get('fecha_fin')
             userstory.prioridad = kwargs.get('prioridad')
-        userstory.save()
+            userstory.save()
+        else:
+            print('No se permiten modificar US que no tengan estado pendiente')
+            return Utils.NO_PERMITIDO
 
     def asignar_us_sprint(self, id_us, id_sprint, **kwargs):
         sprint = Sprint.objects.buscar_sprint(id_sprint)
         userstory = UserStory.objects.buscar_userstory(id_us)
-        userstory.sprint = sprint
-        if userstory.tamanho <= sprint.horasRest:
-            sprint.horasRest = sprint.horasRest-userstory.tamanho
+        if sprint != None and userstory != None:
+            userstory.sprint = sprint
+            if userstory.tamanho <= sprint.horasRest:
+                sprint.horasRest = sprint.horasRest-userstory.tamanho
+                userstory.save()
+            else:
+                print('No permitido; tamanho de US mayor al tiempo restate del sprint')
+                return Utils.NO_PERMITIDO
         else:
-            print('No permitido; tamanho de US mayor al tiempo restate del sprint')
-        userstory.save()
+            print('El US, Sprint o ambos no existe')
+            return Utils.NO_ENCONTRADO
 
     def asignar_us_flujo(self, id_us, id_flujo, **kwargs):
         userstory = UserStory.objects.buscar_userstory(id_us)
         flujo = Flujo.objects.buscar_flujo(id_flujo)
-        actividad = Actividad.objects.filter(flujo=id_flujo, orden=1)
-        userstory.flujo_actual = flujo
-        userstory.actividad_actual = actividad
-        userstory.save()
-
+        if flujo != None and userstory != None:
+            if userstory.actividad_actual != None:
+                    actividad = Actividad.objects.filter(flujo=id_flujo, orden=1)
+                    if actividad != None:
+                        userstory.flujo_actual = flujo
+                        userstory.actividad_actual = actividad
+                        userstory.save()
+                    else:
+                        print('La Actividad no existe')
+                        return Utils.NO_ENCONTRADO
+            else:
+                userstory.flujo_actual = flujo
+        else:
+            print('El US, Flujo o ambos no existen')
+            return Utils.NO_ENCONTRADO
 
     def cambiar_estado_us(self, id, **kwargs):
-        userstory = UserStory.objects.buscar_userstory(id)#.get(id)
-        if userstory.estado == UserStory.SUSPENDIDO and kwargs.get('estado') == UserStory.PENDIENTE:
-            userstory.estado = kwargs.get('estado')
-        elif userstory.estado == UserStory.PENDIENTE and kwargs.get('estado') == UserStory.SUSPENDIDO:
-            userstory.estado = kwargs.get('estado')
-        elif userstory.estado == UserStory.PENDIENTE and kwargs.get('estado') == UserStory.FINALIZADO:
-            userstory.estado = kwargs.get('estado')
+        userstory = UserStory.objects.buscar_userstory(id)
+
+        if userstory != None:
+            if userstory.estado == UserStory.SUSPENDIDO and kwargs.get('estado') == UserStory.PENDIENTE:
+                userstory.estado = kwargs.get('estado')
+            elif userstory.estado == UserStory.PENDIENTE and kwargs.get('estado') == UserStory.SUSPENDIDO:
+                userstory.estado = kwargs.get('estado')
+            elif userstory.estado == UserStory.PENDIENTE and kwargs.get('estado') == UserStory.FINALIZADO:
+                userstory.estado = kwargs.get('estado')
+            else:
+                print('No esta permitido')
+                return Utils.NO_PERMITIDO
+
+            userstory.save()
+            return userstory
         else:
-            print('No esta permitido')
-        userstory.save()
+            print('El US no existe')
+            return Utils.NO_ENCONTRADO
 
     # solo el Scrum llama a esta funcion
     def verificar_us(self,id, **kwargs):
         userstory = UserStory.objects.buscar_userstory(id)
-        if userstory.estado == UserStory.FINALIZADO:
-            userstory.confirmado = kwargs.get('confirmado')
-            userstory.revisado = True
-            if userstory.confirmado == False:
-                userstory.estado = UserStory.PENDIENTE
-            elif userstory.confirmado == True:
-                # un US pendiente menos
-                userstory.actividad_actual.cantidadUS = userstory.actividad_actual.cantidadUS - 1
-                actividades = Actividad.objects.all().filter(flujo=userstory.flujo_actual)
-                # conseguir la sigte actividad
-                max = userstory.actividad_actual.orden
-                id_sigte_act = -1
-                for a in actividades:
-                    if max+1 == a.orden:
-                        id_sigte_act = a.id
-                if id_sigte_act != -1:
-                    userstory.actividad_actual = id_sigte_act
 
-                if userstory.actividad_actual.cantidadUS == 0:
-                    if userstory.actividad_actual.orden == 1:
-                        Actividad.objects.cambiar_estado_actividad(id=userstory.actividad_actual, estado=Actividad.DONE)
-                    else:
-                        # conseguir la actividad anterior
-                        id_ant_act = -1
-                        for a in actividades:
-                            if max-1 == a.orden:
-                                id_ant_act = a.id
-                        actividadAnterior = Actividad.objects.buscar_actividad(id=id_ant_act)
-                        if actividadAnterior != None:
-                            if actividadAnterior.estado == Actividad.DONE:
-                                Actividad.objects.cambiar_estado_actividad(id=userstory.actividad_actual, estado=Actividad.DONE)
-        userstory.save()
+        if userstory != None:
+            if userstory.estado == UserStory.FINALIZADO:
+                userstory.confirmado = kwargs.get('confirmado') == 'True' #es true cuando confirmado = True si es False es False
+                userstory.revisado = True
+                if userstory.confirmado == False:
+                    userstory.estado = UserStory.PENDIENTE
+                elif userstory.confirmado == True:
+                    # un US pendiente menos
+                    userstory.actividad_actual.cantidadUS = userstory.actividad_actual.cantidadUS - 1
+                    actividades = Actividad.objects.all().filter(flujo=userstory.flujo_actual)
+                    # conseguir la sigte actividad
+                    max = userstory.actividad_actual.orden
+                    id_sigte_act = -1
+                    for a in actividades:
+                        if max+1 == a.orden:
+                            id_sigte_act = a.id
+
+                    if userstory.actividad_actual.cantidadUS == 0:
+                        if userstory.actividad_actual.orden == 1:
+                            Actividad.objects.cambiar_estado_actividad(id=userstory.actividad_actual, estado=Actividad.DONE)
+                        else:
+                            # conseguir la actividad anterior
+                            id_ant_act = -1
+                            for a in actividades:
+                                if max-1 == a.orden:
+                                    id_ant_act = a.id
+
+                            if id_ant_act != -1:
+                                actividadAnterior = Actividad.objects.buscar_actividad(id=id_ant_act)
+                                if actividadAnterior != None:
+                                    if actividadAnterior.estado == Actividad.DONE:
+                                        Actividad.objects.cambiar_estado_actividad(id=userstory.actividad_actual, estado=Actividad.DONE)
+                                else:
+                                    print('La Actividad no existe')
+                                    return Utils.NO_ENCONTRADO
+                            else:
+                                print('No existe actividad anterior')
+
+                    if id_sigte_act != -1:
+                        userstory.actividad_actual = id_sigte_act
+
+            userstory.save()
+        else:
+            print('El US no existe')
+            return Utils.NO_ENCONTRADO
+
+    #def registrar_actividad(self):
+    #    print('se registra')
 
     #def asignar_flujo()
 
@@ -177,13 +229,15 @@ class UserStory(models.Model):
     # S (Suspendido): La US fue suspendida y ya no se realiza trabajo sobre la misma.
     # F (Finalizado): La US fue finalizada exitosamente y cumple todas las expectativas de los clientes.
     fecha_ini = models.DateTimeField(auto_now_add=False)
-    fecha_fin = models.DateTimeField(auto_now_add=False)  #fecha entrega estimada
-    valorNegocio = models.IntegerField(default=10)
-    valorTecnico = models.IntegerField(default=10)
-    descripcionC = models.CharField(max_length=50)
-    descripcionL = models.CharField(max_length=150)
+    fecha_fin = models.DateTimeField(auto_now_add=False)
+    valorNegocio = models.IntegerField(default=0)
+    valorTecnico = models.IntegerField(default=0)
+    descripcionC = models.CharField(max_length=350)
+    descripcionL = models.CharField(max_length=750)
+    #prioridad es un valor que va 1 a 10 y cuanto mayor sea el valor tendra mayor prioridad
     prioridad = models.IntegerField(default=1)
-    tamanho = models.IntegerField(default=50)
+    tamanho = models.IntegerField(default=0)
+    horasregistradas = models.IntegerField(default=0)
     confirmado = models.BooleanField(default=False)
     revisado = models.BooleanField(default=False)
 

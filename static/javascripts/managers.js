@@ -15,7 +15,9 @@
             'managers.flujo',
             'managers.actividad',
             'managers.sprint',
-            'managers.userstory'
+            'managers.userstory',
+            'managers.kanban',
+            'managers.historialus'
             //'managers.angular-bootstrap'
         ]);
 
