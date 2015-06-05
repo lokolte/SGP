@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>authentication.views</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="authentication-module.html">Package&nbsp;authentication</a> ::
+        Module&nbsp;views
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="authentication.views-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="authentication.views-module.html">Module authentication.views</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-comment"># coding=utf-8</tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-keyword">import</tt> <tt class="py-name">json</tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt id="link-0" class="py-name" targets="Module authentication.views=authentication.views-module.html,Module flujos.views=flujos.views-module.html,Module proyectos.views=proyectos.views-module.html,Module sprints.views=sprints.views-module.html,Module userstories.views=userstories.views-module.html,Module utilitarios.views=utilitarios.views-module.html"><a title="authentication.views
+flujos.views
+proyectos.views
+sprints.views
+userstories.views
+utilitarios.views" class="py-name" href="#" onclick="return doclink('link-0', 'views', 'link-0');">views</a></tt><tt class="py-op">.</tt><tt class="py-name">generic</tt><tt class="py-op">.</tt><tt class="py-name">base</tt> <tt class="py-keyword">import</tt> <tt class="py-name">TemplateView</tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">utils</tt><tt class="py-op">.</tt><tt class="py-name">decorators</tt> <tt class="py-keyword">import</tt> <tt class="py-name">method_decorator</tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt id="link-1" class="py-name"><a title="authentication.views
+flujos.views
+proyectos.views
+sprints.views
+userstories.views
+utilitarios.views" class="py-name" href="#" onclick="return doclink('link-1', 'views', 'link-0');">views</a></tt><tt class="py-op">.</tt><tt class="py-name">decorators</tt><tt class="py-op">.</tt><tt class="py-name">csrf</tt> <tt class="py-keyword">import</tt> <tt class="py-name">ensure_csrf_cookie</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">contrib</tt><tt class="py-op">.</tt><tt class="py-name">auth</tt> <tt class="py-keyword">import</tt> <tt class="py-name">authenticate</tt><tt class="py-op">,</tt> <tt class="py-name">login</tt><tt class="py-op">,</tt> <tt class="py-name">logout</tt> </tt>
+<a name="L7"></a><tt class="py-lineno">  7</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">rest_framework</tt> <tt class="py-keyword">import</tt> <tt class="py-name">permissions</tt><tt class="py-op">,</tt> <tt class="py-name">viewsets</tt><tt class="py-op">,</tt> <tt class="py-name">status</tt><tt class="py-op">,</tt> <tt id="link-2" class="py-name"><a title="authentication.views
+flujos.views
+proyectos.views
+sprints.views
+userstories.views
+utilitarios.views" class="py-name" href="#" onclick="return doclink('link-2', 'views', 'link-0');">views</a></tt> </tt>
+<a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">rest_framework</tt><tt class="py-op">.</tt><tt class="py-name">response</tt> <tt class="py-keyword">import</tt> <tt class="py-name">Response</tt> </tt>
+<a name="L9"></a><tt class="py-lineno">  9</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-3" class="py-name" targets="Package authentication=authentication-module.html"><a title="authentication" class="py-name" href="#" onclick="return doclink('link-3', 'authentication', 'link-3');">authentication</a></tt><tt class="py-op">.</tt><tt id="link-4" class="py-name" targets="Module authentication.models=authentication.models-module.html,Module flujos.models=flujos.models-module.html,Module proyectos.models=proyectos.models-module.html,Module sprints.models=sprints.models-module.html,Module userstories.models=userstories.models-module.html,Module utilitarios.models=utilitarios.models-module.html"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-4', 'models', 'link-4');">models</a></tt> <tt class="py-keyword">import</tt> <tt id="link-5" class="py-name" targets="Class authentication.models.Usuario=authentication.models.Usuario-class.html"><a title="authentication.models.Usuario" class="py-name" href="#" onclick="return doclink('link-5', 'Usuario', 'link-5');">Usuario</a></tt> </tt>
+<a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-6" class="py-name"><a title="authentication" class="py-name" href="#" onclick="return doclink('link-6', 'authentication', 'link-3');">authentication</a></tt><tt class="py-op">.</tt><tt id="link-7" class="py-name" targets="Module authentication.permisos=authentication.permisos-module.html"><a title="authentication.permisos" class="py-name" href="#" onclick="return doclink('link-7', 'permisos', 'link-7');">permisos</a></tt> <tt class="py-keyword">import</tt> <tt id="link-8" class="py-name" targets="Class authentication.permisos.IsAccountOwner=authentication.permisos.IsAccountOwner-class.html"><a title="authentication.permisos.IsAccountOwner" class="py-name" href="#" onclick="return doclink('link-8', 'IsAccountOwner', 'link-8');">IsAccountOwner</a></tt> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-9" class="py-name"><a title="authentication" class="py-name" href="#" onclick="return doclink('link-9', 'authentication', 'link-3');">authentication</a></tt><tt class="py-op">.</tt><tt id="link-10" class="py-name" targets="Module authentication.serializers=authentication.serializers-module.html,Module flujos.serializers=flujos.serializers-module.html,Module proyectos.serializers=proyectos.serializers-module.html,Module sprints.serializers=sprints.serializers-module.html,Module userstories.serializers=userstories.serializers-module.html"><a title="authentication.serializers
+flujos.serializers
+proyectos.serializers
+sprints.serializers
+userstories.serializers" class="py-name" href="#" onclick="return doclink('link-10', 'serializers', 'link-10');">serializers</a></tt> <tt class="py-keyword">import</tt> <tt id="link-11" class="py-name" targets="Class authentication.serializers.UsuarioSerializer=authentication.serializers.UsuarioSerializer-class.html"><a title="authentication.serializers.UsuarioSerializer" class="py-name" href="#" onclick="return doclink('link-11', 'UsuarioSerializer', 'link-11');">UsuarioSerializer</a></tt> </tt>
+<a name="IndexView"></a><div id="IndexView-def"><a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line"> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"><tt class="py-comment"># Create your views here.</tt> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line"> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt> <a class="py-toggle" href="#" id="IndexView-toggle" onclick="return toggle('IndexView');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="authentication.views.IndexView-class.html">IndexView</a><tt class="py-op">(</tt><tt class="py-base-class">TemplateView</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="IndexView-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="IndexView-expanded"><a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line">    <tt id="link-12" class="py-name" targets="Variable authentication.views.IndexView.template_name=authentication.views.IndexView-class.html#template_name"><a title="authentication.views.IndexView.template_name" class="py-name" href="#" onclick="return doclink('link-12', 'template_name', 'link-12');">template_name</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'index.html'</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line"> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line">    <tt class="py-decorator">@</tt><tt class="py-decorator">method_decorator</tt><tt class="py-op">(</tt><tt class="py-name">ensure_csrf_cookie</tt><tt class="py-op">)</tt> </tt>
+<a name="IndexView.dispatch"></a><div id="IndexView.dispatch-def"><a name="L19"></a><tt class="py-lineno"> 19</tt> <a class="py-toggle" href="#" id="IndexView.dispatch-toggle" onclick="return toggle('IndexView.dispatch');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="authentication.views.IndexView-class.html#dispatch">dispatch</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-op">*</tt><tt class="py-param">args</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-param">kwargs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="IndexView.dispatch-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="IndexView.dispatch-expanded"><a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">super</tt><tt class="py-op">(</tt><tt id="link-13" class="py-name" targets="Class authentication.views.IndexView=authentication.views.IndexView-class.html"><a title="authentication.views.IndexView" class="py-name" href="#" onclick="return doclink('link-13', 'IndexView', 'link-13');">IndexView</a></tt><tt class="py-op">,</tt> <tt class="py-name">self</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt id="link-14" class="py-name" targets="Method authentication.views.IndexView.dispatch()=authentication.views.IndexView-class.html#dispatch"><a title="authentication.views.IndexView.dispatch" class="py-name" href="#" onclick="return doclink('link-14', 'dispatch', 'link-14');">dispatch</a></tt><tt class="py-op">(</tt><tt class="py-op">*</tt><tt class="py-name">args</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-name">kwargs</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"> </tt>
+<a name="UsuarioViewSet"></a><div id="UsuarioViewSet-def"><a name="L22"></a><tt class="py-lineno"> 22</tt> <a class="py-toggle" href="#" id="UsuarioViewSet-toggle" onclick="return toggle('UsuarioViewSet');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="authentication.views.UsuarioViewSet-class.html">UsuarioViewSet</a><tt class="py-op">(</tt><tt class="py-base-class">viewsets</tt><tt class="py-op">.</tt><tt class="py-base-class">ModelViewSet</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="UsuarioViewSet-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="UsuarioViewSet-expanded"><a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line">    <tt class="py-docstring">'''</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line"><tt class="py-docstring">    Conjunto de vistas que maneja el ABM de usuarios.</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line"><tt class="py-docstring">    '''</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">    <tt id="link-15" class="py-name" targets="Variable authentication.views.UsuarioViewSet.lookup_field=authentication.views.UsuarioViewSet-class.html#lookup_field,Variable proyectos.views.ProyectoViewSet.lookup_field=proyectos.views.ProyectoViewSet-class.html#lookup_field"><a title="authentication.views.UsuarioViewSet.lookup_field
+proyectos.views.ProyectoViewSet.lookup_field" class="py-name" href="#" onclick="return doclink('link-15', 'lookup_field', 'link-15');">lookup_field</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'username'</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">    <tt id="link-16" class="py-name" targets="Variable authentication.views.UsuarioViewSet.queryset=authentication.views.UsuarioViewSet-class.html#queryset,Variable proyectos.views.ProyectoViewSet.queryset=proyectos.views.ProyectoViewSet-class.html#queryset"><a title="authentication.views.UsuarioViewSet.queryset
+proyectos.views.ProyectoViewSet.queryset" class="py-name" href="#" onclick="return doclink('link-16', 'queryset', 'link-16');">queryset</a></tt> <tt class="py-op">=</tt> <tt id="link-17" class="py-name"><a title="authentication.models.Usuario" class="py-name" href="#" onclick="return doclink('link-17', 'Usuario', 'link-5');">Usuario</a></tt><tt class="py-op">.</tt><tt id="link-18" class="py-name" targets="Variable authentication.models.Usuario.objects=authentication.models.Usuario-class.html#objects,Variable flujos.models.Actividad.objects=flujos.models.Actividad-class.html#objects,Variable flujos.models.Flujo.objects=flujos.models.Flujo-class.html#objects,Variable proyectos.models.Proyecto.objects=proyectos.models.Proyecto-class.html#objects,Variable sprints.models.Sprint.objects=sprints.models.Sprint-class.html#objects,Variable userstories.models.UserStory.objects=userstories.models.UserStory-class.html#objects,Variable utilitarios.models.Utils.objects=utilitarios.models.Utils-class.html#objects"><a title="authentication.models.Usuario.objects
+flujos.models.Actividad.objects
+flujos.models.Flujo.objects
+proyectos.models.Proyecto.objects
+sprints.models.Sprint.objects
+userstories.models.UserStory.objects
+utilitarios.models.Utils.objects" class="py-name" href="#" onclick="return doclink('link-18', 'objects', 'link-18');">objects</a></tt><tt class="py-op">.</tt><tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">    <tt id="link-19" class="py-name" targets="Variable authentication.views.UsuarioViewSet.serializer_class=authentication.views.UsuarioViewSet-class.html#serializer_class,Variable proyectos.views.ProyectoViewSet.serializer_class=proyectos.views.ProyectoViewSet-class.html#serializer_class"><a title="authentication.views.UsuarioViewSet.serializer_class
+proyectos.views.ProyectoViewSet.serializer_class" class="py-name" href="#" onclick="return doclink('link-19', 'serializer_class', 'link-19');">serializer_class</a></tt> <tt class="py-op">=</tt> <tt id="link-20" class="py-name"><a title="authentication.serializers.UsuarioSerializer" class="py-name" href="#" onclick="return doclink('link-20', 'UsuarioSerializer', 'link-11');">UsuarioSerializer</a></tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"> </tt>
+<a name="UsuarioViewSet.get_permissions"></a><div id="UsuarioViewSet.get_permissions-def"><a name="L30"></a><tt class="py-lineno"> 30</tt> <a class="py-toggle" href="#" id="UsuarioViewSet.get_permissions-toggle" onclick="return toggle('UsuarioViewSet.get_permissions');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="authentication.views.UsuarioViewSet-class.html#get_permissions">get_permissions</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="UsuarioViewSet.get_permissions-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="UsuarioViewSet.get_permissions-expanded"><a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">request</tt><tt class="py-op">.</tt><tt class="py-name">method</tt> <tt class="py-keyword">in</tt> <tt class="py-name">permissions</tt><tt class="py-op">.</tt><tt class="py-name">SAFE_METHODS</tt><tt class="py-op">:</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-op">(</tt><tt class="py-name">permissions</tt><tt class="py-op">.</tt><tt class="py-name">AllowAny</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt><tt class="py-op">)</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line"> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">        <tt class="py-comment">#Todos tienen permiso de crear su propia cuenta</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt class="py-name">request</tt><tt class="py-op">.</tt><tt class="py-name">method</tt> <tt class="py-op">==</tt> <tt class="py-string">'POST'</tt><tt class="py-op">:</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-op">(</tt><tt class="py-name">permissions</tt><tt class="py-op">.</tt><tt class="py-name">AllowAny</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt><tt class="py-op">)</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">        <tt class="py-comment">#Solo el due&#241;o de una cuenta puede hacer update() o delete()</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-op">(</tt><tt class="py-name">permissions</tt><tt class="py-op">.</tt><tt class="py-name">IsAuthenticated</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> <tt id="link-21" class="py-name"><a title="authentication.permisos.IsAccountOwner" class="py-name" href="#" onclick="return doclink('link-21', 'IsAccountOwner', 'link-8');">IsAccountOwner</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">,</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"> </tt>
+<a name="UsuarioViewSet.create"></a><div id="UsuarioViewSet.create-def"><a name="L41"></a><tt class="py-lineno"> 41</tt> <a class="py-toggle" href="#" id="UsuarioViewSet.create-toggle" onclick="return toggle('UsuarioViewSet.create');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="authentication.views.UsuarioViewSet-class.html#create">create</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">request</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="UsuarioViewSet.create-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="UsuarioViewSet.create-expanded"><a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line"> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">        <tt class="py-name">serializer</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-22" class="py-name"><a title="authentication.views.UsuarioViewSet.serializer_class
+proyectos.views.ProyectoViewSet.serializer_class" class="py-name" href="#" onclick="return doclink('link-22', 'serializer_class', 'link-19');">serializer_class</a></tt><tt class="py-op">(</tt><tt class="py-name">data</tt><tt class="py-op">=</tt><tt class="py-name">request</tt><tt class="py-op">.</tt><tt class="py-name">data</tt><tt class="py-op">)</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line"> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">serializer</tt><tt class="py-op">.</tt><tt class="py-name">is_valid</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line">            <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'entroo'</tt><tt class="py-op">)</tt> </tt>
+<a name="L47"></a><tt class="py-lineno"> 47</tt>  <tt class="py-line">            <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">.</tt><tt class="py-name">data</tt><tt class="py-op">)</tt> </tt>
+<a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">            <tt id="link-23" class="py-name"><a title="authentication.models.Usuario" class="py-name" href="#" onclick="return doclink('link-23', 'Usuario', 'link-5');">Usuario</a></tt><tt class="py-op">.</tt><tt id="link-24" class="py-name"><a title="authentication.models.Usuario.objects
+flujos.models.Actividad.objects
+flujos.models.Flujo.objects
+proyectos.models.Proyecto.objects
+sprints.models.Sprint.objects
+userstories.models.UserStory.objects
+utilitarios.models.Utils.objects" class="py-name" href="#" onclick="return doclink('link-24', 'objects', 'link-18');">objects</a></tt><tt class="py-op">.</tt><tt id="link-25" class="py-name" targets="Method authentication.models.UsuarioManager.create_user()=authentication.models.UsuarioManager-class.html#create_user"><a title="authentication.models.UsuarioManager.create_user" class="py-name" href="#" onclick="return doclink('link-25', 'create_user', 'link-25');">create_user</a></tt><tt class="py-op">(</tt><tt class="py-op">**</tt><tt class="py-name">serializer</tt><tt class="py-op">.</tt><tt class="py-name">validated_data</tt><tt class="py-op">)</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line"> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">Response</tt><tt class="py-op">(</tt><tt class="py-name">serializer</tt><tt class="py-op">.</tt><tt class="py-name">validated_data</tt><tt class="py-op">,</tt> <tt class="py-name">status</tt><tt class="py-op">=</tt><tt class="py-name">status</tt><tt class="py-op">.</tt><tt class="py-name">HTTP_201_CREATED</tt><tt class="py-op">)</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line"> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'no entro :('</tt><tt class="py-op">)</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">Response</tt><tt class="py-op">(</tt><tt class="py-op">{</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">            <tt class="py-string">'status'</tt><tt class="py-op">:</tt> <tt class="py-string">'Bad request'</tt><tt class="py-op">,</tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">            <tt class="py-string">'message'</tt><tt class="py-op">:</tt> <tt class="py-string">'Account could not be created with received data.'</tt> </tt>
+<a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line">        <tt class="py-op">}</tt><tt class="py-op">,</tt> <tt class="py-name">status</tt><tt class="py-op">=</tt><tt class="py-name">status</tt><tt class="py-op">.</tt><tt class="py-name">HTTP_400_BAD_REQUEST</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L57"></a><tt class="py-lineno"> 57</tt>  <tt class="py-line"> </tt>
+<a name="LoginView"></a><div id="LoginView-def"><a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"><tt class="py-comment">#    def destroy(self, request, *args, **kwargs):</tt> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line"><tt class="py-comment">#        serializer = self.serializer_class(data=request.data)</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line"> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"><tt class="py-comment">#        if serializer.is_valid():</tt> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line"> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line"> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt> <a class="py-toggle" href="#" id="LoginView-toggle" onclick="return toggle('LoginView');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="authentication.views.LoginView-class.html">LoginView</a><tt class="py-op">(</tt><tt class="py-base-class">views</tt><tt class="py-op">.</tt><tt class="py-base-class">APIView</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="LoginView-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="LoginView-expanded"><a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line"> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">    <tt class="py-comment">#def get_permissions(self):</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line"> </tt>
+<a name="LoginView.post"></a><div id="LoginView.post-def"><a name="L68"></a><tt class="py-lineno"> 68</tt> <a class="py-toggle" href="#" id="LoginView.post-toggle" onclick="return toggle('LoginView.post');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="authentication.views.LoginView-class.html#post">post</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">request</tt><tt class="py-op">,</tt> <tt class="py-param">format</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="LoginView.post-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="LoginView.post-expanded"><a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'Llegada de solicitud..'</tt><tt class="py-op">)</tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line">        <tt class="py-name">data</tt> <tt class="py-op">=</tt> <tt class="py-name">json</tt><tt class="py-op">.</tt><tt class="py-name">loads</tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">.</tt><tt class="py-name">body</tt><tt class="py-op">)</tt> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">.</tt><tt class="py-name">body</tt><tt class="py-op">)</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">        <tt id="link-26" class="py-name" targets="Variable authentication.models.Usuario.username=authentication.models.Usuario-class.html#username"><a title="authentication.models.Usuario.username" class="py-name" href="#" onclick="return doclink('link-26', 'username', 'link-26');">username</a></tt> <tt class="py-op">=</tt> <tt class="py-name">data</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'username'</tt><tt class="py-op">,</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">        <tt id="link-27" class="py-name" targets="Variable authentication.serializers.UsuarioSerializer.password=authentication.serializers.UsuarioSerializer-class.html#password"><a title="authentication.serializers.UsuarioSerializer.password" class="py-name" href="#" onclick="return doclink('link-27', 'password', 'link-27');">password</a></tt> <tt class="py-op">=</tt> <tt class="py-name">data</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'password'</tt><tt class="py-op">,</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">        <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'Procesando..'</tt><tt class="py-op">)</tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line"> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">        <tt class="py-name">usuario</tt> <tt class="py-op">=</tt> <tt class="py-name">authenticate</tt><tt class="py-op">(</tt><tt id="link-28" class="py-name"><a title="authentication.models.Usuario.username" class="py-name" href="#" onclick="return doclink('link-28', 'username', 'link-26');">username</a></tt><tt class="py-op">=</tt><tt id="link-29" class="py-name"><a title="authentication.models.Usuario.username" class="py-name" href="#" onclick="return doclink('link-29', 'username', 'link-26');">username</a></tt><tt class="py-op">,</tt> <tt id="link-30" class="py-name"><a title="authentication.serializers.UsuarioSerializer.password" class="py-name" href="#" onclick="return doclink('link-30', 'password', 'link-27');">password</a></tt><tt class="py-op">=</tt><tt id="link-31" class="py-name"><a title="authentication.serializers.UsuarioSerializer.password" class="py-name" href="#" onclick="return doclink('link-31', 'password', 'link-27');">password</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line"> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">usuario</tt> <tt class="py-keyword">is</tt> <tt class="py-keyword">not</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line"> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">            <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-name">usuario</tt><tt class="py-op">.</tt><tt id="link-32" class="py-name" targets="Variable authentication.models.Usuario.nombre=authentication.models.Usuario-class.html#nombre,Variable flujos.models.Actividad.nombre=flujos.models.Actividad-class.html#nombre,Variable flujos.models.Flujo.nombre=flujos.models.Flujo-class.html#nombre,Variable proyectos.models.Proyecto.nombre=proyectos.models.Proyecto-class.html#nombre,Variable userstories.models.UserStory.nombre=userstories.models.UserStory-class.html#nombre"><a title="authentication.models.Usuario.nombre
+flujos.models.Actividad.nombre
+flujos.models.Flujo.nombre
+proyectos.models.Proyecto.nombre
+userstories.models.UserStory.nombre" class="py-name" href="#" onclick="return doclink('link-32', 'nombre', 'link-32');">nombre</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">usuario</tt><tt class="py-op">.</tt><tt id="link-33" class="py-name" targets="Variable authentication.models.Usuario.activo=authentication.models.Usuario-class.html#activo"><a title="authentication.models.Usuario.activo" class="py-name" href="#" onclick="return doclink('link-33', 'activo', 'link-33');">activo</a></tt><tt class="py-op">:</tt> <tt class="py-comment">#.is_active:</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">                <tt class="py-name">login</tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">,</tt> <tt class="py-name">usuario</tt><tt class="py-op">)</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">                <tt class="py-name">serialized</tt> <tt class="py-op">=</tt> <tt id="link-34" class="py-name"><a title="authentication.serializers.UsuarioSerializer" class="py-name" href="#" onclick="return doclink('link-34', 'UsuarioSerializer', 'link-11');">UsuarioSerializer</a></tt><tt class="py-op">(</tt><tt class="py-name">usuario</tt><tt class="py-op">)</tt> </tt>
+<a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">Response</tt><tt class="py-op">(</tt><tt class="py-name">serialized</tt><tt class="py-op">.</tt><tt class="py-name">data</tt><tt class="py-op">)</tt> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L87"></a><tt class="py-lineno"> 87</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt class="py-name">Response</tt><tt class="py-op">(</tt><tt class="py-op">{</tt> </tt>
+<a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">                    <tt class="py-string">'status'</tt><tt class="py-op">:</tt> <tt class="py-string">'Unauthorized'</tt><tt class="py-op">,</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">                    <tt class="py-string">'message'</tt><tt class="py-op">:</tt> <tt class="py-string">'Esta cuenta de usuario ha sido deshabilitada'</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">                <tt class="py-op">}</tt><tt class="py-op">,</tt> <tt class="py-name">status</tt><tt class="py-op">=</tt><tt class="py-name">status</tt><tt class="py-op">.</tt><tt class="py-name">HTTP_401_UNAUTHORIZED</tt><tt class="py-op">)</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">Response</tt><tt class="py-op">(</tt><tt class="py-op">{</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">                <tt class="py-string">'status'</tt><tt class="py-op">:</tt> <tt class="py-string">'Unauthorized'</tt><tt class="py-op">,</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">                <tt class="py-string">'message'</tt><tt class="py-op">:</tt> <tt class="py-string">'Nombre de usuario o contrase&#241;a inv&#225;lidos.'</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">            <tt class="py-op">}</tt><tt class="py-op">,</tt> <tt class="py-name">status</tt><tt class="py-op">=</tt><tt class="py-name">status</tt><tt class="py-op">.</tt><tt class="py-name">HTTP_401_UNAUTHORIZED</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line"> </tt>
+<a name="LogoutView"></a><div id="LogoutView-def"><a name="L97"></a><tt class="py-lineno"> 97</tt> <a class="py-toggle" href="#" id="LogoutView-toggle" onclick="return toggle('LogoutView');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="authentication.views.LogoutView-class.html">LogoutView</a><tt class="py-op">(</tt><tt class="py-base-class">views</tt><tt class="py-op">.</tt><tt class="py-base-class">APIView</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="LogoutView-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="LogoutView-expanded"><a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line"> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">    <tt id="link-35" class="py-name" targets="Variable authentication.views.LogoutView.permission_classes=authentication.views.LogoutView-class.html#permission_classes"><a title="authentication.views.LogoutView.permission_classes" class="py-name" href="#" onclick="return doclink('link-35', 'permission_classes', 'link-35');">permission_classes</a></tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt><tt class="py-name">permissions</tt><tt class="py-op">.</tt><tt class="py-name">IsAuthenticated</tt><tt class="py-op">,</tt><tt class="py-op">)</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line"> </tt>
+<a name="LogoutView.post"></a><div id="LogoutView.post-def"><a name="L101"></a><tt class="py-lineno">101</tt> <a class="py-toggle" href="#" id="LogoutView.post-toggle" onclick="return toggle('LogoutView.post');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="authentication.views.LogoutView-class.html#post">post</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">request</tt><tt class="py-op">,</tt> <tt class="py-param">format</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="LogoutView.post-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="LogoutView.post-expanded"><a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line"> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">        <tt class="py-name">logout</tt><tt class="py-op">(</tt><tt class="py-name">request</tt><tt class="py-op">)</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line"> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">Response</tt><tt class="py-op">(</tt><tt class="py-op">{</tt><tt class="py-string">'message'</tt><tt class="py-op">:</tt> <tt class="py-string">'logout success'</tt><tt class="py-op">}</tt><tt class="py-op">,</tt> <tt class="py-name">status</tt><tt class="py-op">=</tt><tt class="py-name">status</tt><tt class="py-op">.</tt><tt class="py-name">HTTP_204_NO_CONTENT</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat May 30 09:57:18 2015
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

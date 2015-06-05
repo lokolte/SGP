@@ -64,11 +64,15 @@
                 }
             ];
 
-            if(!$cookies.Sprints){
-                $cookies.Sprints = JSON.stringify(vm.sprints);
-            }else{
+            if(!!$cookies.Sprints){
                 vm.sprints=JSON.parse($cookies.Sprints);
+                console.log(vm.sprints);
+                console.log('llego?');
+            }else{
+                $cookies.Sprints = JSON.stringify(vm.sprints);
             }
+
+            console.log(vm.sprints);
 
             if(Sprints.isExistSprint()){
                 var s = Sprints.getSprintCookie();

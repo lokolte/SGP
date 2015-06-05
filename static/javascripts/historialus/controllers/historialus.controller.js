@@ -64,11 +64,16 @@
             }
 
             if(!HistorialUS.isExistHistorial()){
-                vm.hus = HistorialUS.getHistorialCookie();
-            }else{
                 vm.hus=[{'horas_trabajas': 0, 'descripcion_trabajo': '', 'us': 0}, {'horas_trabajas': 0, 'descripcion_trabajo': '', 'us': 0}];
                 HistorialUS.setHistorialCookie(vm.hus);
+                console.log(vm.hus);
+                console.log('pudro crear el hus');
+            }else{
+                vm.hus = HistorialUS.getHistorialCookie();
+                console.log('trajo el HUS?');
             }
+
+            console.log(vm.hus);
 
             vm.estados = [
                 {
@@ -96,9 +101,7 @@
                     vm.historialus.us=vm.us.fila;
                 }
             }
-
             console.log(vm.us);
-
         }
 
         function activate() {

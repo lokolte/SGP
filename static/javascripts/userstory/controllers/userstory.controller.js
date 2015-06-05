@@ -25,7 +25,7 @@
         vm.userstory = {};
         vm.userstoryNulo = {};
         vm.estados = [];
-        vm.hus=[];
+        vm.hus = [];
 
         vm.flujos = [];
         vm.flujo = {};
@@ -42,6 +42,7 @@
         vm.agregarEstado = agregarEstado;
         vm.agregarFlujo = agregarFlujo;
         vm.verHistorial = verHistorial;
+        vm.agregarUS = agregarUS;
 
         activate();
 
@@ -124,6 +125,29 @@
             vm.flujoNulo.nombre = '';
             vm.flujoNulo.estado = '';
             vm.flujoNulo.observacion = '';
+
+            if (!!$cookies.Sprints) {
+                vm.sprints = JSON.parse($cookies.Sprints);
+            } else {
+                vm.sprints = [
+                    {
+                        'lugar': 1,
+                        'fecha_ini': new Date(),
+                        'duracionHoras': 20.00,
+                        'estado': 'Cerrado',
+                        'horasRest': 0.00
+                    },
+                    {
+                        'lugar': 2,
+                        'fecha_ini': new Date(),
+                        'duracionHoras': 20.00,
+                        'estado': 'Activo',
+                        'horasRest': 20.00
+                    }
+                ];
+
+                $cookies.Sprints = JSON.stringify(vm.sprints);
+            }
         }
 
         function activate() {
@@ -167,13 +191,26 @@
             console.log(vm.userstory.estado);
         }
 
-        function agregarFlujo(){
-            vm.flujo = vm.flujos[vm.idFlujo-1];
+        function agregarFlujo() {
+            vm.flujo = vm.flujos[vm.idFlujo - 1];
         }
 
-        function verHistorial(us){
+        function verHistorial(us) {
             $cookies.USActual = JSON.stringify(us);
             $location.url('/historial');
+        }
+
+        function agregarUS(us) {
+            var i = 0;
+            for (i = 0; i < vm.sprints.length; i++) {
+                if (vm.sprints[i].estado == 'Activo') {
+                    vm.sprints[i].horasRest = vm.sprints[i].horasRest - us.tamanho;
+                }
+            }
+            console.log(vm.sprints);
+            $cookies.Sprints = JSON.stringify(vm.sprints);
+            console.log(JSON.parse($cookies.Sprints));
+            $location.url('/sprints');
         }
     }
 })();

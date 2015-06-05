@@ -1,0 +1,777 @@
+<?xml version="1.0" encoding="ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>flujos.models</title>
+  <link rel="stylesheet" href="epydoc.css" type="text/css" />
+  <script type="text/javascript" src="epydoc.js"></script>
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="#204080"
+      alink="#204080">
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="top">
+    <td width="100%">
+      <span class="breadcrumbs">
+        <a href="flujos-module.html">Package&nbsp;flujos</a> ::
+        Module&nbsp;models
+      </span>
+    </td>
+    <td>
+      <table cellpadding="0" cellspacing="0">
+        <!-- hide/show private -->
+        <tr><td align="right"><span class="options">[<a href="javascript:void(0);" class="privatelink"
+    onclick="toggle_private();">hide&nbsp;private</a>]</span></td></tr>
+        <tr><td align="right"><span class="options"
+            >[<a href="frames.html" target="_top">frames</a
+            >]&nbsp;|&nbsp;<a href="flujos.models-pysrc.html"
+            target="_top">no&nbsp;frames</a>]</span></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<h1 class="epydoc">Source Code for <a href="flujos.models-module.html">Module flujos.models</a></h1>
+<pre class="py-src">
+<a name="L1"></a><tt class="py-lineno">  1</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt class="py-name">django</tt><tt class="py-op">.</tt><tt class="py-name">db</tt> <tt class="py-keyword">import</tt> <tt id="link-0" class="py-name" targets="Module authentication.models=authentication.models-module.html,Module flujos.models=flujos.models-module.html,Module proyectos.models=proyectos.models-module.html,Module sprints.models=sprints.models-module.html,Module userstories.models=userstories.models-module.html,Module utilitarios.models=utilitarios.models-module.html"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-0', 'models', 'link-0');">models</a></tt> </tt>
+<a name="L2"></a><tt class="py-lineno">  2</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-1" class="py-name" targets="Package authentication=authentication-module.html"><a title="authentication" class="py-name" href="#" onclick="return doclink('link-1', 'authentication', 'link-1');">authentication</a></tt><tt class="py-op">.</tt><tt id="link-2" class="py-name"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-2', 'models', 'link-0');">models</a></tt> <tt class="py-keyword">import</tt> <tt id="link-3" class="py-name" targets="Class authentication.models.Usuario=authentication.models.Usuario-class.html"><a title="authentication.models.Usuario" class="py-name" href="#" onclick="return doclink('link-3', 'Usuario', 'link-3');">Usuario</a></tt> </tt>
+<a name="L3"></a><tt class="py-lineno">  3</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-4" class="py-name" targets="Package proyectos=proyectos-module.html"><a title="proyectos" class="py-name" href="#" onclick="return doclink('link-4', 'proyectos', 'link-4');">proyectos</a></tt><tt class="py-op">.</tt><tt id="link-5" class="py-name"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-5', 'models', 'link-0');">models</a></tt> <tt class="py-keyword">import</tt> <tt id="link-6" class="py-name" targets="Class proyectos.models.Proyecto=proyectos.models.Proyecto-class.html"><a title="proyectos.models.Proyecto" class="py-name" href="#" onclick="return doclink('link-6', 'Proyecto', 'link-6');">Proyecto</a></tt> </tt>
+<a name="L4"></a><tt class="py-lineno">  4</tt>  <tt class="py-line"><tt class="py-keyword">from</tt> <tt id="link-7" class="py-name" targets="Package utilitarios=utilitarios-module.html"><a title="utilitarios" class="py-name" href="#" onclick="return doclink('link-7', 'utilitarios', 'link-7');">utilitarios</a></tt><tt class="py-op">.</tt><tt id="link-8" class="py-name"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-8', 'models', 'link-0');">models</a></tt> <tt class="py-keyword">import</tt> <tt id="link-9" class="py-name" targets="Class utilitarios.models.Utils=utilitarios.models.Utils-class.html"><a title="utilitarios.models.Utils" class="py-name" href="#" onclick="return doclink('link-9', 'Utils', 'link-9');">Utils</a></tt> </tt>
+<a name="L5"></a><tt class="py-lineno">  5</tt>  <tt class="py-line"><tt class="py-comment"># from django.utils import timezone</tt> </tt>
+<a name="L6"></a><tt class="py-lineno">  6</tt>  <tt class="py-line"> </tt>
+<a name="FlujoManager"></a><div id="FlujoManager-def"><a name="L7"></a><tt class="py-lineno">  7</tt> <a class="py-toggle" href="#" id="FlujoManager-toggle" onclick="return toggle('FlujoManager');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="flujos.models.FlujoManager-class.html">FlujoManager</a><tt class="py-op">(</tt><tt class="py-base-class">models</tt><tt class="py-op">.</tt><tt class="py-base-class">Manager</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="FlujoManager-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="FlujoManager-expanded"><a name="L8"></a><tt class="py-lineno">  8</tt>  <tt class="py-line"> </tt>
+<a name="FlujoManager.crear_flujo"></a><div id="FlujoManager.crear_flujo-def"><a name="L9"></a><tt class="py-lineno">  9</tt> <a class="py-toggle" href="#" id="FlujoManager.crear_flujo-toggle" onclick="return toggle('FlujoManager.crear_flujo');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="flujos.models.FlujoManager-class.html#crear_flujo">crear_flujo</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-param">kwargs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="FlujoManager.crear_flujo-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="FlujoManager.crear_flujo-expanded"><a name="L10"></a><tt class="py-lineno"> 10</tt>  <tt class="py-line"> </tt>
+<a name="L11"></a><tt class="py-lineno"> 11</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'nombre'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L12"></a><tt class="py-lineno"> 12</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">ValueError</tt><tt class="py-op">(</tt><tt class="py-string">'Debe existir un nombre de Proyecto'</tt><tt class="py-op">)</tt> </tt>
+<a name="L13"></a><tt class="py-lineno"> 13</tt>  <tt class="py-line"> </tt>
+<a name="L14"></a><tt class="py-lineno"> 14</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'proyecto_id'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L15"></a><tt class="py-lineno"> 15</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">ValueError</tt><tt class="py-op">(</tt><tt class="py-string">'Debe existir un Proyecto porpietario'</tt><tt class="py-op">)</tt> </tt>
+<a name="L16"></a><tt class="py-lineno"> 16</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L17"></a><tt class="py-lineno"> 17</tt>  <tt class="py-line">            <tt id="link-10" class="py-name" targets="Variable flujos.models.Flujo.proyecto=flujos.models.Flujo-class.html#proyecto,Variable sprints.models.Sprint.proyecto=sprints.models.Sprint-class.html#proyecto,Variable userstories.models.UserStory.proyecto=userstories.models.UserStory-class.html#proyecto"><a title="flujos.models.Flujo.proyecto
+sprints.models.Sprint.proyecto
+userstories.models.UserStory.proyecto" class="py-name" href="#" onclick="return doclink('link-10', 'proyecto', 'link-10');">proyecto</a></tt> <tt class="py-op">=</tt> <tt id="link-11" class="py-name"><a title="proyectos.models.Proyecto" class="py-name" href="#" onclick="return doclink('link-11', 'Proyecto', 'link-6');">Proyecto</a></tt><tt class="py-op">.</tt><tt id="link-12" class="py-name" targets="Variable authentication.models.Usuario.objects=authentication.models.Usuario-class.html#objects,Variable flujos.models.Actividad.objects=flujos.models.Actividad-class.html#objects,Variable flujos.models.Flujo.objects=flujos.models.Flujo-class.html#objects,Variable proyectos.models.Proyecto.objects=proyectos.models.Proyecto-class.html#objects,Variable sprints.models.Sprint.objects=sprints.models.Sprint-class.html#objects,Variable userstories.models.UserStory.objects=userstories.models.UserStory-class.html#objects,Variable utilitarios.models.Utils.objects=utilitarios.models.Utils-class.html#objects"><a title="authentication.models.Usuario.objects
+flujos.models.Actividad.objects
+flujos.models.Flujo.objects
+proyectos.models.Proyecto.objects
+sprints.models.Sprint.objects
+userstories.models.UserStory.objects
+utilitarios.models.Utils.objects" class="py-name" href="#" onclick="return doclink('link-12', 'objects', 'link-12');">objects</a></tt><tt class="py-op">.</tt><tt id="link-13" class="py-name" targets="Method proyectos.models.ProyectoManager.buscar_proyecto()=proyectos.models.ProyectoManager-class.html#buscar_proyecto"><a title="proyectos.models.ProyectoManager.buscar_proyecto" class="py-name" href="#" onclick="return doclink('link-13', 'buscar_proyecto', 'link-13');">buscar_proyecto</a></tt><tt class="py-op">(</tt><tt class="py-name">id</tt><tt class="py-op">=</tt><tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'proyecto_id'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L18"></a><tt class="py-lineno"> 18</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt id="link-14" class="py-name"><a title="flujos.models.Flujo.proyecto
+sprints.models.Sprint.proyecto
+userstories.models.UserStory.proyecto" class="py-name" href="#" onclick="return doclink('link-14', 'proyecto', 'link-10');">proyecto</a></tt> <tt class="py-op">==</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L19"></a><tt class="py-lineno"> 19</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'No existe el proyecto'</tt><tt class="py-op">)</tt> </tt>
+<a name="L20"></a><tt class="py-lineno"> 20</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt id="link-15" class="py-name"><a title="utilitarios.models.Utils" class="py-name" href="#" onclick="return doclink('link-15', 'Utils', 'link-9');">Utils</a></tt><tt class="py-op">.</tt><tt id="link-16" class="py-name" targets="Variable utilitarios.models.Utils.NO_ENCONTRADO=utilitarios.models.Utils-class.html#NO_ENCONTRADO"><a title="utilitarios.models.Utils.NO_ENCONTRADO" class="py-name" href="#" onclick="return doclink('link-16', 'NO_ENCONTRADO', 'link-16');">NO_ENCONTRADO</a></tt> </tt>
+<a name="L21"></a><tt class="py-lineno"> 21</tt>  <tt class="py-line"> </tt>
+<a name="L22"></a><tt class="py-lineno"> 22</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'owner_id'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L23"></a><tt class="py-lineno"> 23</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">ValueError</tt><tt class="py-op">(</tt><tt class="py-string">'Debe existir un Usuario responsable'</tt><tt class="py-op">)</tt> </tt>
+<a name="L24"></a><tt class="py-lineno"> 24</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L25"></a><tt class="py-lineno"> 25</tt>  <tt class="py-line">            <tt id="link-17" class="py-name" targets="Variable flujos.models.Actividad.owner=flujos.models.Actividad-class.html#owner,Variable flujos.models.Flujo.owner=flujos.models.Flujo-class.html#owner,Variable proyectos.models.Proyecto.owner=proyectos.models.Proyecto-class.html#owner,Variable sprints.models.Sprint.owner=sprints.models.Sprint-class.html#owner,Variable userstories.models.UserStory.owner=userstories.models.UserStory-class.html#owner"><a title="flujos.models.Actividad.owner
+flujos.models.Flujo.owner
+proyectos.models.Proyecto.owner
+sprints.models.Sprint.owner
+userstories.models.UserStory.owner" class="py-name" href="#" onclick="return doclink('link-17', 'owner', 'link-17');">owner</a></tt> <tt class="py-op">=</tt> <tt id="link-18" class="py-name"><a title="authentication.models.Usuario" class="py-name" href="#" onclick="return doclink('link-18', 'Usuario', 'link-3');">Usuario</a></tt><tt class="py-op">.</tt><tt id="link-19" class="py-name"><a title="authentication.models.Usuario.objects
+flujos.models.Actividad.objects
+flujos.models.Flujo.objects
+proyectos.models.Proyecto.objects
+sprints.models.Sprint.objects
+userstories.models.UserStory.objects
+utilitarios.models.Utils.objects" class="py-name" href="#" onclick="return doclink('link-19', 'objects', 'link-12');">objects</a></tt><tt class="py-op">.</tt><tt id="link-20" class="py-name" targets="Method authentication.models.UsuarioManager.buscar_usuario()=authentication.models.UsuarioManager-class.html#buscar_usuario"><a title="authentication.models.UsuarioManager.buscar_usuario" class="py-name" href="#" onclick="return doclink('link-20', 'buscar_usuario', 'link-20');">buscar_usuario</a></tt><tt class="py-op">(</tt><tt class="py-name">id</tt><tt class="py-op">=</tt><tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'owner_id'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L26"></a><tt class="py-lineno"> 26</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt id="link-21" class="py-name"><a title="flujos.models.Actividad.owner
+flujos.models.Flujo.owner
+proyectos.models.Proyecto.owner
+sprints.models.Sprint.owner
+userstories.models.UserStory.owner" class="py-name" href="#" onclick="return doclink('link-21', 'owner', 'link-17');">owner</a></tt> <tt class="py-op">==</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L27"></a><tt class="py-lineno"> 27</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'No existe el owner'</tt><tt class="py-op">)</tt> </tt>
+<a name="L28"></a><tt class="py-lineno"> 28</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt id="link-22" class="py-name"><a title="utilitarios.models.Utils" class="py-name" href="#" onclick="return doclink('link-22', 'Utils', 'link-9');">Utils</a></tt><tt class="py-op">.</tt><tt id="link-23" class="py-name"><a title="utilitarios.models.Utils.NO_ENCONTRADO" class="py-name" href="#" onclick="return doclink('link-23', 'NO_ENCONTRADO', 'link-16');">NO_ENCONTRADO</a></tt> </tt>
+<a name="L29"></a><tt class="py-lineno"> 29</tt>  <tt class="py-line"> </tt>
+<a name="L30"></a><tt class="py-lineno"> 30</tt>  <tt class="py-line">        <tt id="link-24" class="py-name" targets="Variable flujos.models.Actividad.flujo=flujos.models.Actividad-class.html#flujo"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-24', 'flujo', 'link-24');">flujo</a></tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-25" class="py-name" targets="Variable authentication.serializers.UsuarioSerializer.Meta.model=authentication.serializers.UsuarioSerializer.Meta-class.html#model,Variable proyectos.serializers.ProyectoSerializer.Meta.model=proyectos.serializers.ProyectoSerializer.Meta-class.html#model"><a title="authentication.serializers.UsuarioSerializer.Meta.model
+proyectos.serializers.ProyectoSerializer.Meta.model" class="py-name" href="#" onclick="return doclink('link-25', 'model', 'link-25');">model</a></tt><tt class="py-op">(</tt> </tt>
+<a name="L31"></a><tt class="py-lineno"> 31</tt>  <tt class="py-line">            <tt id="link-26" class="py-name" targets="Variable authentication.models.Usuario.nombre=authentication.models.Usuario-class.html#nombre,Variable flujos.models.Actividad.nombre=flujos.models.Actividad-class.html#nombre,Variable flujos.models.Flujo.nombre=flujos.models.Flujo-class.html#nombre,Variable proyectos.models.Proyecto.nombre=proyectos.models.Proyecto-class.html#nombre,Variable userstories.models.UserStory.nombre=userstories.models.UserStory-class.html#nombre"><a title="authentication.models.Usuario.nombre
+flujos.models.Actividad.nombre
+flujos.models.Flujo.nombre
+proyectos.models.Proyecto.nombre
+userstories.models.UserStory.nombre" class="py-name" href="#" onclick="return doclink('link-26', 'nombre', 'link-26');">nombre</a></tt><tt class="py-op">=</tt><tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'nombre'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L32"></a><tt class="py-lineno"> 32</tt>  <tt class="py-line">            <tt id="link-27" class="py-name"><a title="flujos.models.Actividad.owner
+flujos.models.Flujo.owner
+proyectos.models.Proyecto.owner
+sprints.models.Sprint.owner
+userstories.models.UserStory.owner" class="py-name" href="#" onclick="return doclink('link-27', 'owner', 'link-17');">owner</a></tt><tt class="py-op">=</tt><tt id="link-28" class="py-name"><a title="flujos.models.Actividad.owner
+flujos.models.Flujo.owner
+proyectos.models.Proyecto.owner
+sprints.models.Sprint.owner
+userstories.models.UserStory.owner" class="py-name" href="#" onclick="return doclink('link-28', 'owner', 'link-17');">owner</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L33"></a><tt class="py-lineno"> 33</tt>  <tt class="py-line">            <tt id="link-29" class="py-name"><a title="flujos.models.Flujo.proyecto
+sprints.models.Sprint.proyecto
+userstories.models.UserStory.proyecto" class="py-name" href="#" onclick="return doclink('link-29', 'proyecto', 'link-10');">proyecto</a></tt><tt class="py-op">=</tt><tt id="link-30" class="py-name"><a title="flujos.models.Flujo.proyecto
+sprints.models.Sprint.proyecto
+userstories.models.UserStory.proyecto" class="py-name" href="#" onclick="return doclink('link-30', 'proyecto', 'link-10');">proyecto</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L34"></a><tt class="py-lineno"> 34</tt>  <tt class="py-line">            <tt id="link-31" class="py-name" targets="Variable proyectos.models.Proyecto.observacion=proyectos.models.Proyecto-class.html#observacion"><a title="proyectos.models.Proyecto.observacion" class="py-name" href="#" onclick="return doclink('link-31', 'observacion', 'link-31');">observacion</a></tt><tt class="py-op">=</tt><tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'observacion'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L35"></a><tt class="py-lineno"> 35</tt>  <tt class="py-line">            <tt id="link-32" class="py-name" targets="Variable flujos.models.Actividad.estado=flujos.models.Actividad-class.html#estado,Variable flujos.models.Flujo.estado=flujos.models.Flujo-class.html#estado,Variable proyectos.models.Proyecto.estado=proyectos.models.Proyecto-class.html#estado,Variable sprints.models.Sprint.estado=sprints.models.Sprint-class.html#estado,Variable userstories.models.UserStory.estado=userstories.models.UserStory-class.html#estado"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-32', 'estado', 'link-32');">estado</a></tt><tt class="py-op">=</tt><tt id="link-33" class="py-name" targets="Class flujos.models.Flujo=flujos.models.Flujo-class.html"><a title="flujos.models.Flujo" class="py-name" href="#" onclick="return doclink('link-33', 'Flujo', 'link-33');">Flujo</a></tt><tt class="py-op">.</tt><tt id="link-34" class="py-name" targets="Variable flujos.models.Actividad.TODO=flujos.models.Actividad-class.html#TODO,Variable flujos.models.Flujo.TODO=flujos.models.Flujo-class.html#TODO"><a title="flujos.models.Actividad.TODO
+flujos.models.Flujo.TODO" class="py-name" href="#" onclick="return doclink('link-34', 'TODO', 'link-34');">TODO</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L36"></a><tt class="py-lineno"> 36</tt>  <tt class="py-line">        <tt class="py-op">)</tt> </tt>
+<a name="L37"></a><tt class="py-lineno"> 37</tt>  <tt class="py-line"> </tt>
+<a name="L38"></a><tt class="py-lineno"> 38</tt>  <tt class="py-line">        <tt id="link-35" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-35', 'flujo', 'link-24');">flujo</a></tt><tt class="py-op">.</tt><tt class="py-name">save</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L39"></a><tt class="py-lineno"> 39</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt id="link-36" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-36', 'flujo', 'link-24');">flujo</a></tt> </tt>
+</div><a name="L40"></a><tt class="py-lineno"> 40</tt>  <tt class="py-line"> </tt>
+<a name="FlujoManager.buscar_flujo"></a><div id="FlujoManager.buscar_flujo-def"><a name="L41"></a><tt class="py-lineno"> 41</tt> <a class="py-toggle" href="#" id="FlujoManager.buscar_flujo-toggle" onclick="return toggle('FlujoManager.buscar_flujo');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="flujos.models.FlujoManager-class.html#buscar_flujo">buscar_flujo</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="FlujoManager.buscar_flujo-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="FlujoManager.buscar_flujo-expanded"><a name="L42"></a><tt class="py-lineno"> 42</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L43"></a><tt class="py-lineno"> 43</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt id="link-37" class="py-name"><a title="flujos.models.Flujo" class="py-name" href="#" onclick="return doclink('link-37', 'Flujo', 'link-33');">Flujo</a></tt><tt class="py-op">.</tt><tt id="link-38" class="py-name"><a title="authentication.models.Usuario.objects
+flujos.models.Actividad.objects
+flujos.models.Flujo.objects
+proyectos.models.Proyecto.objects
+sprints.models.Sprint.objects
+userstories.models.UserStory.objects
+utilitarios.models.Utils.objects" class="py-name" href="#" onclick="return doclink('link-38', 'objects', 'link-12');">objects</a></tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-name">pk</tt><tt class="py-op">=</tt><tt class="py-name">id</tt><tt class="py-op">)</tt> </tt>
+<a name="L44"></a><tt class="py-lineno"> 44</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt id="link-39" class="py-name"><a title="flujos.models.Flujo" class="py-name" href="#" onclick="return doclink('link-39', 'Flujo', 'link-33');">Flujo</a></tt><tt class="py-op">.</tt><tt class="py-name">DoesNotExist</tt><tt class="py-op">:</tt> </tt>
+<a name="L45"></a><tt class="py-lineno"> 45</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+</div><a name="L46"></a><tt class="py-lineno"> 46</tt>  <tt class="py-line"> </tt>
+<a name="FlujoManager.modificar_flujo"></a><div id="FlujoManager.modificar_flujo-def"><a name="L47"></a><tt class="py-lineno"> 47</tt> <a class="py-toggle" href="#" id="FlujoManager.modificar_flujo-toggle" onclick="return toggle('FlujoManager.modificar_flujo');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="flujos.models.FlujoManager-class.html#modificar_flujo">modificar_flujo</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">id</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-param">kwargs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="FlujoManager.modificar_flujo-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="FlujoManager.modificar_flujo-expanded"><a name="L48"></a><tt class="py-lineno"> 48</tt>  <tt class="py-line">        <tt id="link-40" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-40', 'flujo', 'link-24');">flujo</a></tt> <tt class="py-op">=</tt> <tt id="link-41" class="py-name"><a title="flujos.models.Flujo" class="py-name" href="#" onclick="return doclink('link-41', 'Flujo', 'link-33');">Flujo</a></tt><tt class="py-op">.</tt><tt id="link-42" class="py-name"><a title="authentication.models.Usuario.objects
+flujos.models.Actividad.objects
+flujos.models.Flujo.objects
+proyectos.models.Proyecto.objects
+sprints.models.Sprint.objects
+userstories.models.UserStory.objects
+utilitarios.models.Utils.objects" class="py-name" href="#" onclick="return doclink('link-42', 'objects', 'link-12');">objects</a></tt><tt class="py-op">.</tt><tt id="link-43" class="py-name" targets="Method flujos.models.FlujoManager.buscar_flujo()=flujos.models.FlujoManager-class.html#buscar_flujo"><a title="flujos.models.FlujoManager.buscar_flujo" class="py-name" href="#" onclick="return doclink('link-43', 'buscar_flujo', 'link-43');">buscar_flujo</a></tt><tt class="py-op">(</tt><tt class="py-name">id</tt><tt class="py-op">)</tt> </tt>
+<a name="L49"></a><tt class="py-lineno"> 49</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-44" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-44', 'flujo', 'link-24');">flujo</a></tt> <tt class="py-op">!=</tt><tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L50"></a><tt class="py-lineno"> 50</tt>  <tt class="py-line">            <tt id="link-45" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-45', 'flujo', 'link-24');">flujo</a></tt><tt class="py-op">.</tt><tt id="link-46" class="py-name"><a title="authentication.models.Usuario.nombre
+flujos.models.Actividad.nombre
+flujos.models.Flujo.nombre
+proyectos.models.Proyecto.nombre
+userstories.models.UserStory.nombre" class="py-name" href="#" onclick="return doclink('link-46', 'nombre', 'link-26');">nombre</a></tt> <tt class="py-op">=</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'nombre'</tt><tt class="py-op">)</tt> </tt>
+<a name="L51"></a><tt class="py-lineno"> 51</tt>  <tt class="py-line">            <tt id="link-47" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-47', 'flujo', 'link-24');">flujo</a></tt><tt class="py-op">.</tt><tt id="link-48" class="py-name" targets="Variable flujos.models.Flujo.observaciones=flujos.models.Flujo-class.html#observaciones"><a title="flujos.models.Flujo.observaciones" class="py-name" href="#" onclick="return doclink('link-48', 'observaciones', 'link-48');">observaciones</a></tt> <tt class="py-op">=</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'observaciones'</tt><tt class="py-op">)</tt> </tt>
+<a name="L52"></a><tt class="py-lineno"> 52</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L53"></a><tt class="py-lineno"> 53</tt>  <tt class="py-line">            <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'No existe el flujo'</tt><tt class="py-op">)</tt> </tt>
+<a name="L54"></a><tt class="py-lineno"> 54</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt id="link-49" class="py-name"><a title="utilitarios.models.Utils" class="py-name" href="#" onclick="return doclink('link-49', 'Utils', 'link-9');">Utils</a></tt><tt class="py-op">.</tt><tt id="link-50" class="py-name"><a title="utilitarios.models.Utils.NO_ENCONTRADO" class="py-name" href="#" onclick="return doclink('link-50', 'NO_ENCONTRADO', 'link-16');">NO_ENCONTRADO</a></tt> </tt>
+<a name="L55"></a><tt class="py-lineno"> 55</tt>  <tt class="py-line">        <tt id="link-51" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-51', 'flujo', 'link-24');">flujo</a></tt><tt class="py-op">.</tt><tt class="py-name">save</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L56"></a><tt class="py-lineno"> 56</tt>  <tt class="py-line"> </tt>
+<a name="FlujoManager.cambiar_estado"></a><div id="FlujoManager.cambiar_estado-def"><a name="L57"></a><tt class="py-lineno"> 57</tt> <a class="py-toggle" href="#" id="FlujoManager.cambiar_estado-toggle" onclick="return toggle('FlujoManager.cambiar_estado');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="flujos.models.FlujoManager-class.html#cambiar_estado">cambiar_estado</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">id</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-param">kwargs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="FlujoManager.cambiar_estado-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="FlujoManager.cambiar_estado-expanded"><a name="L58"></a><tt class="py-lineno"> 58</tt>  <tt class="py-line"> </tt>
+<a name="L59"></a><tt class="py-lineno"> 59</tt>  <tt class="py-line">        <tt id="link-52" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-52', 'flujo', 'link-24');">flujo</a></tt> <tt class="py-op">=</tt> <tt id="link-53" class="py-name"><a title="flujos.models.Flujo" class="py-name" href="#" onclick="return doclink('link-53', 'Flujo', 'link-33');">Flujo</a></tt><tt class="py-op">.</tt><tt id="link-54" class="py-name"><a title="authentication.models.Usuario.objects
+flujos.models.Actividad.objects
+flujos.models.Flujo.objects
+proyectos.models.Proyecto.objects
+sprints.models.Sprint.objects
+userstories.models.UserStory.objects
+utilitarios.models.Utils.objects" class="py-name" href="#" onclick="return doclink('link-54', 'objects', 'link-12');">objects</a></tt><tt class="py-op">.</tt><tt id="link-55" class="py-name"><a title="flujos.models.FlujoManager.buscar_flujo" class="py-name" href="#" onclick="return doclink('link-55', 'buscar_flujo', 'link-43');">buscar_flujo</a></tt><tt class="py-op">(</tt><tt class="py-name">id</tt><tt class="py-op">)</tt> </tt>
+<a name="L60"></a><tt class="py-lineno"> 60</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt id="link-56" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-56', 'flujo', 'link-24');">flujo</a></tt> <tt class="py-op">!=</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L61"></a><tt class="py-lineno"> 61</tt>  <tt class="py-line"> </tt>
+<a name="L62"></a><tt class="py-lineno"> 62</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt id="link-57" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-57', 'flujo', 'link-24');">flujo</a></tt><tt class="py-op">.</tt><tt id="link-58" class="py-name"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-58', 'estado', 'link-32');">estado</a></tt> <tt class="py-op">==</tt> <tt id="link-59" class="py-name"><a title="flujos.models.Flujo" class="py-name" href="#" onclick="return doclink('link-59', 'Flujo', 'link-33');">Flujo</a></tt><tt class="py-op">.</tt><tt id="link-60" class="py-name" targets="Variable flujos.models.Actividad.DOING=flujos.models.Actividad-class.html#DOING,Variable flujos.models.Flujo.DOING=flujos.models.Flujo-class.html#DOING"><a title="flujos.models.Actividad.DOING
+flujos.models.Flujo.DOING" class="py-name" href="#" onclick="return doclink('link-60', 'DOING', 'link-60');">DOING</a></tt> <tt class="py-keyword">and</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'estado'</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-61" class="py-name"><a title="flujos.models.Flujo" class="py-name" href="#" onclick="return doclink('link-61', 'Flujo', 'link-33');">Flujo</a></tt><tt class="py-op">.</tt><tt id="link-62" class="py-name" targets="Variable flujos.models.Actividad.DONE=flujos.models.Actividad-class.html#DONE,Variable flujos.models.Flujo.DONE=flujos.models.Flujo-class.html#DONE"><a title="flujos.models.Actividad.DONE
+flujos.models.Flujo.DONE" class="py-name" href="#" onclick="return doclink('link-62', 'DONE', 'link-62');">DONE</a></tt><tt class="py-op">:</tt>  <tt class="py-comment">#si es el SCRUM</tt> </tt>
+<a name="L63"></a><tt class="py-lineno"> 63</tt>  <tt class="py-line">                <tt class="py-comment">#confirmar actividades en DONE</tt> </tt>
+<a name="L64"></a><tt class="py-lineno"> 64</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt id="link-63" class="py-name" targets="Class flujos.models.Actividad=flujos.models.Actividad-class.html"><a title="flujos.models.Actividad" class="py-name" href="#" onclick="return doclink('link-63', 'Actividad', 'link-63');">Actividad</a></tt><tt class="py-op">.</tt><tt id="link-64" class="py-name"><a title="authentication.models.Usuario.objects
+flujos.models.Actividad.objects
+flujos.models.Flujo.objects
+proyectos.models.Proyecto.objects
+sprints.models.Sprint.objects
+userstories.models.UserStory.objects
+utilitarios.models.Utils.objects" class="py-name" href="#" onclick="return doclink('link-64', 'objects', 'link-12');">objects</a></tt><tt class="py-op">.</tt><tt id="link-65" class="py-name" targets="Method flujos.models.ActividadManager.confirmarActividades()=flujos.models.ActividadManager-class.html#confirmarActividades"><a title="flujos.models.ActividadManager.confirmarActividades" class="py-name" href="#" onclick="return doclink('link-65', 'confirmarActividades', 'link-65');">confirmarActividades</a></tt><tt class="py-op">(</tt><tt id="link-66" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-66', 'flujo', 'link-24');">flujo</a></tt><tt class="py-op">.</tt><tt class="py-name">id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L65"></a><tt class="py-lineno"> 65</tt>  <tt class="py-line">                    <tt id="link-67" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-67', 'flujo', 'link-24');">flujo</a></tt><tt class="py-op">.</tt><tt id="link-68" class="py-name"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-68', 'estado', 'link-32');">estado</a></tt> <tt class="py-op">=</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'estado'</tt><tt class="py-op">)</tt> </tt>
+<a name="L66"></a><tt class="py-lineno"> 66</tt>  <tt class="py-line">                    <tt id="link-69" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-69', 'flujo', 'link-24');">flujo</a></tt><tt class="py-op">.</tt><tt class="py-name">save</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L67"></a><tt class="py-lineno"> 67</tt>  <tt class="py-line">                    <tt class="py-keyword">return</tt> <tt id="link-70" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-70', 'flujo', 'link-24');">flujo</a></tt> </tt>
+<a name="L68"></a><tt class="py-lineno"> 68</tt>  <tt class="py-line">                <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L69"></a><tt class="py-lineno"> 69</tt>  <tt class="py-line">                    <tt class="py-keyword">return</tt> <tt id="link-71" class="py-name"><a title="utilitarios.models.Utils" class="py-name" href="#" onclick="return doclink('link-71', 'Utils', 'link-9');">Utils</a></tt><tt class="py-op">.</tt><tt id="link-72" class="py-name" targets="Variable utilitarios.models.Utils.NO_PERMITIDO=utilitarios.models.Utils-class.html#NO_PERMITIDO"><a title="utilitarios.models.Utils.NO_PERMITIDO" class="py-name" href="#" onclick="return doclink('link-72', 'NO_PERMITIDO', 'link-72');">NO_PERMITIDO</a></tt> </tt>
+<a name="L70"></a><tt class="py-lineno"> 70</tt>  <tt class="py-line"> </tt>
+<a name="L71"></a><tt class="py-lineno"> 71</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt id="link-73" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-73', 'flujo', 'link-24');">flujo</a></tt><tt class="py-op">.</tt><tt id="link-74" class="py-name"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-74', 'estado', 'link-32');">estado</a></tt> <tt class="py-op">==</tt> <tt id="link-75" class="py-name"><a title="flujos.models.Flujo" class="py-name" href="#" onclick="return doclink('link-75', 'Flujo', 'link-33');">Flujo</a></tt><tt class="py-op">.</tt><tt id="link-76" class="py-name"><a title="flujos.models.Actividad.DONE
+flujos.models.Flujo.DONE" class="py-name" href="#" onclick="return doclink('link-76', 'DONE', 'link-62');">DONE</a></tt> <tt class="py-keyword">and</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'estado'</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-77" class="py-name"><a title="flujos.models.Flujo" class="py-name" href="#" onclick="return doclink('link-77', 'Flujo', 'link-33');">Flujo</a></tt><tt class="py-op">.</tt><tt id="link-78" class="py-name"><a title="flujos.models.Actividad.DOING
+flujos.models.Flujo.DOING" class="py-name" href="#" onclick="return doclink('link-78', 'DOING', 'link-60');">DOING</a></tt><tt class="py-op">:</tt>  <tt class="py-comment">#si es el SCRUM</tt> </tt>
+<a name="L72"></a><tt class="py-lineno"> 72</tt>  <tt class="py-line">                <tt id="link-79" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-79', 'flujo', 'link-24');">flujo</a></tt><tt class="py-op">.</tt><tt id="link-80" class="py-name"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-80', 'estado', 'link-32');">estado</a></tt> <tt class="py-op">=</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'estado'</tt><tt class="py-op">)</tt> </tt>
+<a name="L73"></a><tt class="py-lineno"> 73</tt>  <tt class="py-line">                <tt id="link-81" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-81', 'flujo', 'link-24');">flujo</a></tt><tt class="py-op">.</tt><tt class="py-name">save</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L74"></a><tt class="py-lineno"> 74</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt id="link-82" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-82', 'flujo', 'link-24');">flujo</a></tt> </tt>
+<a name="L75"></a><tt class="py-lineno"> 75</tt>  <tt class="py-line"> </tt>
+<a name="L76"></a><tt class="py-lineno"> 76</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt id="link-83" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-83', 'flujo', 'link-24');">flujo</a></tt><tt class="py-op">.</tt><tt id="link-84" class="py-name"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-84', 'estado', 'link-32');">estado</a></tt> <tt class="py-op">==</tt> <tt id="link-85" class="py-name"><a title="flujos.models.Flujo" class="py-name" href="#" onclick="return doclink('link-85', 'Flujo', 'link-33');">Flujo</a></tt><tt class="py-op">.</tt><tt id="link-86" class="py-name"><a title="flujos.models.Actividad.TODO
+flujos.models.Flujo.TODO" class="py-name" href="#" onclick="return doclink('link-86', 'TODO', 'link-34');">TODO</a></tt> <tt class="py-keyword">and</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'estado'</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-87" class="py-name"><a title="flujos.models.Flujo" class="py-name" href="#" onclick="return doclink('link-87', 'Flujo', 'link-33');">Flujo</a></tt><tt class="py-op">.</tt><tt id="link-88" class="py-name"><a title="flujos.models.Actividad.DOING
+flujos.models.Flujo.DOING" class="py-name" href="#" onclick="return doclink('link-88', 'DOING', 'link-60');">DOING</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L77"></a><tt class="py-lineno"> 77</tt>  <tt class="py-line">                <tt id="link-89" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-89', 'flujo', 'link-24');">flujo</a></tt><tt class="py-op">.</tt><tt id="link-90" class="py-name"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-90', 'estado', 'link-32');">estado</a></tt> <tt class="py-op">=</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'estado'</tt><tt class="py-op">)</tt> </tt>
+<a name="L78"></a><tt class="py-lineno"> 78</tt>  <tt class="py-line">                <tt id="link-91" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-91', 'flujo', 'link-24');">flujo</a></tt><tt class="py-op">.</tt><tt id="link-92" class="py-name" targets="Variable flujos.models.Flujo.iniciado=flujos.models.Flujo-class.html#iniciado"><a title="flujos.models.Flujo.iniciado" class="py-name" href="#" onclick="return doclink('link-92', 'iniciado', 'link-92');">iniciado</a></tt> <tt class="py-op">=</tt> <tt class="py-name">True</tt> </tt>
+<a name="L79"></a><tt class="py-lineno"> 79</tt>  <tt class="py-line">                <tt id="link-93" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-93', 'flujo', 'link-24');">flujo</a></tt><tt class="py-op">.</tt><tt class="py-name">save</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L80"></a><tt class="py-lineno"> 80</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt id="link-94" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-94', 'flujo', 'link-24');">flujo</a></tt> </tt>
+<a name="L81"></a><tt class="py-lineno"> 81</tt>  <tt class="py-line"> </tt>
+<a name="L82"></a><tt class="py-lineno"> 82</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L83"></a><tt class="py-lineno"> 83</tt>  <tt class="py-line">            <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'No existe el flujo'</tt><tt class="py-op">)</tt> </tt>
+<a name="L84"></a><tt class="py-lineno"> 84</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt id="link-95" class="py-name"><a title="utilitarios.models.Utils" class="py-name" href="#" onclick="return doclink('link-95', 'Utils', 'link-9');">Utils</a></tt><tt class="py-op">.</tt><tt id="link-96" class="py-name"><a title="utilitarios.models.Utils.NO_ENCONTRADO" class="py-name" href="#" onclick="return doclink('link-96', 'NO_ENCONTRADO', 'link-16');">NO_ENCONTRADO</a></tt> </tt>
+</div></div><a name="L85"></a><tt class="py-lineno"> 85</tt>  <tt class="py-line"> </tt>
+<a name="L86"></a><tt class="py-lineno"> 86</tt>  <tt class="py-line"> </tt>
+<a name="Flujo"></a><div id="Flujo-def"><a name="L87"></a><tt class="py-lineno"> 87</tt> <a class="py-toggle" href="#" id="Flujo-toggle" onclick="return toggle('Flujo');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="flujos.models.Flujo-class.html">Flujo</a><tt class="py-op">(</tt><tt class="py-base-class">models</tt><tt class="py-op">.</tt><tt class="py-base-class">Model</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Flujo-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Flujo-expanded"><a name="L88"></a><tt class="py-lineno"> 88</tt>  <tt class="py-line">    <tt class="py-comment"># Un flujo tendra un codigo identificador, nombre, estado, actividades y observaciones.</tt> </tt>
+<a name="L89"></a><tt class="py-lineno"> 89</tt>  <tt class="py-line">    <tt id="link-97" class="py-name"><a title="flujos.models.Actividad.TODO
+flujos.models.Flujo.TODO" class="py-name" href="#" onclick="return doclink('link-97', 'TODO', 'link-34');">TODO</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'TD'</tt> </tt>
+<a name="L90"></a><tt class="py-lineno"> 90</tt>  <tt class="py-line">    <tt id="link-98" class="py-name"><a title="flujos.models.Actividad.DOING
+flujos.models.Flujo.DOING" class="py-name" href="#" onclick="return doclink('link-98', 'DOING', 'link-60');">DOING</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'DG'</tt> </tt>
+<a name="L91"></a><tt class="py-lineno"> 91</tt>  <tt class="py-line">    <tt id="link-99" class="py-name"><a title="flujos.models.Actividad.DONE
+flujos.models.Flujo.DONE" class="py-name" href="#" onclick="return doclink('link-99', 'DONE', 'link-62');">DONE</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'DN'</tt> </tt>
+<a name="L92"></a><tt class="py-lineno"> 92</tt>  <tt class="py-line">    <tt id="link-100" class="py-name" targets="Variable flujos.models.Flujo.ESTADOS_F=flujos.models.Flujo-class.html#ESTADOS_F"><a title="flujos.models.Flujo.ESTADOS_F" class="py-name" href="#" onclick="return doclink('link-100', 'ESTADOS_F', 'link-100');">ESTADOS_F</a></tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt> </tt>
+<a name="L93"></a><tt class="py-lineno"> 93</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'TD'</tt><tt class="py-op">,</tt> <tt class="py-string">'To_Do'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L94"></a><tt class="py-lineno"> 94</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'DG'</tt><tt class="py-op">,</tt> <tt class="py-string">'Doing'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L95"></a><tt class="py-lineno"> 95</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'DN'</tt><tt class="py-op">,</tt> <tt class="py-string">'Done'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L96"></a><tt class="py-lineno"> 96</tt>  <tt class="py-line">    <tt class="py-op">)</tt> </tt>
+<a name="L97"></a><tt class="py-lineno"> 97</tt>  <tt class="py-line">    <tt id="link-101" class="py-name"><a title="flujos.models.Flujo.proyecto
+sprints.models.Sprint.proyecto
+userstories.models.UserStory.proyecto" class="py-name" href="#" onclick="return doclink('link-101', 'proyecto', 'link-10');">proyecto</a></tt> <tt class="py-op">=</tt> <tt id="link-102" class="py-name"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-102', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ForeignKey</tt><tt class="py-op">(</tt><tt id="link-103" class="py-name"><a title="proyectos.models.Proyecto" class="py-name" href="#" onclick="return doclink('link-103', 'Proyecto', 'link-6');">Proyecto</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L98"></a><tt class="py-lineno"> 98</tt>  <tt class="py-line">                                 <tt class="py-name">related_name</tt><tt class="py-op">=</tt><tt class="py-string">'Proyecto_Flujo'</tt><tt class="py-op">)</tt>  <tt class="py-comment">#, editable=False)  #Proyecto al que corresponde el flujo</tt> </tt>
+<a name="L99"></a><tt class="py-lineno"> 99</tt>  <tt class="py-line">    <tt id="link-104" class="py-name"><a title="flujos.models.Actividad.owner
+flujos.models.Flujo.owner
+proyectos.models.Proyecto.owner
+sprints.models.Sprint.owner
+userstories.models.UserStory.owner" class="py-name" href="#" onclick="return doclink('link-104', 'owner', 'link-17');">owner</a></tt> <tt class="py-op">=</tt> <tt id="link-105" class="py-name"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-105', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ForeignKey</tt><tt class="py-op">(</tt><tt id="link-106" class="py-name"><a title="authentication.models.Usuario" class="py-name" href="#" onclick="return doclink('link-106', 'Usuario', 'link-3');">Usuario</a></tt><tt class="py-op">,</tt> <tt class="py-name">related_name</tt><tt class="py-op">=</tt><tt class="py-string">'Usuario_Flujo'</tt><tt class="py-op">,</tt> </tt>
+<a name="L100"></a><tt class="py-lineno">100</tt>  <tt class="py-line">                              <tt class="py-name">null</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt>  <tt class="py-comment">#, editable=False)  #usuario que lo creo</tt> </tt>
+<a name="L101"></a><tt class="py-lineno">101</tt>  <tt class="py-line">    <tt id="link-107" class="py-name"><a title="authentication.models.Usuario.nombre
+flujos.models.Actividad.nombre
+flujos.models.Flujo.nombre
+proyectos.models.Proyecto.nombre
+userstories.models.UserStory.nombre" class="py-name" href="#" onclick="return doclink('link-107', 'nombre', 'link-26');">nombre</a></tt> <tt class="py-op">=</tt> <tt id="link-108" class="py-name"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-108', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">100</tt><tt class="py-op">)</tt> </tt>
+<a name="L102"></a><tt class="py-lineno">102</tt>  <tt class="py-line">    <tt id="link-109" class="py-name" targets="Variable authentication.models.Usuario.fecha_creacion=authentication.models.Usuario-class.html#fecha_creacion,Variable flujos.models.Actividad.fecha_creacion=flujos.models.Actividad-class.html#fecha_creacion,Variable flujos.models.Flujo.fecha_creacion=flujos.models.Flujo-class.html#fecha_creacion,Variable proyectos.models.Proyecto.fecha_creacion=proyectos.models.Proyecto-class.html#fecha_creacion,Variable sprints.models.Sprint.fecha_creacion=sprints.models.Sprint-class.html#fecha_creacion,Variable userstories.models.UserStory.fecha_creacion=userstories.models.UserStory-class.html#fecha_creacion"><a title="authentication.models.Usuario.fecha_creacion
+flujos.models.Actividad.fecha_creacion
+flujos.models.Flujo.fecha_creacion
+proyectos.models.Proyecto.fecha_creacion
+sprints.models.Sprint.fecha_creacion
+userstories.models.UserStory.fecha_creacion" class="py-name" href="#" onclick="return doclink('link-109', 'fecha_creacion', 'link-109');">fecha_creacion</a></tt> <tt class="py-op">=</tt> <tt id="link-110" class="py-name"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-110', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">DateTimeField</tt><tt class="py-op">(</tt><tt class="py-name">auto_now_add</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L103"></a><tt class="py-lineno">103</tt>  <tt class="py-line">    <tt id="link-111" class="py-name" targets="Variable authentication.models.Usuario.fecha_modificacion=authentication.models.Usuario-class.html#fecha_modificacion,Variable flujos.models.Actividad.fecha_modificacion=flujos.models.Actividad-class.html#fecha_modificacion,Variable flujos.models.Flujo.fecha_modificacion=flujos.models.Flujo-class.html#fecha_modificacion,Variable proyectos.models.Proyecto.fecha_modificacion=proyectos.models.Proyecto-class.html#fecha_modificacion,Variable sprints.models.Sprint.fecha_modificacion=sprints.models.Sprint-class.html#fecha_modificacion,Variable userstories.models.UserStory.fecha_modificacion=userstories.models.UserStory-class.html#fecha_modificacion"><a title="authentication.models.Usuario.fecha_modificacion
+flujos.models.Actividad.fecha_modificacion
+flujos.models.Flujo.fecha_modificacion
+proyectos.models.Proyecto.fecha_modificacion
+sprints.models.Sprint.fecha_modificacion
+userstories.models.UserStory.fecha_modificacion" class="py-name" href="#" onclick="return doclink('link-111', 'fecha_modificacion', 'link-111');">fecha_modificacion</a></tt> <tt class="py-op">=</tt> <tt id="link-112" class="py-name"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-112', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">DateTimeField</tt><tt class="py-op">(</tt><tt class="py-name">auto_now</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">,</tt> <tt class="py-name">null</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L104"></a><tt class="py-lineno">104</tt>  <tt class="py-line">    <tt id="link-113" class="py-name"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-113', 'estado', 'link-32');">estado</a></tt> <tt class="py-op">=</tt> <tt id="link-114" class="py-name"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-114', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">TextField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">2</tt><tt class="py-op">,</tt> <tt class="py-name">choices</tt><tt class="py-op">=</tt><tt id="link-115" class="py-name"><a title="flujos.models.Flujo.ESTADOS_F" class="py-name" href="#" onclick="return doclink('link-115', 'ESTADOS_F', 'link-100');">ESTADOS_F</a></tt><tt class="py-op">,</tt> <tt class="py-name">default</tt><tt class="py-op">=</tt><tt id="link-116" class="py-name"><a title="flujos.models.Actividad.TODO
+flujos.models.Flujo.TODO" class="py-name" href="#" onclick="return doclink('link-116', 'TODO', 'link-34');">TODO</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L105"></a><tt class="py-lineno">105</tt>  <tt class="py-line">    <tt id="link-117" class="py-name"><a title="flujos.models.Flujo.observaciones" class="py-name" href="#" onclick="return doclink('link-117', 'observaciones', 'link-48');">observaciones</a></tt> <tt class="py-op">=</tt> <tt id="link-118" class="py-name"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-118', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">TextField</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L106"></a><tt class="py-lineno">106</tt>  <tt class="py-line">    <tt id="link-119" class="py-name"><a title="flujos.models.Flujo.iniciado" class="py-name" href="#" onclick="return doclink('link-119', 'iniciado', 'link-92');">iniciado</a></tt> <tt class="py-op">=</tt> <tt id="link-120" class="py-name"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-120', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">BooleanField</tt><tt class="py-op">(</tt><tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-name">False</tt><tt class="py-op">)</tt> </tt>
+<a name="L107"></a><tt class="py-lineno">107</tt>  <tt class="py-line"> </tt>
+<a name="L108"></a><tt class="py-lineno">108</tt>  <tt class="py-line">    <tt id="link-121" class="py-name"><a title="authentication.models.Usuario.objects
+flujos.models.Actividad.objects
+flujos.models.Flujo.objects
+proyectos.models.Proyecto.objects
+sprints.models.Sprint.objects
+userstories.models.UserStory.objects
+utilitarios.models.Utils.objects" class="py-name" href="#" onclick="return doclink('link-121', 'objects', 'link-12');">objects</a></tt> <tt class="py-op">=</tt> <tt id="link-122" class="py-name" targets="Class flujos.models.FlujoManager=flujos.models.FlujoManager-class.html"><a title="flujos.models.FlujoManager" class="py-name" href="#" onclick="return doclink('link-122', 'FlujoManager', 'link-122');">FlujoManager</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L109"></a><tt class="py-lineno">109</tt>  <tt class="py-line"> </tt>
+<a name="L110"></a><tt class="py-lineno">110</tt>  <tt class="py-line">    <tt id="link-123" class="py-name" targets="Variable authentication.models.Usuario.REQUIRED_FIELDS=authentication.models.Usuario-class.html#REQUIRED_FIELDS,Variable flujos.models.Actividad.REQUIRED_FIELDS=flujos.models.Actividad-class.html#REQUIRED_FIELDS,Variable flujos.models.Flujo.REQUIRED_FIELDS=flujos.models.Flujo-class.html#REQUIRED_FIELDS,Variable proyectos.models.Proyecto.REQUIRED_FIELDS=proyectos.models.Proyecto-class.html#REQUIRED_FIELDS,Variable sprints.models.Sprint.REQUIRED_FIELDS=sprints.models.Sprint-class.html#REQUIRED_FIELDS,Variable userstories.models.UserStory.REQUIRED_FIELDS=userstories.models.UserStory-class.html#REQUIRED_FIELDS"><a title="authentication.models.Usuario.REQUIRED_FIELDS
+flujos.models.Actividad.REQUIRED_FIELDS
+flujos.models.Flujo.REQUIRED_FIELDS
+proyectos.models.Proyecto.REQUIRED_FIELDS
+sprints.models.Sprint.REQUIRED_FIELDS
+userstories.models.UserStory.REQUIRED_FIELDS" class="py-name" href="#" onclick="return doclink('link-123', 'REQUIRED_FIELDS', 'link-123');">REQUIRED_FIELDS</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">'nombre'</tt><tt class="py-op">,</tt> <tt class="py-string">'proyecto'</tt><tt class="py-op">,</tt> <tt class="py-string">'owner'</tt><tt class="py-op">]</tt> </tt>
+<a name="L111"></a><tt class="py-lineno">111</tt>  <tt class="py-line"> </tt>
+<a name="Flujo.__unicode__"></a><div id="Flujo.__unicode__-def"><a name="L112"></a><tt class="py-lineno">112</tt> <a class="py-toggle" href="#" id="Flujo.__unicode__-toggle" onclick="return toggle('Flujo.__unicode__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="flujos.models.Flujo-class.html#__unicode__">__unicode__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Flujo.__unicode__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Flujo.__unicode__-expanded"><a name="L113"></a><tt class="py-lineno">113</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-124" class="py-name"><a title="authentication.models.Usuario.nombre
+flujos.models.Actividad.nombre
+flujos.models.Flujo.nombre
+proyectos.models.Proyecto.nombre
+userstories.models.UserStory.nombre" class="py-name" href="#" onclick="return doclink('link-124', 'nombre', 'link-26');">nombre</a></tt> </tt>
+</div><a name="L114"></a><tt class="py-lineno">114</tt>  <tt class="py-line"> </tt>
+<a name="Flujo.get_nombre"></a><div id="Flujo.get_nombre-def"><a name="L115"></a><tt class="py-lineno">115</tt> <a class="py-toggle" href="#" id="Flujo.get_nombre-toggle" onclick="return toggle('Flujo.get_nombre');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="flujos.models.Flujo-class.html#get_nombre">get_nombre</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Flujo.get_nombre-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Flujo.get_nombre-expanded"><a name="L116"></a><tt class="py-lineno">116</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-125" class="py-name"><a title="authentication.models.Usuario.nombre
+flujos.models.Actividad.nombre
+flujos.models.Flujo.nombre
+proyectos.models.Proyecto.nombre
+userstories.models.UserStory.nombre" class="py-name" href="#" onclick="return doclink('link-125', 'nombre', 'link-26');">nombre</a></tt> </tt>
+</div><a name="L117"></a><tt class="py-lineno">117</tt>  <tt class="py-line"> </tt>
+<a name="Flujo.get_observaciones"></a><div id="Flujo.get_observaciones-def"><a name="L118"></a><tt class="py-lineno">118</tt> <a class="py-toggle" href="#" id="Flujo.get_observaciones-toggle" onclick="return toggle('Flujo.get_observaciones');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="flujos.models.Flujo-class.html#get_observaciones">get_observaciones</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Flujo.get_observaciones-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Flujo.get_observaciones-expanded"><a name="L119"></a><tt class="py-lineno">119</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-126" class="py-name"><a title="flujos.models.Flujo.observaciones" class="py-name" href="#" onclick="return doclink('link-126', 'observaciones', 'link-48');">observaciones</a></tt> </tt>
+</div><a name="L120"></a><tt class="py-lineno">120</tt>  <tt class="py-line"> </tt>
+<a name="Flujo.get_owner"></a><div id="Flujo.get_owner-def"><a name="L121"></a><tt class="py-lineno">121</tt> <a class="py-toggle" href="#" id="Flujo.get_owner-toggle" onclick="return toggle('Flujo.get_owner');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="flujos.models.Flujo-class.html#get_owner">get_owner</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Flujo.get_owner-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Flujo.get_owner-expanded"><a name="L122"></a><tt class="py-lineno">122</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-127" class="py-name"><a title="flujos.models.Actividad.owner
+flujos.models.Flujo.owner
+proyectos.models.Proyecto.owner
+sprints.models.Sprint.owner
+userstories.models.UserStory.owner" class="py-name" href="#" onclick="return doclink('link-127', 'owner', 'link-17');">owner</a></tt> </tt>
+</div><a name="L123"></a><tt class="py-lineno">123</tt>  <tt class="py-line"> </tt>
+<a name="Flujo.get_estado"></a><div id="Flujo.get_estado-def"><a name="L124"></a><tt class="py-lineno">124</tt> <a class="py-toggle" href="#" id="Flujo.get_estado-toggle" onclick="return toggle('Flujo.get_estado');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="flujos.models.Flujo-class.html#get_estado">get_estado</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Flujo.get_estado-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Flujo.get_estado-expanded"><a name="L125"></a><tt class="py-lineno">125</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-128" class="py-name"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-128', 'estado', 'link-32');">estado</a></tt> </tt>
+</div></div><a name="L126"></a><tt class="py-lineno">126</tt>  <tt class="py-line"> </tt>
+<a name="L127"></a><tt class="py-lineno">127</tt>  <tt class="py-line"> </tt>
+<a name="ActividadManager"></a><div id="ActividadManager-def"><a name="L128"></a><tt class="py-lineno">128</tt> <a class="py-toggle" href="#" id="ActividadManager-toggle" onclick="return toggle('ActividadManager');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="flujos.models.ActividadManager-class.html">ActividadManager</a><tt class="py-op">(</tt><tt class="py-base-class">models</tt><tt class="py-op">.</tt><tt class="py-base-class">Manager</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ActividadManager-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="ActividadManager-expanded"><a name="L129"></a><tt class="py-lineno">129</tt>  <tt class="py-line"> </tt>
+<a name="ActividadManager.confirmarActividades"></a><div id="ActividadManager.confirmarActividades-def"><a name="L130"></a><tt class="py-lineno">130</tt> <a class="py-toggle" href="#" id="ActividadManager.confirmarActividades-toggle" onclick="return toggle('ActividadManager.confirmarActividades');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="flujos.models.ActividadManager-class.html#confirmarActividades">confirmarActividades</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">flujo_id</tt><tt class="py-op">=</tt><tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ActividadManager.confirmarActividades-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ActividadManager.confirmarActividades-expanded"><a name="L131"></a><tt class="py-lineno">131</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-name">flujo_id</tt> <tt class="py-op">!=</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L132"></a><tt class="py-lineno">132</tt>  <tt class="py-line">            <tt class="py-name">actividades</tt> <tt class="py-op">=</tt> <tt id="link-129" class="py-name"><a title="flujos.models.Actividad" class="py-name" href="#" onclick="return doclink('link-129', 'Actividad', 'link-63');">Actividad</a></tt><tt class="py-op">.</tt><tt id="link-130" class="py-name"><a title="authentication.models.Usuario.objects
+flujos.models.Actividad.objects
+flujos.models.Flujo.objects
+proyectos.models.Proyecto.objects
+sprints.models.Sprint.objects
+userstories.models.UserStory.objects
+utilitarios.models.Utils.objects" class="py-name" href="#" onclick="return doclink('link-130', 'objects', 'link-12');">objects</a></tt><tt class="py-op">.</tt><tt class="py-name">all</tt><tt class="py-op">(</tt><tt class="py-op">)</tt><tt class="py-op">.</tt><tt class="py-name">filter</tt><tt class="py-op">(</tt><tt id="link-131" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-131', 'flujo', 'link-24');">flujo</a></tt><tt class="py-op">=</tt><tt class="py-name">flujo_id</tt><tt class="py-op">)</tt> </tt>
+<a name="L133"></a><tt class="py-lineno">133</tt>  <tt class="py-line">            <tt class="py-keyword">for</tt> <tt class="py-name">a</tt> <tt class="py-keyword">in</tt> <tt class="py-name">actividades</tt><tt class="py-op">:</tt> </tt>
+<a name="L134"></a><tt class="py-lineno">134</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">a</tt><tt class="py-op">.</tt><tt id="link-132" class="py-name"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-132', 'estado', 'link-32');">estado</a></tt> <tt class="py-op">!=</tt> <tt id="link-133" class="py-name"><a title="flujos.models.Actividad" class="py-name" href="#" onclick="return doclink('link-133', 'Actividad', 'link-63');">Actividad</a></tt><tt class="py-op">.</tt><tt id="link-134" class="py-name"><a title="flujos.models.Actividad.DONE
+flujos.models.Flujo.DONE" class="py-name" href="#" onclick="return doclink('link-134', 'DONE', 'link-62');">DONE</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L135"></a><tt class="py-lineno">135</tt>  <tt class="py-line">                    <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'No se puede cerrar el flujo, existen actividades sin finalizar'</tt><tt class="py-op">)</tt> </tt>
+<a name="L136"></a><tt class="py-lineno">136</tt>  <tt class="py-line">                    <tt class="py-keyword">return</tt> <tt class="py-name">False</tt> </tt>
+<a name="L137"></a><tt class="py-lineno">137</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">True</tt> </tt>
+<a name="L138"></a><tt class="py-lineno">138</tt>  <tt class="py-line"> </tt>
+<a name="L139"></a><tt class="py-lineno">139</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L140"></a><tt class="py-lineno">140</tt>  <tt class="py-line">            <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'No existe el flujo'</tt><tt class="py-op">)</tt> </tt>
+<a name="L141"></a><tt class="py-lineno">141</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt id="link-135" class="py-name"><a title="utilitarios.models.Utils" class="py-name" href="#" onclick="return doclink('link-135', 'Utils', 'link-9');">Utils</a></tt><tt class="py-op">.</tt><tt id="link-136" class="py-name"><a title="utilitarios.models.Utils.NO_ENCONTRADO" class="py-name" href="#" onclick="return doclink('link-136', 'NO_ENCONTRADO', 'link-16');">NO_ENCONTRADO</a></tt> </tt>
+</div><a name="L142"></a><tt class="py-lineno">142</tt>  <tt class="py-line"> </tt>
+<a name="ActividadManager.crear_actividad"></a><div id="ActividadManager.crear_actividad-def"><a name="L143"></a><tt class="py-lineno">143</tt> <a class="py-toggle" href="#" id="ActividadManager.crear_actividad-toggle" onclick="return toggle('ActividadManager.crear_actividad');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="flujos.models.ActividadManager-class.html#crear_actividad">crear_actividad</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-param">kwargs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ActividadManager.crear_actividad-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ActividadManager.crear_actividad-expanded"><a name="L144"></a><tt class="py-lineno">144</tt>  <tt class="py-line"> </tt>
+<a name="L145"></a><tt class="py-lineno">145</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'nombre'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L146"></a><tt class="py-lineno">146</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">ValueError</tt><tt class="py-op">(</tt><tt class="py-string">'Debe existir un nombre de Actividad'</tt><tt class="py-op">)</tt> </tt>
+<a name="L147"></a><tt class="py-lineno">147</tt>  <tt class="py-line"> </tt>
+<a name="L148"></a><tt class="py-lineno">148</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'flujo'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L149"></a><tt class="py-lineno">149</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">ValueError</tt><tt class="py-op">(</tt><tt class="py-string">'Debe existir un Flujo propietario'</tt><tt class="py-op">)</tt> </tt>
+<a name="L150"></a><tt class="py-lineno">150</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L151"></a><tt class="py-lineno">151</tt>  <tt class="py-line">            <tt id="link-137" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-137', 'flujo', 'link-24');">flujo</a></tt> <tt class="py-op">=</tt> <tt id="link-138" class="py-name"><a title="flujos.models.Flujo" class="py-name" href="#" onclick="return doclink('link-138', 'Flujo', 'link-33');">Flujo</a></tt><tt class="py-op">.</tt><tt id="link-139" class="py-name"><a title="authentication.models.Usuario.objects
+flujos.models.Actividad.objects
+flujos.models.Flujo.objects
+proyectos.models.Proyecto.objects
+sprints.models.Sprint.objects
+userstories.models.UserStory.objects
+utilitarios.models.Utils.objects" class="py-name" href="#" onclick="return doclink('link-139', 'objects', 'link-12');">objects</a></tt><tt class="py-op">.</tt><tt id="link-140" class="py-name"><a title="flujos.models.FlujoManager.buscar_flujo" class="py-name" href="#" onclick="return doclink('link-140', 'buscar_flujo', 'link-43');">buscar_flujo</a></tt><tt class="py-op">(</tt><tt class="py-name">id</tt><tt class="py-op">=</tt><tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'flujo_id'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L152"></a><tt class="py-lineno">152</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt id="link-141" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-141', 'flujo', 'link-24');">flujo</a></tt> <tt class="py-op">==</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L153"></a><tt class="py-lineno">153</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'No existe el flujo'</tt><tt class="py-op">)</tt> </tt>
+<a name="L154"></a><tt class="py-lineno">154</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt id="link-142" class="py-name"><a title="utilitarios.models.Utils" class="py-name" href="#" onclick="return doclink('link-142', 'Utils', 'link-9');">Utils</a></tt><tt class="py-op">.</tt><tt id="link-143" class="py-name"><a title="utilitarios.models.Utils.NO_ENCONTRADO" class="py-name" href="#" onclick="return doclink('link-143', 'NO_ENCONTRADO', 'link-16');">NO_ENCONTRADO</a></tt> </tt>
+<a name="L155"></a><tt class="py-lineno">155</tt>  <tt class="py-line"> </tt>
+<a name="L156"></a><tt class="py-lineno">156</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'owner_id'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L157"></a><tt class="py-lineno">157</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">ValueError</tt><tt class="py-op">(</tt><tt class="py-string">'Debe existir un Usuario responsable'</tt><tt class="py-op">)</tt> </tt>
+<a name="L158"></a><tt class="py-lineno">158</tt>  <tt class="py-line">        <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L159"></a><tt class="py-lineno">159</tt>  <tt class="py-line">            <tt id="link-144" class="py-name"><a title="flujos.models.Actividad.owner
+flujos.models.Flujo.owner
+proyectos.models.Proyecto.owner
+sprints.models.Sprint.owner
+userstories.models.UserStory.owner" class="py-name" href="#" onclick="return doclink('link-144', 'owner', 'link-17');">owner</a></tt> <tt class="py-op">=</tt> <tt id="link-145" class="py-name"><a title="authentication.models.Usuario" class="py-name" href="#" onclick="return doclink('link-145', 'Usuario', 'link-3');">Usuario</a></tt><tt class="py-op">.</tt><tt id="link-146" class="py-name"><a title="authentication.models.Usuario.objects
+flujos.models.Actividad.objects
+flujos.models.Flujo.objects
+proyectos.models.Proyecto.objects
+sprints.models.Sprint.objects
+userstories.models.UserStory.objects
+utilitarios.models.Utils.objects" class="py-name" href="#" onclick="return doclink('link-146', 'objects', 'link-12');">objects</a></tt><tt class="py-op">.</tt><tt id="link-147" class="py-name"><a title="authentication.models.UsuarioManager.buscar_usuario" class="py-name" href="#" onclick="return doclink('link-147', 'buscar_usuario', 'link-20');">buscar_usuario</a></tt><tt class="py-op">(</tt><tt class="py-name">id</tt><tt class="py-op">=</tt><tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'owner_id'</tt><tt class="py-op">)</tt><tt class="py-op">)</tt> </tt>
+<a name="L160"></a><tt class="py-lineno">160</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt id="link-148" class="py-name"><a title="flujos.models.Actividad.owner
+flujos.models.Flujo.owner
+proyectos.models.Proyecto.owner
+sprints.models.Sprint.owner
+userstories.models.UserStory.owner" class="py-name" href="#" onclick="return doclink('link-148', 'owner', 'link-17');">owner</a></tt> <tt class="py-op">==</tt> <tt class="py-name">None</tt><tt class="py-op">:</tt> </tt>
+<a name="L161"></a><tt class="py-lineno">161</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'No existe el owner'</tt><tt class="py-op">)</tt> </tt>
+<a name="L162"></a><tt class="py-lineno">162</tt>  <tt class="py-line">                <tt class="py-keyword">return</tt> <tt id="link-149" class="py-name"><a title="utilitarios.models.Utils" class="py-name" href="#" onclick="return doclink('link-149', 'Utils', 'link-9');">Utils</a></tt><tt class="py-op">.</tt><tt id="link-150" class="py-name"><a title="utilitarios.models.Utils.NO_ENCONTRADO" class="py-name" href="#" onclick="return doclink('link-150', 'NO_ENCONTRADO', 'link-16');">NO_ENCONTRADO</a></tt> </tt>
+<a name="L163"></a><tt class="py-lineno">163</tt>  <tt class="py-line"> </tt>
+<a name="L164"></a><tt class="py-lineno">164</tt>  <tt class="py-line"> </tt>
+<a name="L165"></a><tt class="py-lineno">165</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-keyword">not</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'orden'</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L166"></a><tt class="py-lineno">166</tt>  <tt class="py-line">            <tt class="py-keyword">raise</tt> <tt class="py-name">ValueError</tt><tt class="py-op">(</tt><tt class="py-string">'Debe existir un numero de Orden de Actividad'</tt><tt class="py-op">)</tt> </tt>
+<a name="L167"></a><tt class="py-lineno">167</tt>  <tt class="py-line"> </tt>
+<a name="L168"></a><tt class="py-lineno">168</tt>  <tt class="py-line">        <tt class="py-name">actividad</tt> <tt class="py-op">=</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-151" class="py-name"><a title="authentication.serializers.UsuarioSerializer.Meta.model
+proyectos.serializers.ProyectoSerializer.Meta.model" class="py-name" href="#" onclick="return doclink('link-151', 'model', 'link-25');">model</a></tt><tt class="py-op">(</tt> </tt>
+<a name="L169"></a><tt class="py-lineno">169</tt>  <tt class="py-line">            <tt id="link-152" class="py-name"><a title="authentication.models.Usuario.nombre
+flujos.models.Actividad.nombre
+flujos.models.Flujo.nombre
+proyectos.models.Proyecto.nombre
+userstories.models.UserStory.nombre" class="py-name" href="#" onclick="return doclink('link-152', 'nombre', 'link-26');">nombre</a></tt><tt class="py-op">=</tt><tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'nombre'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L170"></a><tt class="py-lineno">170</tt>  <tt class="py-line">            <tt id="link-153" class="py-name"><a title="flujos.models.Actividad.owner
+flujos.models.Flujo.owner
+proyectos.models.Proyecto.owner
+sprints.models.Sprint.owner
+userstories.models.UserStory.owner" class="py-name" href="#" onclick="return doclink('link-153', 'owner', 'link-17');">owner</a></tt><tt class="py-op">=</tt><tt id="link-154" class="py-name"><a title="flujos.models.Actividad.owner
+flujos.models.Flujo.owner
+proyectos.models.Proyecto.owner
+sprints.models.Sprint.owner
+userstories.models.UserStory.owner" class="py-name" href="#" onclick="return doclink('link-154', 'owner', 'link-17');">owner</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L171"></a><tt class="py-lineno">171</tt>  <tt class="py-line">            <tt id="link-155" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-155', 'flujo', 'link-24');">flujo</a></tt><tt class="py-op">=</tt><tt id="link-156" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-156', 'flujo', 'link-24');">flujo</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L172"></a><tt class="py-lineno">172</tt>  <tt class="py-line">            <tt id="link-157" class="py-name"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-157', 'estado', 'link-32');">estado</a></tt><tt class="py-op">=</tt><tt id="link-158" class="py-name"><a title="flujos.models.Actividad" class="py-name" href="#" onclick="return doclink('link-158', 'Actividad', 'link-63');">Actividad</a></tt><tt class="py-op">.</tt><tt id="link-159" class="py-name"><a title="flujos.models.Actividad.TODO
+flujos.models.Flujo.TODO" class="py-name" href="#" onclick="return doclink('link-159', 'TODO', 'link-34');">TODO</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L173"></a><tt class="py-lineno">173</tt>  <tt class="py-line">            <tt id="link-160" class="py-name" targets="Variable flujos.models.Actividad.orden=flujos.models.Actividad-class.html#orden"><a title="flujos.models.Actividad.orden" class="py-name" href="#" onclick="return doclink('link-160', 'orden', 'link-160');">orden</a></tt><tt class="py-op">=</tt><tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'orden'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L174"></a><tt class="py-lineno">174</tt>  <tt class="py-line">        <tt class="py-op">)</tt> </tt>
+<a name="L175"></a><tt class="py-lineno">175</tt>  <tt class="py-line"> </tt>
+<a name="L176"></a><tt class="py-lineno">176</tt>  <tt class="py-line">        <tt class="py-name">actividad</tt><tt class="py-op">.</tt><tt class="py-name">save</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L177"></a><tt class="py-lineno">177</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">actividad</tt> </tt>
+</div><a name="L178"></a><tt class="py-lineno">178</tt>  <tt class="py-line"> </tt>
+<a name="ActividadManager.buscar_actividad"></a><div id="ActividadManager.buscar_actividad-def"><a name="L179"></a><tt class="py-lineno">179</tt> <a class="py-toggle" href="#" id="ActividadManager.buscar_actividad-toggle" onclick="return toggle('ActividadManager.buscar_actividad');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="flujos.models.ActividadManager-class.html#buscar_actividad">buscar_actividad</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">id</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ActividadManager.buscar_actividad-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ActividadManager.buscar_actividad-expanded"><a name="L180"></a><tt class="py-lineno">180</tt>  <tt class="py-line">        <tt class="py-keyword">try</tt><tt class="py-op">:</tt> </tt>
+<a name="L181"></a><tt class="py-lineno">181</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt id="link-161" class="py-name"><a title="flujos.models.Actividad" class="py-name" href="#" onclick="return doclink('link-161', 'Actividad', 'link-63');">Actividad</a></tt><tt class="py-op">.</tt><tt id="link-162" class="py-name"><a title="authentication.models.Usuario.objects
+flujos.models.Actividad.objects
+flujos.models.Flujo.objects
+proyectos.models.Proyecto.objects
+sprints.models.Sprint.objects
+userstories.models.UserStory.objects
+utilitarios.models.Utils.objects" class="py-name" href="#" onclick="return doclink('link-162', 'objects', 'link-12');">objects</a></tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-name">pk</tt><tt class="py-op">=</tt><tt class="py-name">id</tt><tt class="py-op">)</tt> </tt>
+<a name="L182"></a><tt class="py-lineno">182</tt>  <tt class="py-line">        <tt class="py-keyword">except</tt> <tt id="link-163" class="py-name"><a title="flujos.models.Actividad" class="py-name" href="#" onclick="return doclink('link-163', 'Actividad', 'link-63');">Actividad</a></tt><tt class="py-op">.</tt><tt class="py-name">DoesNotExist</tt><tt class="py-op">:</tt> </tt>
+<a name="L183"></a><tt class="py-lineno">183</tt>  <tt class="py-line">            <tt class="py-keyword">return</tt> <tt class="py-name">None</tt> </tt>
+</div><a name="L184"></a><tt class="py-lineno">184</tt>  <tt class="py-line"> </tt>
+<a name="L185"></a><tt class="py-lineno">185</tt>  <tt class="py-line">    <tt class="py-comment">#</tt> </tt>
+<a name="ActividadManager.cambiar_estado_actividad"></a><div id="ActividadManager.cambiar_estado_actividad-def"><a name="L186"></a><tt class="py-lineno">186</tt> <a class="py-toggle" href="#" id="ActividadManager.cambiar_estado_actividad-toggle" onclick="return toggle('ActividadManager.cambiar_estado_actividad');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="flujos.models.ActividadManager-class.html#cambiar_estado_actividad">cambiar_estado_actividad</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">id</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-param">kwargs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ActividadManager.cambiar_estado_actividad-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ActividadManager.cambiar_estado_actividad-expanded"><a name="L187"></a><tt class="py-lineno">187</tt>  <tt class="py-line">        <tt class="py-name">actividad</tt> <tt class="py-op">=</tt> <tt id="link-164" class="py-name"><a title="flujos.models.Actividad" class="py-name" href="#" onclick="return doclink('link-164', 'Actividad', 'link-63');">Actividad</a></tt><tt class="py-op">.</tt><tt id="link-165" class="py-name"><a title="authentication.models.Usuario.objects
+flujos.models.Actividad.objects
+flujos.models.Flujo.objects
+proyectos.models.Proyecto.objects
+sprints.models.Sprint.objects
+userstories.models.UserStory.objects
+utilitarios.models.Utils.objects" class="py-name" href="#" onclick="return doclink('link-165', 'objects', 'link-12');">objects</a></tt><tt class="py-op">.</tt><tt id="link-166" class="py-name" targets="Method flujos.models.ActividadManager.buscar_actividad()=flujos.models.ActividadManager-class.html#buscar_actividad"><a title="flujos.models.ActividadManager.buscar_actividad" class="py-name" href="#" onclick="return doclink('link-166', 'buscar_actividad', 'link-166');">buscar_actividad</a></tt><tt class="py-op">(</tt><tt class="py-name">id</tt><tt class="py-op">)</tt> </tt>
+<a name="L188"></a><tt class="py-lineno">188</tt>  <tt class="py-line">        <tt class="py-keyword">if</tt> <tt class="py-op">(</tt><tt class="py-name">actividad</tt> <tt class="py-op">!=</tt> <tt class="py-name">None</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+<a name="L189"></a><tt class="py-lineno">189</tt>  <tt class="py-line">            <tt class="py-keyword">if</tt> <tt class="py-name">actividad</tt><tt class="py-op">.</tt><tt id="link-167" class="py-name"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-167', 'estado', 'link-32');">estado</a></tt> <tt class="py-op">==</tt> <tt id="link-168" class="py-name"><a title="flujos.models.Actividad" class="py-name" href="#" onclick="return doclink('link-168', 'Actividad', 'link-63');">Actividad</a></tt><tt class="py-op">.</tt><tt id="link-169" class="py-name"><a title="flujos.models.Actividad.DOING
+flujos.models.Flujo.DOING" class="py-name" href="#" onclick="return doclink('link-169', 'DOING', 'link-60');">DOING</a></tt> <tt class="py-keyword">and</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'estado'</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-170" class="py-name"><a title="flujos.models.Actividad" class="py-name" href="#" onclick="return doclink('link-170', 'Actividad', 'link-63');">Actividad</a></tt><tt class="py-op">.</tt><tt id="link-171" class="py-name"><a title="flujos.models.Actividad.DONE
+flujos.models.Flujo.DONE" class="py-name" href="#" onclick="return doclink('link-171', 'DONE', 'link-62');">DONE</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L190"></a><tt class="py-lineno">190</tt>  <tt class="py-line">                <tt class="py-comment">#confirmar que se hallan finalizado los US correspondientes</tt> </tt>
+<a name="L191"></a><tt class="py-lineno">191</tt>  <tt class="py-line">                <tt class="py-keyword">if</tt> <tt class="py-name">actividad</tt><tt class="py-op">.</tt><tt id="link-172" class="py-name" targets="Variable flujos.models.Actividad.cantidadUS=flujos.models.Actividad-class.html#cantidadUS"><a title="flujos.models.Actividad.cantidadUS" class="py-name" href="#" onclick="return doclink('link-172', 'cantidadUS', 'link-172');">cantidadUS</a></tt> <tt class="py-op">==</tt> <tt class="py-number">0</tt><tt class="py-op">:</tt>  <tt class="py-comment">#cantidad de US pendientes</tt> </tt>
+<a name="L192"></a><tt class="py-lineno">192</tt>  <tt class="py-line">                    <tt class="py-name">actividad</tt><tt class="py-op">.</tt><tt id="link-173" class="py-name"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-173', 'estado', 'link-32');">estado</a></tt> <tt class="py-op">=</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'estado'</tt><tt class="py-op">)</tt> </tt>
+<a name="L193"></a><tt class="py-lineno">193</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">actividad</tt><tt class="py-op">.</tt><tt id="link-174" class="py-name"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-174', 'estado', 'link-32');">estado</a></tt> <tt class="py-op">==</tt> <tt id="link-175" class="py-name"><a title="flujos.models.Actividad" class="py-name" href="#" onclick="return doclink('link-175', 'Actividad', 'link-63');">Actividad</a></tt><tt class="py-op">.</tt><tt id="link-176" class="py-name"><a title="flujos.models.Actividad.DOING
+flujos.models.Flujo.DOING" class="py-name" href="#" onclick="return doclink('link-176', 'DOING', 'link-60');">DOING</a></tt> <tt class="py-keyword">and</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'estado'</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-177" class="py-name"><a title="flujos.models.Actividad" class="py-name" href="#" onclick="return doclink('link-177', 'Actividad', 'link-63');">Actividad</a></tt><tt class="py-op">.</tt><tt id="link-178" class="py-name"><a title="flujos.models.Actividad.TODO
+flujos.models.Flujo.TODO" class="py-name" href="#" onclick="return doclink('link-178', 'TODO', 'link-34');">TODO</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L194"></a><tt class="py-lineno">194</tt>  <tt class="py-line">                <tt class="py-name">actividad</tt><tt class="py-op">.</tt><tt id="link-179" class="py-name"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-179', 'estado', 'link-32');">estado</a></tt> <tt class="py-op">=</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'estado'</tt><tt class="py-op">)</tt> </tt>
+<a name="L195"></a><tt class="py-lineno">195</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">actividad</tt><tt class="py-op">.</tt><tt id="link-180" class="py-name"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-180', 'estado', 'link-32');">estado</a></tt> <tt class="py-op">==</tt> <tt id="link-181" class="py-name"><a title="flujos.models.Actividad" class="py-name" href="#" onclick="return doclink('link-181', 'Actividad', 'link-63');">Actividad</a></tt><tt class="py-op">.</tt><tt id="link-182" class="py-name"><a title="flujos.models.Actividad.TODO
+flujos.models.Flujo.TODO" class="py-name" href="#" onclick="return doclink('link-182', 'TODO', 'link-34');">TODO</a></tt> <tt class="py-keyword">and</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'estado'</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-183" class="py-name"><a title="flujos.models.Actividad" class="py-name" href="#" onclick="return doclink('link-183', 'Actividad', 'link-63');">Actividad</a></tt><tt class="py-op">.</tt><tt id="link-184" class="py-name"><a title="flujos.models.Actividad.DOING
+flujos.models.Flujo.DOING" class="py-name" href="#" onclick="return doclink('link-184', 'DOING', 'link-60');">DOING</a></tt><tt class="py-op">:</tt> </tt>
+<a name="L196"></a><tt class="py-lineno">196</tt>  <tt class="py-line">                <tt class="py-name">actividad</tt><tt class="py-op">.</tt><tt id="link-185" class="py-name"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-185', 'estado', 'link-32');">estado</a></tt> <tt class="py-op">=</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'estado'</tt><tt class="py-op">)</tt> </tt>
+<a name="L197"></a><tt class="py-lineno">197</tt>  <tt class="py-line">            <tt class="py-keyword">elif</tt> <tt class="py-name">actividad</tt><tt class="py-op">.</tt><tt id="link-186" class="py-name"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-186', 'estado', 'link-32');">estado</a></tt> <tt class="py-op">==</tt> <tt id="link-187" class="py-name"><a title="flujos.models.Actividad" class="py-name" href="#" onclick="return doclink('link-187', 'Actividad', 'link-63');">Actividad</a></tt><tt class="py-op">.</tt><tt id="link-188" class="py-name"><a title="flujos.models.Actividad.DONE
+flujos.models.Flujo.DONE" class="py-name" href="#" onclick="return doclink('link-188', 'DONE', 'link-62');">DONE</a></tt> <tt class="py-keyword">and</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'estado'</tt><tt class="py-op">)</tt> <tt class="py-op">==</tt> <tt id="link-189" class="py-name"><a title="flujos.models.Actividad" class="py-name" href="#" onclick="return doclink('link-189', 'Actividad', 'link-63');">Actividad</a></tt><tt class="py-op">.</tt><tt id="link-190" class="py-name"><a title="flujos.models.Actividad.DOING
+flujos.models.Flujo.DOING" class="py-name" href="#" onclick="return doclink('link-190', 'DOING', 'link-60');">DOING</a></tt><tt class="py-op">:</tt>  <tt class="py-comment">#solo el SCRUM</tt> </tt>
+<a name="L198"></a><tt class="py-lineno">198</tt>  <tt class="py-line">                <tt class="py-name">actividad</tt><tt class="py-op">.</tt><tt id="link-191" class="py-name"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-191', 'estado', 'link-32');">estado</a></tt> <tt class="py-op">=</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'estado'</tt><tt class="py-op">)</tt> </tt>
+<a name="L199"></a><tt class="py-lineno">199</tt>  <tt class="py-line">            <tt class="py-keyword">else</tt><tt class="py-op">:</tt> </tt>
+<a name="L200"></a><tt class="py-lineno">200</tt>  <tt class="py-line">                <tt class="py-keyword">print</tt><tt class="py-op">(</tt><tt class="py-string">'No esta permitido'</tt><tt class="py-op">)</tt> </tt>
+<a name="L201"></a><tt class="py-lineno">201</tt>  <tt class="py-line">        <tt class="py-name">actividad</tt><tt class="py-op">.</tt><tt class="py-name">save</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div><a name="L202"></a><tt class="py-lineno">202</tt>  <tt class="py-line"> </tt>
+<a name="L203"></a><tt class="py-lineno">203</tt>  <tt class="py-line">    <tt class="py-comment"># no utilizar x el momento</tt> </tt>
+<a name="ActividadManager.modificar_actividad"></a><div id="ActividadManager.modificar_actividad-def"><a name="L204"></a><tt class="py-lineno">204</tt> <a class="py-toggle" href="#" id="ActividadManager.modificar_actividad-toggle" onclick="return toggle('ActividadManager.modificar_actividad');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="flujos.models.ActividadManager-class.html#modificar_actividad">modificar_actividad</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">,</tt> <tt class="py-param">id</tt><tt class="py-op">,</tt> <tt class="py-op">**</tt><tt class="py-param">kwargs</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="ActividadManager.modificar_actividad-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="ActividadManager.modificar_actividad-expanded"><a name="L205"></a><tt class="py-lineno">205</tt>  <tt class="py-line">        <tt class="py-name">actividad</tt> <tt class="py-op">=</tt> <tt id="link-192" class="py-name"><a title="flujos.models.Actividad" class="py-name" href="#" onclick="return doclink('link-192', 'Actividad', 'link-63');">Actividad</a></tt><tt class="py-op">.</tt><tt id="link-193" class="py-name"><a title="authentication.models.Usuario.objects
+flujos.models.Actividad.objects
+flujos.models.Flujo.objects
+proyectos.models.Proyecto.objects
+sprints.models.Sprint.objects
+userstories.models.UserStory.objects
+utilitarios.models.Utils.objects" class="py-name" href="#" onclick="return doclink('link-193', 'objects', 'link-12');">objects</a></tt><tt class="py-op">.</tt><tt id="link-194" class="py-name"><a title="flujos.models.ActividadManager.buscar_actividad" class="py-name" href="#" onclick="return doclink('link-194', 'buscar_actividad', 'link-166');">buscar_actividad</a></tt><tt class="py-op">(</tt><tt class="py-name">id</tt><tt class="py-op">)</tt> </tt>
+<a name="L206"></a><tt class="py-lineno">206</tt>  <tt class="py-line">        <tt class="py-name">actividad</tt><tt class="py-op">.</tt><tt id="link-195" class="py-name"><a title="flujos.models.Actividad.cantidadUS" class="py-name" href="#" onclick="return doclink('link-195', 'cantidadUS', 'link-172');">cantidadUS</a></tt> <tt class="py-op">=</tt> <tt class="py-name">kwargs</tt><tt class="py-op">.</tt><tt class="py-name">get</tt><tt class="py-op">(</tt><tt class="py-string">'cantidadUS'</tt><tt class="py-op">)</tt>  <tt class="py-comment">#cantidad de US pendientes</tt> </tt>
+<a name="L207"></a><tt class="py-lineno">207</tt>  <tt class="py-line">        <tt class="py-name">actividad</tt><tt class="py-op">.</tt><tt class="py-name">save</tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+</div></div><a name="L208"></a><tt class="py-lineno">208</tt>  <tt class="py-line"> </tt>
+<a name="L209"></a><tt class="py-lineno">209</tt>  <tt class="py-line"> </tt>
+<a name="Actividad"></a><div id="Actividad-def"><a name="L210"></a><tt class="py-lineno">210</tt> <a class="py-toggle" href="#" id="Actividad-toggle" onclick="return toggle('Actividad');">-</a><tt class="py-line"><tt class="py-keyword">class</tt> <a class="py-def-name" href="flujos.models.Actividad-class.html">Actividad</a><tt class="py-op">(</tt><tt class="py-base-class">models</tt><tt class="py-op">.</tt><tt class="py-base-class">Model</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Actividad-collapsed" style="display:none;" pad="+++" indent="++++"></div><div id="Actividad-expanded"><a name="L211"></a><tt class="py-lineno">211</tt>  <tt class="py-line">    <tt class="py-comment"># Una actividad tendra un codigo identificador unico, flujo, estado, conjunto de US.</tt> </tt>
+<a name="L212"></a><tt class="py-lineno">212</tt>  <tt class="py-line">    <tt class="py-comment">#Los estados seran estaticos: To do. Doing. Done.</tt> </tt>
+<a name="L213"></a><tt class="py-lineno">213</tt>  <tt class="py-line">    <tt id="link-196" class="py-name"><a title="flujos.models.Actividad.TODO
+flujos.models.Flujo.TODO" class="py-name" href="#" onclick="return doclink('link-196', 'TODO', 'link-34');">TODO</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'TD'</tt> </tt>
+<a name="L214"></a><tt class="py-lineno">214</tt>  <tt class="py-line">    <tt id="link-197" class="py-name"><a title="flujos.models.Actividad.DOING
+flujos.models.Flujo.DOING" class="py-name" href="#" onclick="return doclink('link-197', 'DOING', 'link-60');">DOING</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'DG'</tt> </tt>
+<a name="L215"></a><tt class="py-lineno">215</tt>  <tt class="py-line">    <tt id="link-198" class="py-name"><a title="flujos.models.Actividad.DONE
+flujos.models.Flujo.DONE" class="py-name" href="#" onclick="return doclink('link-198', 'DONE', 'link-62');">DONE</a></tt> <tt class="py-op">=</tt> <tt class="py-string">'DN'</tt> </tt>
+<a name="L216"></a><tt class="py-lineno">216</tt>  <tt class="py-line">    <tt id="link-199" class="py-name" targets="Variable flujos.models.Actividad.ESTADOS_A=flujos.models.Actividad-class.html#ESTADOS_A"><a title="flujos.models.Actividad.ESTADOS_A" class="py-name" href="#" onclick="return doclink('link-199', 'ESTADOS_A', 'link-199');">ESTADOS_A</a></tt> <tt class="py-op">=</tt> <tt class="py-op">(</tt> </tt>
+<a name="L217"></a><tt class="py-lineno">217</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'TD'</tt><tt class="py-op">,</tt> <tt class="py-string">'To_Do'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L218"></a><tt class="py-lineno">218</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'DG'</tt><tt class="py-op">,</tt> <tt class="py-string">'Doing'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L219"></a><tt class="py-lineno">219</tt>  <tt class="py-line">        <tt class="py-op">(</tt><tt class="py-string">'DN'</tt><tt class="py-op">,</tt> <tt class="py-string">'Done'</tt><tt class="py-op">)</tt><tt class="py-op">,</tt> </tt>
+<a name="L220"></a><tt class="py-lineno">220</tt>  <tt class="py-line">    <tt class="py-op">)</tt> </tt>
+<a name="L221"></a><tt class="py-lineno">221</tt>  <tt class="py-line">    <tt class="py-comment">#id = models.AutoField(primary_key=True)</tt> </tt>
+<a name="L222"></a><tt class="py-lineno">222</tt>  <tt class="py-line">    <tt id="link-200" class="py-name"><a title="authentication.models.Usuario.nombre
+flujos.models.Actividad.nombre
+flujos.models.Flujo.nombre
+proyectos.models.Proyecto.nombre
+userstories.models.UserStory.nombre" class="py-name" href="#" onclick="return doclink('link-200', 'nombre', 'link-26');">nombre</a></tt> <tt class="py-op">=</tt> <tt id="link-201" class="py-name"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-201', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">CharField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">50</tt><tt class="py-op">)</tt> </tt>
+<a name="L223"></a><tt class="py-lineno">223</tt>  <tt class="py-line">    <tt id="link-202" class="py-name"><a title="flujos.models.Actividad.owner
+flujos.models.Flujo.owner
+proyectos.models.Proyecto.owner
+sprints.models.Sprint.owner
+userstories.models.UserStory.owner" class="py-name" href="#" onclick="return doclink('link-202', 'owner', 'link-17');">owner</a></tt> <tt class="py-op">=</tt> <tt id="link-203" class="py-name"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-203', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ForeignKey</tt><tt class="py-op">(</tt><tt id="link-204" class="py-name"><a title="authentication.models.Usuario" class="py-name" href="#" onclick="return doclink('link-204', 'Usuario', 'link-3');">Usuario</a></tt><tt class="py-op">,</tt> <tt class="py-name">related_name</tt><tt class="py-op">=</tt><tt class="py-string">'Actividad_Owner'</tt><tt class="py-op">,</tt> </tt>
+<a name="L224"></a><tt class="py-lineno">224</tt>  <tt class="py-line">                              <tt class="py-name">null</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt>  <tt class="py-comment">#, editable=False)  #usuario que lo creo</tt> </tt>
+<a name="L225"></a><tt class="py-lineno">225</tt>  <tt class="py-line">    <tt id="link-205" class="py-name"><a title="authentication.models.Usuario.fecha_creacion
+flujos.models.Actividad.fecha_creacion
+flujos.models.Flujo.fecha_creacion
+proyectos.models.Proyecto.fecha_creacion
+sprints.models.Sprint.fecha_creacion
+userstories.models.UserStory.fecha_creacion" class="py-name" href="#" onclick="return doclink('link-205', 'fecha_creacion', 'link-109');">fecha_creacion</a></tt> <tt class="py-op">=</tt> <tt id="link-206" class="py-name"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-206', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">DateTimeField</tt><tt class="py-op">(</tt><tt class="py-name">auto_now_add</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L226"></a><tt class="py-lineno">226</tt>  <tt class="py-line">    <tt id="link-207" class="py-name"><a title="authentication.models.Usuario.fecha_modificacion
+flujos.models.Actividad.fecha_modificacion
+flujos.models.Flujo.fecha_modificacion
+proyectos.models.Proyecto.fecha_modificacion
+sprints.models.Sprint.fecha_modificacion
+userstories.models.UserStory.fecha_modificacion" class="py-name" href="#" onclick="return doclink('link-207', 'fecha_modificacion', 'link-111');">fecha_modificacion</a></tt> <tt class="py-op">=</tt> <tt id="link-208" class="py-name"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-208', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">DateTimeField</tt><tt class="py-op">(</tt><tt class="py-name">auto_now</tt><tt class="py-op">=</tt><tt class="py-name">True</tt><tt class="py-op">)</tt> </tt>
+<a name="L227"></a><tt class="py-lineno">227</tt>  <tt class="py-line">    <tt id="link-209" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-209', 'flujo', 'link-24');">flujo</a></tt> <tt class="py-op">=</tt> <tt id="link-210" class="py-name"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-210', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">ForeignKey</tt><tt class="py-op">(</tt><tt id="link-211" class="py-name"><a title="flujos.models.Flujo" class="py-name" href="#" onclick="return doclink('link-211', 'Flujo', 'link-33');">Flujo</a></tt><tt class="py-op">,</tt> </tt>
+<a name="L228"></a><tt class="py-lineno">228</tt>  <tt class="py-line">                              <tt class="py-name">related_name</tt><tt class="py-op">=</tt><tt class="py-string">'Actividad_Flujo'</tt><tt class="py-op">)</tt>  <tt class="py-comment">#, editable=False)  #Flujo al que corresponde la actividad</tt> </tt>
+<a name="L229"></a><tt class="py-lineno">229</tt>  <tt class="py-line">    <tt id="link-212" class="py-name"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-212', 'estado', 'link-32');">estado</a></tt> <tt class="py-op">=</tt> <tt id="link-213" class="py-name"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-213', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">TextField</tt><tt class="py-op">(</tt><tt class="py-name">max_length</tt><tt class="py-op">=</tt><tt class="py-number">2</tt><tt class="py-op">,</tt> <tt class="py-name">choices</tt><tt class="py-op">=</tt><tt id="link-214" class="py-name"><a title="flujos.models.Actividad.ESTADOS_A" class="py-name" href="#" onclick="return doclink('link-214', 'ESTADOS_A', 'link-199');">ESTADOS_A</a></tt><tt class="py-op">,</tt> <tt class="py-name">default</tt><tt class="py-op">=</tt><tt id="link-215" class="py-name"><a title="flujos.models.Actividad.TODO
+flujos.models.Flujo.TODO" class="py-name" href="#" onclick="return doclink('link-215', 'TODO', 'link-34');">TODO</a></tt><tt class="py-op">)</tt> </tt>
+<a name="L230"></a><tt class="py-lineno">230</tt>  <tt class="py-line">    <tt id="link-216" class="py-name"><a title="flujos.models.Actividad.orden" class="py-name" href="#" onclick="return doclink('link-216', 'orden', 'link-160');">orden</a></tt> <tt class="py-op">=</tt> <tt id="link-217" class="py-name"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-217', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">DecimalField</tt><tt class="py-op">(</tt><tt class="py-name">max_digits</tt><tt class="py-op">=</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-name">decimal_places</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">)</tt> </tt>
+<a name="L231"></a><tt class="py-lineno">231</tt>  <tt class="py-line">    <tt id="link-218" class="py-name"><a title="flujos.models.Actividad.cantidadUS" class="py-name" href="#" onclick="return doclink('link-218', 'cantidadUS', 'link-172');">cantidadUS</a></tt> <tt class="py-op">=</tt> <tt id="link-219" class="py-name"><a title="authentication.models
+flujos.models
+proyectos.models
+sprints.models
+userstories.models
+utilitarios.models" class="py-name" href="#" onclick="return doclink('link-219', 'models', 'link-0');">models</a></tt><tt class="py-op">.</tt><tt class="py-name">DecimalField</tt><tt class="py-op">(</tt><tt class="py-name">max_digits</tt><tt class="py-op">=</tt><tt class="py-number">4</tt><tt class="py-op">,</tt> <tt class="py-name">decimal_places</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">,</tt> <tt class="py-name">default</tt><tt class="py-op">=</tt><tt class="py-number">0</tt><tt class="py-op">)</tt>  <tt class="py-comment">#cantidad de US pendientes</tt> </tt>
+<a name="L232"></a><tt class="py-lineno">232</tt>  <tt class="py-line"> </tt>
+<a name="L233"></a><tt class="py-lineno">233</tt>  <tt class="py-line">    <tt id="link-220" class="py-name"><a title="authentication.models.Usuario.objects
+flujos.models.Actividad.objects
+flujos.models.Flujo.objects
+proyectos.models.Proyecto.objects
+sprints.models.Sprint.objects
+userstories.models.UserStory.objects
+utilitarios.models.Utils.objects" class="py-name" href="#" onclick="return doclink('link-220', 'objects', 'link-12');">objects</a></tt> <tt class="py-op">=</tt> <tt id="link-221" class="py-name" targets="Class flujos.models.ActividadManager=flujos.models.ActividadManager-class.html"><a title="flujos.models.ActividadManager" class="py-name" href="#" onclick="return doclink('link-221', 'ActividadManager', 'link-221');">ActividadManager</a></tt><tt class="py-op">(</tt><tt class="py-op">)</tt> </tt>
+<a name="L234"></a><tt class="py-lineno">234</tt>  <tt class="py-line"> </tt>
+<a name="L235"></a><tt class="py-lineno">235</tt>  <tt class="py-line">    <tt id="link-222" class="py-name"><a title="authentication.models.Usuario.REQUIRED_FIELDS
+flujos.models.Actividad.REQUIRED_FIELDS
+flujos.models.Flujo.REQUIRED_FIELDS
+proyectos.models.Proyecto.REQUIRED_FIELDS
+sprints.models.Sprint.REQUIRED_FIELDS
+userstories.models.UserStory.REQUIRED_FIELDS" class="py-name" href="#" onclick="return doclink('link-222', 'REQUIRED_FIELDS', 'link-123');">REQUIRED_FIELDS</a></tt> <tt class="py-op">=</tt> <tt class="py-op">[</tt><tt class="py-string">'nombre'</tt><tt class="py-op">,</tt> <tt class="py-string">'owner'</tt><tt class="py-op">,</tt> <tt class="py-string">'flujo'</tt><tt class="py-op">,</tt> <tt class="py-string">'orden'</tt><tt class="py-op">]</tt> </tt>
+<a name="L236"></a><tt class="py-lineno">236</tt>  <tt class="py-line"> </tt>
+<a name="Actividad.__unicode__"></a><div id="Actividad.__unicode__-def"><a name="L237"></a><tt class="py-lineno">237</tt> <a class="py-toggle" href="#" id="Actividad.__unicode__-toggle" onclick="return toggle('Actividad.__unicode__');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="flujos.models.Actividad-class.html#__unicode__">__unicode__</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Actividad.__unicode__-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Actividad.__unicode__-expanded"><a name="L238"></a><tt class="py-lineno">238</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-223" class="py-name"><a title="authentication.models.Usuario.nombre
+flujos.models.Actividad.nombre
+flujos.models.Flujo.nombre
+proyectos.models.Proyecto.nombre
+userstories.models.UserStory.nombre" class="py-name" href="#" onclick="return doclink('link-223', 'nombre', 'link-26');">nombre</a></tt> </tt>
+</div><a name="L239"></a><tt class="py-lineno">239</tt>  <tt class="py-line"> </tt>
+<a name="Actividad.get_nombre"></a><div id="Actividad.get_nombre-def"><a name="L240"></a><tt class="py-lineno">240</tt> <a class="py-toggle" href="#" id="Actividad.get_nombre-toggle" onclick="return toggle('Actividad.get_nombre');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="flujos.models.Actividad-class.html#get_nombre">get_nombre</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Actividad.get_nombre-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Actividad.get_nombre-expanded"><a name="L241"></a><tt class="py-lineno">241</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-224" class="py-name"><a title="authentication.models.Usuario.nombre
+flujos.models.Actividad.nombre
+flujos.models.Flujo.nombre
+proyectos.models.Proyecto.nombre
+userstories.models.UserStory.nombre" class="py-name" href="#" onclick="return doclink('link-224', 'nombre', 'link-26');">nombre</a></tt> </tt>
+</div><a name="L242"></a><tt class="py-lineno">242</tt>  <tt class="py-line"> </tt>
+<a name="Actividad.get_orden"></a><div id="Actividad.get_orden-def"><a name="L243"></a><tt class="py-lineno">243</tt> <a class="py-toggle" href="#" id="Actividad.get_orden-toggle" onclick="return toggle('Actividad.get_orden');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="flujos.models.Actividad-class.html#get_orden">get_orden</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Actividad.get_orden-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Actividad.get_orden-expanded"><a name="L244"></a><tt class="py-lineno">244</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-225" class="py-name"><a title="flujos.models.Actividad.orden" class="py-name" href="#" onclick="return doclink('link-225', 'orden', 'link-160');">orden</a></tt> </tt>
+</div><a name="L245"></a><tt class="py-lineno">245</tt>  <tt class="py-line"> </tt>
+<a name="Actividad.get_owner"></a><div id="Actividad.get_owner-def"><a name="L246"></a><tt class="py-lineno">246</tt> <a class="py-toggle" href="#" id="Actividad.get_owner-toggle" onclick="return toggle('Actividad.get_owner');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="flujos.models.Actividad-class.html#get_owner">get_owner</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Actividad.get_owner-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Actividad.get_owner-expanded"><a name="L247"></a><tt class="py-lineno">247</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-226" class="py-name"><a title="flujos.models.Actividad.owner
+flujos.models.Flujo.owner
+proyectos.models.Proyecto.owner
+sprints.models.Sprint.owner
+userstories.models.UserStory.owner" class="py-name" href="#" onclick="return doclink('link-226', 'owner', 'link-17');">owner</a></tt> </tt>
+</div><a name="L248"></a><tt class="py-lineno">248</tt>  <tt class="py-line"> </tt>
+<a name="Actividad.get_flujo"></a><div id="Actividad.get_flujo-def"><a name="L249"></a><tt class="py-lineno">249</tt> <a class="py-toggle" href="#" id="Actividad.get_flujo-toggle" onclick="return toggle('Actividad.get_flujo');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="flujos.models.Actividad-class.html#get_flujo">get_flujo</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Actividad.get_flujo-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Actividad.get_flujo-expanded"><a name="L250"></a><tt class="py-lineno">250</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-227" class="py-name"><a title="flujos.models.Actividad.flujo" class="py-name" href="#" onclick="return doclink('link-227', 'flujo', 'link-24');">flujo</a></tt> </tt>
+</div><a name="L251"></a><tt class="py-lineno">251</tt>  <tt class="py-line"> </tt>
+<a name="Actividad.get_estado"></a><div id="Actividad.get_estado-def"><a name="L252"></a><tt class="py-lineno">252</tt> <a class="py-toggle" href="#" id="Actividad.get_estado-toggle" onclick="return toggle('Actividad.get_estado');">-</a><tt class="py-line">    <tt class="py-keyword">def</tt> <a class="py-def-name" href="flujos.models.Actividad-class.html#get_estado">get_estado</a><tt class="py-op">(</tt><tt class="py-param">self</tt><tt class="py-op">)</tt><tt class="py-op">:</tt> </tt>
+</div><div id="Actividad.get_estado-collapsed" style="display:none;" pad="+++" indent="++++++++"></div><div id="Actividad.get_estado-expanded"><a name="L253"></a><tt class="py-lineno">253</tt>  <tt class="py-line">        <tt class="py-keyword">return</tt> <tt class="py-name">self</tt><tt class="py-op">.</tt><tt id="link-228" class="py-name"><a title="flujos.models.Actividad.estado
+flujos.models.Flujo.estado
+proyectos.models.Proyecto.estado
+sprints.models.Sprint.estado
+userstories.models.UserStory.estado" class="py-name" href="#" onclick="return doclink('link-228', 'estado', 'link-32');">estado</a></tt> </tt>
+</div></div><a name="L254"></a><tt class="py-lineno">254</tt>  <tt class="py-line"> </tt><script type="text/javascript">
+<!--
+expandto(location.href);
+// -->
+</script>
+</pre>
+<br />
+<!-- ==================== NAVIGATION BAR ==================== -->
+<table class="navbar" border="0" width="100%" cellpadding="0"
+       bgcolor="#a0c0ff" cellspacing="0">
+  <tr valign="middle">
+
+  <!-- Tree link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="module-tree.html">Trees</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Index link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="identifier-index.html">Indices</a>&nbsp;&nbsp;&nbsp;</th>
+
+  <!-- Help link -->
+      <th>&nbsp;&nbsp;&nbsp;<a
+        href="help.html">Help</a>&nbsp;&nbsp;&nbsp;</th>
+
+      <th class="navbar" width="100%"></th>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="100%%">
+  <tr>
+    <td align="left" class="footer">
+    Generated by Epydoc 3.0.1 on Sat May 30 09:57:19 2015
+    </td>
+    <td align="right" class="footer">
+      <a target="mainFrame" href="http://epydoc.sourceforge.net"
+        >http://epydoc.sourceforge.net</a>
+    </td>
+  </tr>
+</table>
+
+<script type="text/javascript">
+  <!--
+  // Private objects are initially displayed (because if
+  // javascript is turned off then we want them to be
+  // visible); but by default, we want to hide them.  So hide
+  // them unless we have a cookie that says to show them.
+  checkCookie();
+  // -->
+</script>
+</body>
+</html>

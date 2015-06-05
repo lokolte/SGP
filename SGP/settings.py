@@ -45,7 +45,8 @@ INSTALLED_APPS = (
     'sprints',
     'userstories',
     'utilitarios',
-    'historialus'
+    'historialus',
+    'notificaciones'
 )
 
 MIDDLEWARE_CLASSES = (
