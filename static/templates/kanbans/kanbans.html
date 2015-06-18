@@ -6,20 +6,23 @@
         <table class="table table-striped table-hover ">
             <thead>
             <tr>
-                <th>Analisis</th>
-                <th>Disenho</th>
+                <th ng-repeat="act in vm.actividades track by $index">
+                    {{ act.nombre }}
+                </th>
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="us in vm.kanbanus">
-                <td>{{ us.analisis.nombre }}</td>
-                <td>{{ us.disenho.nombre }}</td>
-                <td>
-                    <a ng-click="vm.avanzar(us)" class="btn btn-info">Avanzar US</a>
-                    <a ng-click="vm.retrasar(us)" class="btn btn-info">Retrasar US</a>
-                    <a ng-click="vm.registrarTrabajo(us)" class="btn btn-info">Registrar Trabajo</a>
-                </td>
-            </tr>
+                    <tr ng-repeat="us in vm.kanbanus track by $index">
+                        <td ng-repeat="u in us track by $index">
+                            <details>{{ u.nombre }} </details>
+                            <details>{{ u.estado }} </details>
+                        </td>
+                        <td>
+                            <a ng-click="vm.avanzar(us)" class="btn btn-info">Avanzar US</a>
+                            <a ng-click="vm.retrasar(us)" class="btn btn-info">Retrasar US</a>
+                            <a ng-click="vm.registrarTrabajo(us)" class="btn btn-info">Registrar Trabajo</a>
+                        </td>
+                    </tr>
             </tbody>
         </table>
     </div>

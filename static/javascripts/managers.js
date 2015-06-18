@@ -17,7 +17,8 @@
             'managers.sprint',
             'managers.userstory',
             'managers.kanban',
-            'managers.historialus'
+            'managers.historialus',
+            'managers.table'
             //'managers.angular-bootstrap'
         ]);
 

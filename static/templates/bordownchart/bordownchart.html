@@ -1,0 +1,17 @@
+<div>
+            <div class="col-lg-6 col-sm-12" id="line-chart">
+                <div class="panel panel-collapse">
+                    <div class="panel-heading">
+                        BordownChart del Proyecto {{ vm.proyecto.nombre }}
+                    </div>
+
+                    <div class="panel-body">
+                        <canvas id="line" class="chart chart-line" data="vm.data" labels="vm.dias" legend="true"
+                                click="vm.accion()" series="vm.series"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>

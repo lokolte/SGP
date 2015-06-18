@@ -4,8 +4,8 @@ from utilitarios.models import Utils
 # Create your models here.
 
 class ProyectoManager(models.Manager):
-    #recibe nombre, owner_id, cliente_id, estado,
-    #/api/proyectos/modnew
+    #recibe nombre, owner_id, cliente_id, fecha_ini, fecha_fin,
+    #/api/proyectos/new {proyecto}
     def crear_proyecto(self, **kwargs):
 
         if not kwargs.get('nombre'):
@@ -34,50 +34,57 @@ class ProyectoManager(models.Manager):
             raise ValueError('Debe existir una Fecha de Fin Estimado')
 
         if not kwargs.get('estado'):
-            estadoaux = Proyecto.SUSPENDIDO
+            estado = Proyecto.SUSPENDIDO
         else:
             if kwargs.get('estado') == Proyecto.ACTIVO:
-                estadoaux = Proyecto.ACTIVO
+                estado = Proyecto.ACTIVO
             else:
-                estadoaux = Proyecto.SUSPENDIDO
+                estado = Proyecto.SUSPENDIDO
+
+        if not kwargs.get('observacion'):
+            raise ValueError('Debe existir una observacion')
 
         proyecto = self.model(
             nombre=kwargs.get('nombre'),
             owner=owner,
-            estado=estadoaux,
+            estado=estado,
             cliente=cliente,
-            fecha_ini=kwargs.get('fecha_ini'),
-            fecha_fin=kwargs.get('fecha_fin'),
+            fecha_ini=Utils.objects.retornar_fecha(kwargs.get('fecha_ini')),
+            fecha_fin=Utils.objects.retornar_fecha(kwargs.get('fecha_fin')),
             observacion=kwargs.get('observacion'),
         )
         proyecto.save()
         return proyecto
 
-    #/api/proyectos/get
+    #/api/proyectos/get {id:#}
     def buscar_proyecto(self, id):
         try:
             return Proyecto.objects.get(pk=id)
         except Proyecto.DoesNotExist:
             return None
 
-    #/api/proyectos/modnew
+    #/api/proyectos/mod {id:#}
     def modificar_proyecto(self, id, **kwargs):
 
         proyecto = Proyecto.objects.buscar_proyecto(id)
-
+        print ('Entro al model: Estado del proyecto: '+ proyecto.estado)
         if proyecto != None:
             if proyecto.estado == Proyecto.ACTIVO:
                 #solo se cambian los campos que no es estado y solo si el proyecto esta activo
                 proyecto.nombre = kwargs.get('nombre')
                 proyecto.observacion = kwargs.get('observacion')
-                proyecto.fecha_fin = kwargs.get('fecha_fin')
+                proyecto.fecha_fin = Utils.objects.retornar_fecha(kwargs.get('fecha_fin'))
                 proyecto.save()
+                print(proyecto)
                 return proyecto
+            else:
+                return Utils.NO_PERMITIDO
         else:
             print('No existe el proyecto')
             return Utils.NO_ENCONTRADO
 
-    #/api/proyectos/estado
+    #/api/proyectos/estado {id:#, estado: "estado"}
+    #solo ejecuta el metodo si es el SCRUM MASTER
     def cambiar_estado(self, id, **kwargs):
         #cambiar el estado solo si no esta finalizado
         proyecto = Proyecto.objects.buscar_proyecto(id)
@@ -90,7 +97,7 @@ class ProyectoManager(models.Manager):
                     proyecto.save()
                     return proyecto
 
-            elif proyecto.estado == Proyecto.SUSPENDIDO: #si es el SCRUM
+            elif proyecto.estado == Proyecto.SUSPENDIDO:
 
                 if kwargs.get('estado') == Proyecto.ACTIVO:
                     proyecto.estado = kwargs.get('estado')
@@ -119,6 +126,7 @@ class Proyecto(models.Model):
     )
     owner = models.ForeignKey(Usuario, related_name='Usuario_Proyecto', editable=False)  #usuario que lo creo
     cliente = models.ForeignKey(Usuario, related_name='Cliente_Proyecto', blank=True, null=True, on_delete=models.SET_NULL)
+    empleado = models.ManyToManyField(Usuario, related_name='Empleado_Proyecto', blank=True, null=True)
     nombre = models.CharField(max_length=100)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)

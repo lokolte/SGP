@@ -63,8 +63,6 @@ class UsuarioViewSet(viewsets.ModelViewSet):
 
 class LoginView(views.APIView):
 
-    #def get_permissions(self):
-
     def post(self, request, format=None):
         print('Llegada de solicitud..')
         data = json.loads(request.body)

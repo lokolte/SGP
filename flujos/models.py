@@ -102,7 +102,7 @@ class Flujo(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True, null=True)
     estado = models.TextField(max_length=2, choices=ESTADOS_F, default=TODO)
-    observaciones = models.TextField()
+    observacion = models.TextField()
     iniciado = models.BooleanField(default=False)
 
     objects = FlujoManager()
@@ -145,7 +145,7 @@ class ActividadManager(models.Manager):
         if not kwargs.get('nombre'):
             raise ValueError('Debe existir un nombre de Actividad')
 
-        if not kwargs.get('flujo'):
+        if not kwargs.get('flujo_id'):
             raise ValueError('Debe existir un Flujo propietario')
         else:
             flujo = Flujo.objects.buscar_flujo(id=kwargs.get('flujo_id'))
@@ -160,7 +160,6 @@ class ActividadManager(models.Manager):
             if owner == None:
                 print('No existe el owner')
                 return Utils.NO_ENCONTRADO
-
 
         if not kwargs.get('orden'):
             raise ValueError('Debe existir un numero de Orden de Actividad')

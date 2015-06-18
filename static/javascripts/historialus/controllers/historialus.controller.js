@@ -93,8 +93,8 @@
             if(Kanbans.isExistkanban()){
                 console.log('Encontro el kanban?');
                 vm.us = Kanbans.getkanbanCookie();
-                if(vm.us.disenho.nombre!=''){
-                    vm.us=vm.us.disenho;
+                if(vm.us.nombre!=''){
+                    vm.us=vm.us;
                     vm.historialus.us=vm.us.fila;
                 }else{
                     vm.us=vm.us.analisis;

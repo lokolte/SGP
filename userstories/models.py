@@ -6,8 +6,8 @@ from proyectos.models import Proyecto
 from flujos.models import Actividad
 from utilitarios.models import Utils
 
-class UserStoryManager(models.Manager):
 
+class UserStoryManager(models.Manager):
     def crear_us(self, **kwargs):
 
         if not kwargs.get('nombre'):
@@ -17,12 +17,26 @@ class UserStoryManager(models.Manager):
             raise ValueError('Debe existir un Usuario responsable')
         else:
             owner = Usuario.objects.buscar_usuario(id=kwargs.get('owner_id'))
-            if owner==None:
+            if owner == None:
                 print('No existe el usuario')
                 return Utils.NO_ENCONTRADO
 
+        if not kwargs.get('proyecto_id'):
+            raise ValueError('Debe existir un Proyecto')
+        else:
+            proyecto = Proyecto.objects.buscar_proyecto(id=kwargs.get('proyecto_id'))
+            if proyecto == None:
+                print('No existe el proyecto')
+                return Utils.NO_ENCONTRADO
+
+        print('testeando la fecha')
+        print(kwargs.get('fecha_ini'))
+        print('paso la prueba')
+
         if not kwargs.get('fecha_ini'):
             raise ValueError('Debe existir una Fecha de Inicio')
+        else:
+            fecha_ini = kwargs.get('fecha_ini')
 
         if not kwargs.get('fecha_fin'):
             raise ValueError('Debe existir una Fecha de Fin')
@@ -36,7 +50,7 @@ class UserStoryManager(models.Manager):
         if not kwargs.get('descripcionL'):
             descriplarga = ''
         else:
-            descriplarga= kwargs.get('descripcionL')
+            descriplarga = kwargs.get('descripcionL')
 
         if not kwargs.get('descripcionC'):
             raise ValueError('Debe existir una descripcion corta')
@@ -45,24 +59,36 @@ class UserStoryManager(models.Manager):
             raise ValueError('Debe existir un valor de prioridad')
 
         if not kwargs.get('tamanho'):
-            tamanho = Utils.objects.retornar_fecha(kwargs.get('fecha_fin')) - Utils.objects.retornar_fecha(kwargs.get('fecha_ini'))
-            print('Tamanho del US calculado en: ' + tamanho.hour + '...')
+            tamanho = Utils.objects.retornar_fecha(kwargs.get('fecha_fin')) - Utils.objects.retornar_fecha(fecha_ini)
+            print(tamanho)
+            tamanho = tamanho.days*8 + tamanho.seconds//3600
+            print(tamanho)
         else:
             print('El tamanho unicamente se calcula.')
-            #tamanho = kwargs.get('tamanho')
+            raise ValueError('El tamanho unicamente se calcula')
+
+        try:
+            print('La fecha se cargo exitosamente: ' + fecha_ini)
+            print(tamanho)
+            #print(tamanho)
+            #print(tamanho.hour)
+            #print(tamanho.days)
+        except:
+            print('error!!')
 
         userstory = self.model(
             nombre=kwargs.get('nombre'),
             owner=owner,
             estado=UserStory.PENDIENTE,
-            fecha_ini=kwargs.get('fecha_ini'),
-            fecha_fin=kwargs.get('fecha_fin'),
+            proyecto=proyecto,
+            fecha_ini=Utils.objects.retornar_fecha(fecha_ini),
+            fecha_fin=Utils.objects.retornar_fecha(kwargs.get('fecha_fin')),
             valorNegocio=kwargs.get('valorNegocio'),
             valorTecnico=kwargs.get('valorTecnico'),
             descripcionC=kwargs.get('descripcionC'),
             descripcionL=descriplarga,
             prioridad=kwargs.get('prioridad'),
-            tamanho=tamanho.hour,
+            tamanho=tamanho,
         )
 
         userstory.save()
@@ -77,15 +103,32 @@ class UserStoryManager(models.Manager):
     def modificar_us(self, id, **kwargs):
         userstory = UserStory.objects.buscar_userstory(id)
         if userstory.estado == UserStory.PENDIENTE:
-            #Y verificar si es el final de un sprint para realizar los cambios
-            userstory.nombre = kwargs.get('nombre')
-            userstory.valorNegocio = kwargs.get('valorNegocio')
-            userstory.valorTecnico = kwargs.get('valorTecnico')
-            userstory.descripcionC = kwargs.get('descripcionC')
-            userstory.descripcionL = kwargs.get('descripcionL')
-            userstory.tamanho = kwargs.get('tamanho')
-            userstory.fecha_fin = kwargs.get('fecha_fin')
-            userstory.prioridad = kwargs.get('prioridad')
+            # Y verificar si es el final de un sprint para realizar los cambios
+            if kwargs.get('nombre'):
+                userstory.nombre = kwargs.get('nombre')
+
+            if kwargs.get('valorNegocio'):
+                userstory.valorNegocio = kwargs.get('valorNegocio')
+
+            if kwargs.get('valorTecnico'):
+                userstory.valorTecnico = kwargs.get('valorTecnico')
+
+            if kwargs.get('descripcionC'):
+                userstory.descripcionC = kwargs.get('descripcionC')
+
+            if kwargs.get('descripcionL'):
+                userstory.descripcionL = kwargs.get('descripcionL')
+
+            if kwargs.get('tamanho'):
+                userstory.fecha_fin = Utils.objects.retornar_fecha(kwargs.get('fecha_fin'))
+                if userstory.fecha_fin > userstory.fecha_ini:
+                    userstory.tamanho = userstory.fecha_fin - userstory.fecha_ini
+                else:
+                    raise ValueError('La fecha de finalizacion no puede ser menor o igual a la fecha de inicio.')
+
+            if kwargs.get('prioridad'):
+                userstory.prioridad = kwargs.get('prioridad')
+
             userstory.save()
         else:
             print('No se permiten modificar US que no tengan estado pendiente')
@@ -97,7 +140,7 @@ class UserStoryManager(models.Manager):
         if sprint != None and userstory != None:
             userstory.sprint = sprint
             if userstory.tamanho <= sprint.horasRest:
-                sprint.horasRest = sprint.horasRest-userstory.tamanho
+                sprint.horasRest = sprint.horasRest - userstory.tamanho
                 userstory.save()
             else:
                 print('No permitido; tamanho de US mayor al tiempo restate del sprint')
@@ -111,14 +154,14 @@ class UserStoryManager(models.Manager):
         flujo = Flujo.objects.buscar_flujo(id_flujo)
         if flujo != None and userstory != None:
             if userstory.actividad_actual != None:
-                    actividad = Actividad.objects.filter(flujo=id_flujo, orden=1)
-                    if actividad != None:
-                        userstory.flujo_actual = flujo
-                        userstory.actividad_actual = actividad
-                        userstory.save()
-                    else:
-                        print('La Actividad no existe')
-                        return Utils.NO_ENCONTRADO
+                actividad = Actividad.objects.filter(flujo=id_flujo, orden=1)
+                if actividad != None:
+                    userstory.flujo_actual = flujo
+                    userstory.actividad_actual = actividad
+                    userstory.save()
+                else:
+                    print('La Actividad no existe')
+                    return Utils.NO_ENCONTRADO
             else:
                 userstory.flujo_actual = flujo
         else:
@@ -146,12 +189,13 @@ class UserStoryManager(models.Manager):
             return Utils.NO_ENCONTRADO
 
     # solo el Scrum llama a esta funcion
-    def verificar_us(self,id, **kwargs):
+    def verificar_us(self, id, **kwargs):
         userstory = UserStory.objects.buscar_userstory(id)
 
         if userstory != None:
             if userstory.estado == UserStory.FINALIZADO:
-                userstory.confirmado = kwargs.get('confirmado') == 'True' #es true cuando confirmado = True si es False es False
+                userstory.confirmado = kwargs.get(
+                    'confirmado') == 'True'  # es true cuando confirmado = True si es False es False
                 userstory.revisado = True
                 if userstory.confirmado == False:
                     userstory.estado = UserStory.PENDIENTE
@@ -163,24 +207,26 @@ class UserStoryManager(models.Manager):
                     max = userstory.actividad_actual.orden
                     id_sigte_act = -1
                     for a in actividades:
-                        if max+1 == a.orden:
+                        if max + 1 == a.orden:
                             id_sigte_act = a.id
 
                     if userstory.actividad_actual.cantidadUS == 0:
                         if userstory.actividad_actual.orden == 1:
-                            Actividad.objects.cambiar_estado_actividad(id=userstory.actividad_actual, estado=Actividad.DONE)
+                            Actividad.objects.cambiar_estado_actividad(id=userstory.actividad_actual,
+                                                                       estado=Actividad.DONE)
                         else:
                             # conseguir la actividad anterior
                             id_ant_act = -1
                             for a in actividades:
-                                if max-1 == a.orden:
+                                if max - 1 == a.orden:
                                     id_ant_act = a.id
 
                             if id_ant_act != -1:
                                 actividadAnterior = Actividad.objects.buscar_actividad(id=id_ant_act)
                                 if actividadAnterior != None:
                                     if actividadAnterior.estado == Actividad.DONE:
-                                        Actividad.objects.cambiar_estado_actividad(id=userstory.actividad_actual, estado=Actividad.DONE)
+                                        Actividad.objects.cambiar_estado_actividad(id=userstory.actividad_actual,
+                                                                                   estado=Actividad.DONE)
                                 else:
                                     print('La Actividad no existe')
                                     return Utils.NO_ENCONTRADO
@@ -195,10 +241,11 @@ class UserStoryManager(models.Manager):
             print('El US no existe')
             return Utils.NO_ENCONTRADO
 
-    #def registrar_actividad(self):
-    #    print('se registra')
+            # def registrar_actividad(self):
+            #    print('se registra')
 
-    #def asignar_flujo()
+            #def asignar_flujo()
+
 
 class UserStory(models.Model):
     # US tendra un codigo identificador, descripcion corta para visualizacion y
@@ -216,27 +263,29 @@ class UserStory(models.Model):
         ('F', 'Finalizado'),
     )
     nombre = models.CharField(max_length=100)
-    owner = models.ForeignKey(Usuario,related_name='US_Owner', null=True)#, editable=False)  # usuario que lo creo
-    flujo_actual = models.ForeignKey(Flujo, related_name='US_Flujo', null=True)#, editable=True)
-    sprint = models.ForeignKey(Sprint, related_name='US_Sprint', null=True)#, editable=True)
-    actividad_actual = models.ForeignKey(Actividad, related_name='US_Actividad', null=True)#, editable=True)
+    owner = models.ForeignKey(Usuario, related_name='US_Owner', null=True)  # , editable=False)  # usuario que lo creo
+    flujo_actual = models.ForeignKey(Flujo, related_name='US_Flujo', null=True)  # , editable=True)
+    sprint = models.ForeignKey(Sprint, related_name='US_Sprint', null=True)  # , editable=True)
+    actividad_actual = models.ForeignKey(Actividad, related_name='US_Actividad', null=True)  # , editable=True)
     proyecto = models.ForeignKey(Proyecto, related_name='US_Proyecto')
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
-    fecha_modificacion = models.DateTimeField(auto_now=True)
+    fecha_creacion = models.DateTimeField(auto_now_add=True, null=True)
+    fecha_modificacion = models.DateTimeField(auto_now=True, null=True)
     estado = models.CharField(max_length=1, choices=ESTADOS_US, default=PENDIENTE)
     # La US debera tener uno de los siguientes tres estados:
     # P (Pendiente): La US aun tiene trabajo pendiente a realizar y no cumple todavia las expectativas de los clientes.
     # S (Suspendido): La US fue suspendida y ya no se realiza trabajo sobre la misma.
     # F (Finalizado): La US fue finalizada exitosamente y cumple todas las expectativas de los clientes.
-    fecha_ini = models.DateTimeField(auto_now_add=False)
-    fecha_fin = models.DateTimeField(auto_now_add=False)
     valorNegocio = models.IntegerField(default=0)
     valorTecnico = models.IntegerField(default=0)
     descripcionC = models.CharField(max_length=350)
     descripcionL = models.CharField(max_length=750)
-    #prioridad es un valor que va 1 a 10 y cuanto mayor sea el valor tendra mayor prioridad
+
+    fecha_ini = models.DateTimeField(auto_now_add=False, null=True)
+    fecha_fin = models.DateTimeField(auto_now_add=False, null=True)
+
+    # prioridad es un valor que va 1 a 10 y cuanto mayor sea el valor tendra mayor prioridad
     prioridad = models.IntegerField(default=1)
-    tamanho = models.IntegerField(default=0)
+    tamanho = models.DecimalField(max_digits=20, decimal_places=5, default=0.0)#.IntegerField(default=0)
     horasregistradas = models.IntegerField(default=0)
     confirmado = models.BooleanField(default=False)
     revisado = models.BooleanField(default=False)
@@ -263,7 +312,7 @@ class UserStory(models.Model):
     def get_tamanho(self):
         return self.tamanho
 
-    def fecha_ini(self):
+    def get_fecha_ini(self):
         return self.fecha_ini
 
     def get_fecha_fin(self):

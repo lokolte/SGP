@@ -22,7 +22,7 @@ No encontrado:
 Nota: los efectos esperados son los que retornan el/los mismo(s) objeto(s).
 
 #########################################################
-Formatos para los Views
+#Formatos para los Views
     Para los metodos que retornan:
 
 Sin efectos:
@@ -49,8 +49,7 @@ Para peticiones con formato inadecuado:
 
 ############################################################
 #Observaciones
-    - Los estados utilizados en backend son las abreviaturas, tener cuidado
-con el uso de estos en el frontend
+    - Los estados utilizados en backend son las abreviaturas, tener cuidado con el uso de estos en el frontend
 
     - Para las fechas se utilizara el formato de YYYY-MM-DD HH:MM:SS sin excepciones
 

@@ -69,6 +69,10 @@
             controller: 'ProductBLController',
             controllerAs: 'vm',
             templateUrl: '/static/templates/userstory/productbl.html'
+        }).when('/table', {
+            controller: 'TableController',
+            controllerAs: 'vm',
+            templateUrl: '/static/templates/tabla/tabla.html'
         }).otherwise('/404');
     }
 })();

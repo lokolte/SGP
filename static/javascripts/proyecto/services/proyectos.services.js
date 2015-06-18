@@ -35,8 +35,8 @@
             });
         }
 
-        function get(id_proyecto) {
-            return $http.get('/api/proyectos/' + id_proyecto);
+        function get(id) {
+            return $http.post('/api/proyectos/', {'id': id});
         }
 
         function modificar(id_proyecto) {

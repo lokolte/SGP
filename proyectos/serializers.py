@@ -1,8 +1,13 @@
 from rest_framework import serializers
 
 from proyectos.models import Proyecto
+from authentication.models import Usuario
+from authentication.serializers import UsuarioSerializer
+
 
 class ProyectoSerializer(serializers.ModelSerializer):
+    owner = UsuarioSerializer(read_only=True, required=False)
+    cliente = UsuarioSerializer(read_only=True, required=False)
 
     class Meta:
         model = Proyecto
@@ -15,9 +20,13 @@ class ProyectoSerializer(serializers.ModelSerializer):
 
         def update(self, instance, validated_data):
             instance.nombre = validated_data.get('nombre', instance.nombre)
-            instance.save()
             instance.fecha_fin = validated_data.get('fecha_fin', instance.fecha_fin)
-            instance.save()
             instance.observacion = validated_data.get('observacion', instance.observacion)
             instance.save()
             return instance
+
+    def get_validation_exclusions(self, *args, **kwargs):
+
+        exclusions = super(ProyectoSerializer, self).get_validation_exclusions()
+
+        return exclusions + ['owner', 'cliente']
