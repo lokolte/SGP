@@ -3,14 +3,9 @@
 
   angular
     .module('managers.bordownchart', [
-      'managers.bordownchart.controllers',
-      'managers.bordownchart.services'
+      'managers.bordownchart.controllers'
     ]);
 
   angular
-    .module('managers.bordownchart.controllers', ['nvd3ChartDirectives','chart.js']);
-
-  angular
-    .module('managers.bordownchart.services', []);
+    .module('managers.bordownchart.controllers', ['chart.js', 'angularCharts']);
 })();
-

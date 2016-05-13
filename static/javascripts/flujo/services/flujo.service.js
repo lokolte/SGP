@@ -17,6 +17,7 @@
             create: create,
             get: get,
             modificar: modificar,
+
             setFlujoCookie: setFlujoCookie,
             getFlujoCookie: getFlujoCookie,
             isExistFlujo: isExistFlujo,
@@ -44,7 +45,8 @@
         }
 
         function setFlujoCookie(flujo){
-            $cookies.byFlujo = JSON.stringify(flujo);
+            //$cookies.byFlujo = JSON.stringify(flujo);
+            $cookies.putObject('flujo', flujo);
             console.log(getFlujoCookie());
         }
 
@@ -52,16 +54,18 @@
             if(!isExistFlujo()) {
                 return ;
             }
-            console.log('hola json: '+angular.toJson($cookies.byFlujo));
-            return JSON.parse($cookies.byFlujo);
+            //console.log('hola json: '+angular.toJson($cookies.byFlujo));
+            //return JSON.parse($cookies.byFlujo);
+            return $cookies.getObject('flujo');
         }
 
         function isExistFlujo(){
-            return !!$cookies.byFlujo;
+            return !!$cookies.getObject('flujo');
         }
 
         function deleteFlujoCookie(){
-            delete $cookies.byFlujo;
+            //delete $cookies.byFlujo;
+            $cookies.remove('flujo');
         }
 
     }

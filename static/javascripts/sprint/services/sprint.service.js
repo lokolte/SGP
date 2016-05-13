@@ -13,11 +13,17 @@
             create: create,
             get: get,
             modificar: modificar,
+
             setSprintCookie: setSprintCookie,
             isExistSprint: isExistSprint,
             getSprintCookie: getSprintCookie,
             deleteSprintCookie: deleteSprintCookie,
-            agregarUserStory: agregarUserStory
+            agregarUserStory: agregarUserStory,
+
+            setSprintsCookie: setSprintsCookie,
+            isExistSprints: isExistSprints,
+            getSprintsCookie: getSprintsCookie,
+            deleteSprintsCookie: deleteSprintsCookie
         };
 
         return Sprints;
@@ -41,11 +47,11 @@
         }
 
         function setSprintCookie(sprint){
-            $cookies.bySprint = JSON.stringify(sprint);
+            $cookies.putObject('sprint', sprint);
         }
 
         function isExistSprint(){
-            return !!$cookies.bySprint;
+            return !!$cookies.getObject('sprint');
         }
 
         function getSprintCookie(){
@@ -53,17 +59,40 @@
                 return ;
             }
 
-            return JSON.parse($cookies.bySprint);
+            return $cookies.getObject('sprint');//JSON.parse($cookies.bySprint);
         }
 
         function deleteSprintCookie(){
-            delete $cookies.bySprint;
+            //delete $cookies.bySprint;
+            $cookies.remove('sprint');
         }
 
         function agregarUserStory(us){
             var s = getSprintCookie();
             s.duracionHoras = s.duracionHoras - us.tamanho;
             setSprintCookie(s);
+        }
+
+        function setSprintsCookie(sprints){
+            $cookies.putObject('sprints', sprints);
+            //$cookies.bySprint = JSON.stringify(sprints);
+        }
+
+        function isExistSprints(){
+            return !!$cookies.getObject('sprints');
+        }
+
+        function getSprintsCookie(){
+            if(!isExistSprints()) {
+                return ;
+            }
+
+            return $cookies.getObject('sprints');//JSON.parse($cookies.bySprint);
+        }
+
+        function deleteSprintsCookie(){
+            //delete $cookies.bySprint;
+            $cookies.remove('sprints');
         }
 
     }

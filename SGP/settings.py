@@ -46,7 +46,8 @@ INSTALLED_APPS = (
     'userstories',
     'utilitarios',
     'historialus',
-    'notificaciones'
+    'notificacion',
+    'roles'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -112,10 +113,11 @@ TEMPLATE_DIRS = (
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
+    ),
+    #esto fue lo ultimo que descomenteee ojo
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.AllowAny',
     )
-#    'DEFAULT_PERMISSION_CLASSES': (
-#        'rest_framework.permissions.IsAdminUser',
-#    ),
 #    'PAGE_SIZE': 10
 }
 

@@ -9,21 +9,20 @@
         .module('managers.kanban.controllers')
         .controller('KanbansController', KanbansController);
 
-    KanbansController.$inject = ['$location', '$scope', '$cookies', 'Proyectos', 'Authentication', 'Kanbans'];
+    KanbansController.$inject = ['$location', '$scope', '$cookies', 'Proyectos', 'Authentication', 'Kanbans', 'UserStories', 'Actividades', 'Flujos'];
 
     /**
      * @namespace KanbansController
      */
-    function KanbansController($location, $scope, $cookies, Proyectos, Authentication, Kanbans) {
+    function KanbansController($location, $scope, $cookies, Proyectos, Authentication, Kanbans, UserStories, Actividades, Flujos) {
 
         var vm = this;
 
         vm.userstories = [];
         vm.actividades = [];
-        vm.estados=[];
+        vm.estados = [];
 
         vm.kanbanus = [];
-        vm.item = {};
 
         vm.flujo = {};
         vm.us = {};
@@ -41,6 +40,11 @@
 
         function init() {
 
+            if(Flujos.isExistFlujo()){
+                vm.flujo = Flujos.getFlujoCookie();
+                console.log(vm.flujo);
+            }
+
             vm.usnulo = {
                 'nombre': '',
                 'descripcionC': '',
@@ -52,90 +56,88 @@
                     'estado': '',
                     'orden': 0
                 }
-            }
+            };
 
             vm.estados = [
                 {
                     'id': 1,
-                    'estado': 'Pendiente'
+                    'estado': 'Pendiente',
+                    'key': 'P'
                 },
                 {
                     'id': 2,
-                    'estado': 'Suspendido'
+                    'estado': 'Suspendido',
+                    'key': 'S'
                 },
                 {
                     'id': 3,
-                    'estado': 'Finalizado'
+                    'estado': 'Finalizado',
+                    'key': 'F'
                 }
             ];
 
-            //if (!!$cookies.UserStories) {
-            //vm.userstories = JSON.parse($cookies.UserStories);
-            //} else {
-            vm.userstories = [
-                {
-                    'id': 1,
-                    'nombre': 'Desarrollo Login backend',
-                    'descripcionC': 'Dede ser Restful con djangorestframework',
-                    'estado': 'Finalizado',
-                    'tamanho': 5.00,
-                    'fila': 1,
-                    'Actividad': {
-                        'nombre': 'Desarrollo',
-                        'estado': 'To_do',
-                        'orden': 2
+            if (UserStories.isUSSCookie()) {
+                vm.userstories = UserStories.getUSSCookie();
+            } else {
+                vm.userstories = [
+                    {
+                        'id': 1,
+                        'nombre': 'Desarrollo Login frontend',
+                        'descripcionC': 'Dede ser con AngularJS',
+                        'estado': 'Pendiente',
+                        'tamanho': 4.00,
+                        'fila': 2,
+                        'Actividad': {
+                            'nombre': 'Analisis',
+                            'estado': 'Doing',
+                            'orden': 1
+                        }
+                    },
+                    {
+                        'id': 2,
+                        'nombre': 'Desarrollo Login backend',
+                        'descripcionC': 'Dede ser Restful con djangorestframework',
+                        'estado': 'Finalizado',
+                        'tamanho': 5.00,
+                        'fila': 1,
+                        'Actividad': {
+                            'nombre': 'Desarrollo',
+                            'estado': 'To_do',
+                            'orden': 2
+                        }
                     }
-                },
-                {
-                    'id': 2,
-                    'nombre': 'Desarrollo Login frontend',
-                    'descripcionC': 'Dede ser con AngularJS',
-                    'estado': 'Pendiente',
-                    'tamanho': 4.00,
-                    'fila': 2,
-                    'Actividad': {
+                ];
+
+                UserStories.setUSSCookie(vm.userstories);
+            }
+            /*if (!Actividades.isActividadesCookie()) {
+                vm.actividades = Actividades.getActividadesCookie();
+            } else {*/
+                vm.actividades = [
+                    {
                         'nombre': 'Analisis',
                         'estado': 'Doing',
                         'orden': 1
+                    },
+                    {
+                        'nombre': 'Desarrollo',
+                        'estado': 'To_do',
+                        'orden': 2
+                    },
+                    {
+                        'nombre': 'Implementacion',
+                        'estado': 'To_do',
+                        'orden': 3
                     }
-                }
-            ];
+                ];
 
-            //$cookies.UserStories = JSON.stringify(vm.userstories);
-
-            vm.actividades = [
-                {
-                    'nombre': 'Analisis',
-                    'estado': 'Doing',
-                    'orden': 1
-                },
-                {
-                    'nombre': 'Desarrollo',
-                    'estado': 'To_do',
-                    'orden': 2
-                },
-                {
-                    'nombre': 'Implementacion',
-                    'estado': 'To_do',
-                    'orden': 3
-                }
-            ];
-
+                Actividades.setActividadesCookie(vm.actividades);
             //}
             //aqui se deben traer los US de un flujo dado y armar el ARRAY del kamban
             //a partir del orden de su actividad
-            vm.kanbanus = [];
-
             vm.kanbanus = crearKamban(vm.userstories, vm.actividades.length, vm.usnulo);
 
             console.log(vm.kanbanus);
-
-
-            /* vm.kanbanus[0].analisis = vm.userstories[0];
-             vm.kanbanus[0].disenho = vm.usnulo;
-
-             vm.kanbanus[1].analisis = vm.usnulo;
-             vm.kanbanus[1].disenho = vm.userstories[1];*/
         }
 
         /*
@@ -182,11 +184,11 @@
             }
         }
 
-        function conseguirUS(line){
+        function conseguirUS(line) {
             var cant_actvidades = vm.actividades.length;
-            var j=0;
-            for(j=0; j < cant_actvidades; j++){
-                if(line[j]!=vm.usnulo){
+            var j = 0;
+            for (j = 0; j < cant_actvidades; j++) {
+                if (line[j] != vm.usnulo) {
                     return line[j];
                 }
             }
@@ -195,28 +197,28 @@
         function avanzar(lineus) {
             console.log(lineus);
             var u = conseguirUS(lineus);
-            var i=0;
+            var i = 0;
 
             console.log('entro verifiquemos los us');
             console.log(u);
 
-            for(i=0; i< vm.userstories.length; i++){
+            for (i = 0; i < vm.userstories.length; i++) {
 
-                if(u.id==vm.userstories[i].id){
+                if (u.id == vm.userstories[i].id) {
 
-                    if(vm.userstories[i].estado!='Finalizado'){
+                    if (vm.userstories[i].estado != 'Finalizado') {
 
-                        if(vm.userstories[i].estado=='Pendiente'){
-                            vm.userstories[i].estado='Finalizado';
+                        if (vm.userstories[i].estado == 'Pendiente') {
+                            vm.userstories[i].estado = 'Finalizado';
 
-                        }else if(vm.userstories[i].estado=='Suspendido'){
-                            vm.userstories[i].estado='Pendiente';
+                        } else if (vm.userstories[i].estado == 'Suspendido') {
+                            vm.userstories[i].estado = 'Pendiente';
 
                         }
 
-                    }else if(vm.userstories[i].estado=='Finalizado'){
-                        if(vm.userstories[i].Actividad.orden+1<=vm.actividades.length){
-                            vm.userstories[i].Actividad=vm.actividades[vm.userstories[i].Actividad.orden];
+                    } else if (vm.userstories[i].estado == 'Finalizado') {
+                        if (vm.userstories[i].Actividad.orden + 1 <= vm.actividades.length) {
+                            vm.userstories[i].Actividad = vm.actividades[vm.userstories[i].Actividad.orden];
                             vm.userstories[i].estado = 'Pendiente';
                         }
                     }
@@ -226,37 +228,37 @@
             vm.kanbanus = crearKamban(vm.userstories, vm.actividades.length, vm.usnulo);
         }
 
-        function isVisualize(index){
+        function isVisualize(index) {
             console.log('indice: ' + index);
 
-            return (index+1)==vm.actividades.length;
+            return (index + 1) == vm.actividades.length;
         }
 
         function retrasar(lineus) {
             console.log(lineus);
             var u = conseguirUS(lineus);
-            var i=0;
+            var i = 0;
 
             console.log('entro verifiquemos los us');
             console.log(u);
 
-            for(i=0; i< vm.userstories.length; i++){
+            for (i = 0; i < vm.userstories.length; i++) {
 
-                if(u.id==vm.userstories[i].id){
+                if (u.id == vm.userstories[i].id) {
 
-                    if(vm.userstories[i].estado!='Suspendido'){
+                    if (vm.userstories[i].estado != 'Suspendido') {
 
-                        if(vm.userstories[i].estado=='Pendiente'){
-                            vm.userstories[i].estado='Suspendido';
+                        if (vm.userstories[i].estado == 'Pendiente') {
+                            vm.userstories[i].estado = 'Suspendido';
 
-                        }else if(vm.userstories[i].estado=='Finalizado'){
-                            vm.userstories[i].estado='Pendiente';
+                        } else if (vm.userstories[i].estado == 'Finalizado') {
+                            vm.userstories[i].estado = 'Pendiente';
 
                         }
 
-                    }else if(vm.userstories[i].estado=='Suspendido'){
-                        if(vm.userstories[i].Actividad.orden-1>0){
-                            vm.userstories[i].Actividad=vm.actividades[vm.userstories[i].Actividad.orden-2];
+                    } else if (vm.userstories[i].estado == 'Suspendido') {
+                        if (vm.userstories[i].Actividad.orden - 1 > 0) {
+                            vm.userstories[i].Actividad = vm.actividades[vm.userstories[i].Actividad.orden - 2];
                             vm.userstories[i].estado = 'Pendiente';
                         }
                     }
@@ -268,7 +270,9 @@
 
         function registrarTrabajo(lineus) {
             var us = conseguirUS(lineus);
-            Kanbans.setkanbanCookie(us);
+            Kanbans.setkanbanCookie(vm.kanbanus);
+            UserStories.setUSCookie(us);
+            console.log(UserStories.getUSCookie());
             $location.url('/historialus');
         }
     }

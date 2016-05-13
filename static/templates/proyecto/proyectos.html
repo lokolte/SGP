@@ -18,8 +18,9 @@
                 <td>{{ p.estado }}</td>
                 <td>
                     <a ng-click="vm.editar(p)" class="btn btn-info">Editar</a>
-                    <a ng-click="vm.irFlujos(p)" class="btn btn-info">Crear Flujos</a>
-                    <a ng-click="vm.irSprint(p)" class="btn btn-info">Ver Sprint</a>
+                    <a ng-click="vm.irFlujos(p)" class="btn btn-info">Flujos</a>
+                    <a ng-click="vm.irSprint(p)" class="btn btn-info">Sprint</a>
+                    <a ng-click="vm.irBordownchart(p)" class="btn btn-info">BordownChart</a>
                 </td>
             </tr>
             </tbody>
@@ -50,8 +51,9 @@
                     <label class="col-lg-2 control-label">Seleccione un Cliente</label>
 
                     <div class="col-lg-10">
-                        <select ng-model="idCliente">
-                            <option ng-repeat="c in vm.clientes | filter:nombre">{{ c.id }}; {{ c.nombre }}</option>
+                        <select ng-model="vm.idCliente.c" ng-options="c as c.nombre for c in vm.clientes"
+                                ng-change="vm.agregarCliente()">
+                            <!--<option value="">-- elegir cliente --</option>-->
                         </select>
                     </div>
                 </div>
@@ -60,22 +62,36 @@
                     <label class="col-lg-2 control-label">Seleccione el Estado</label>
 
                     <div class="col-lg-10">
-                        <select ng-model="vm.idEstado" ng-options="e.id as e.estado for e in vm.estados"
+                        <select ng-model="vm.idEstado.e" ng-options="e as e.estado for e in vm.estados"
                                 ng-change="vm.agregarEstado()">
-                            <option value="">-- elegir estado --</option>
+                            <!-- <option value="">-- elegir estado --</option>-->
                         </select>
                     </div>
                 </div>
 
-                <div>
-                    <label for="f_ini_input" class="col-lg-2 control-label">Fecha Inicio</label>
-                    <input type="date" id="f_ini_input" name="f_ini" ng-model="vm.proyecto.fecha_ini"
-                           placeholder="yyyy-MM-dd" min="2013-01-01" max="new Date()" required/>
+                <div class="form-group">
+                    <label for="fecha_ini_input" class="col-lg-2 control-label">Fecha Inicio</label>
+                    <input type="date" id="fecha_ini_input" name="fecha_ini" ng-model="vm.proyecto.fecha_ini"
+                           placeholder="yyyy-MM-dd" min="2013-01-01" max="new Date.parse(2030-06-18T19:21:23.096716Z)" required/>
 
                     <div role="alert">
-                        <span class="error" ng-show="alta_proyectos.f_ini.$error.required">
+                        <span class="error" ng-show="vm.proyecto.fecha_ini.$error.required">
                             Requerido!</span>
-                        <span class="error" ng-show="alta_proyectos.f_ini.$error.date">
+                        <span class="error" ng-show="vm.proyecto.fecha_ini.$error.date">
+                            Fecha invalida!</span>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="fecha_fin_input" class="col-lg-2 control-label">Fecha Finalizacion</label>
+                    <input type="date" id="fecha_fin_input" name="fecha_fin" ng-model="vm.proyecto.fecha_fin"
+                           placeholder="yyyy-MM-dd" min="2013-01-01" max="new Date.parse(2030-06-18T19:21:23.096716Z)" required/>
+
+                    <div role="alert">
+                        <span class="error" ng-show="vm.proyecto.fecha_fin.$error.required">
+                            Requerido!</span>
+                        <span class="error" ng-show="vm.proyecto.fecha_fin.$error.date">
                             Fecha invalida!</span>
                     </div>
 
@@ -93,7 +109,7 @@
 
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
-                        <button type="reset" class="btn btn-fab-success" ng-click="vm.clear()">Cancel</button>
+                        <button type="reset" class="btn btn-danger" ng-click="vm.clear()">Cancel</button>
                         <button class="btn btn-primary" ng-click="vm.guardar()">Guardar</button>
                         <!-- <button class="btn btn-primary" ng-click="vm.irFlujos()">Crear Flujo</button> -->
                     </div>

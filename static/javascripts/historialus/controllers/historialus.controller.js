@@ -9,19 +9,28 @@
         .module('managers.historialus.controllers')
         .controller('HistorialUSController', HistorialUSController);
 
-    HistorialUSController.$inject = ['$location', '$scope', '$cookies', 'Authentication', 'Kanbans', 'HistorialUS'];
+    HistorialUSController.$inject = ['$location', '$scope', '$cookies', 'Authentication', 'Kanbans', 'HistorialUS', 'UserStories'];
 
     /**
      * @namespace HistorialUSController
      */
 
-    function HistorialUSController($location, $scope, $cookies, Authentication, Kanbans, HistorialUS) {
+    function HistorialUSController($location, $scope, $cookies, Authentication, Kanbans, HistorialUS, UserStories) {
 
         var vm = this;
 
+        vm.historial = {};
+        vm.historial.horas_trabajadas = 0;
+        vm.historial.descripcion_trabajo = '';
+
         vm.userstories = [];
-        vm.historialus = {};
-        vm.hus = [];
+        vm.i = 0;
+        vm.encontrado = false;
+
+        vm.historialuss = [];
+        vm.hus = {};
+        vm.hus.us = {};
+        vm.hus.historial = [];
 
         vm.us = {};
         vm.usnulo = {};
@@ -34,46 +43,59 @@
 
         function init() {
 
-            vm.usnulo.nombre = '';
-            vm.usnulo.descripcionC = '';
-            vm.usnulo.estado = '';
-            vm.usnulo.tamanho = '';
+            vm.usnulo = {
+                'nombre': '',
+                'descripcionC': '',
+                'estado': '',
+                'tamanho': 0,
+                'fila': 0,
+                'Actividad': {
+                    'nombre': '',
+                    'estado': '',
+                    'orden': 0
+                }
+            };
 
-            if (!!$cookies.UserStories) {
-                vm.userstories = JSON.parse($cookies.UserStories);
+            if (UserStories.isUSSCookie) {
+                vm.userstories = UserStories.getUSSCookie();
             } else {
                 vm.userstories = [
                     {
-                        'nombre': 'Desarrollo Login backend',
-                        'descripcionC': 'Dede ser Restful con djangorestframework',
-                        'estado': 'Finalizado',
-                        'tamanho': 5.00,
-                        'fila': 1
-                    },
-                    {
+                        'id': 1,
                         'nombre': 'Desarrollo Login frontend',
                         'descripcionC': 'Dede ser con AngularJS',
                         'estado': 'Pendiente',
                         'tamanho': 4.00,
-                        'fila': 2
+                        'fila': 2,
+                        'Actividad': {
+                            'nombre': 'Analisis',
+                            'estado': 'Doing',
+                            'orden': 1
+                        }
+                    },
+                    {
+                        'id': 2,
+                        'nombre': 'Desarrollo Login backend',
+                        'descripcionC': 'Dede ser Restful con djangorestframework',
+                        'estado': 'Finalizado',
+                        'tamanho': 5.00,
+                        'fila': 1,
+                        'Actividad': {
+                            'nombre': 'Desarrollo',
+                            'estado': 'To_do',
+                            'orden': 2
+                        }
                     }
                 ];
 
-                $cookies.UserStories = JSON.stringify(vm.userstories);
-
+                UserStories.setUSSCookie(vm.userstories);
             }
 
-            if(!HistorialUS.isExistHistorial()){
-                vm.hus=[{'horas_trabajas': 0, 'descripcion_trabajo': '', 'us': 0}, {'horas_trabajas': 0, 'descripcion_trabajo': '', 'us': 0}];
-                HistorialUS.setHistorialCookie(vm.hus);
-                console.log(vm.hus);
-                console.log('pudro crear el hus');
-            }else{
-                vm.hus = HistorialUS.getHistorialCookie();
-                console.log('trajo el HUS?');
+            if (HistorialUS.isExistHistorial()) {
+                vm.historialuss = HistorialUS.getHistorialCookie();
+                console.log('trajo el Historial?');
+                console.log(vm.historialuss);
             }
-
-            console.log(vm.hus);
 
             vm.estados = [
                 {
@@ -90,17 +112,10 @@
                 }
             ];
 
-            if(Kanbans.isExistkanban()){
-                console.log('Encontro el kanban?');
-                vm.us = Kanbans.getkanbanCookie();
-                if(vm.us.nombre!=''){
-                    vm.us=vm.us;
-                    vm.historialus.us=vm.us.fila;
-                }else{
-                    vm.us=vm.us.analisis;
-                    vm.historialus.us=vm.us.fila;
-                }
+            if (UserStories.isExistUS()) {
+                vm.us = UserStories.getUSCookie();
             }
+            console.log('User Storie Actual es: ')
             console.log(vm.us);
         }
 
@@ -112,29 +127,66 @@
         }
 
         function guardar() {
-            vm.us.tamanho = vm.us.tamanho - vm.historialus.horas_trabajas;
+            console.log('Entro1');
+            vm.us.tamanho = vm.us.tamanho - vm.historial.horas_trabajadas;
+            console.log(vm.historial.horas_trabajadas);
+            console.log('Entro2');
+            vm.i = -1;
+            vm.i = conseguirUS(vm.us);
+            console.log(vm.i);
+            console.log('Entro3');
+            if (vm.i != -1) {
+                vm.userstories[vm.i] = vm.us;
+                UserStories.setUSSCookie(vm.userstories);
+                console.log('UserStories actual es: ');
+                console.log(UserStories.getUSSCookie());
+            }
+            console.log('Entro4 con historialuss: ');
+            console.log(vm.historialuss);
 
-            if(vm.us.fila==1){
-                vm.userstories[0]=vm.us;
-            }else{
-                vm.userstories[1]=vm.us;
+            if (vm.historialuss.length!=0) {
+                console.log('Entra para agregar a Huss');
+                console.log(vm.historialuss);
+                console.log('user story');
+                console.log(vm.us);
+                var j = 0;
+                for (j = 0; j < vm.historialuss.length; j++) {
+                    if (vm.historialuss[j].us.id == vm.us.id) {
+                        vm.historialuss[j].historial.push(vm.historial);
+                        HistorialUS.setHistorialCookie(vm.historialuss);
+                        vm.encontrado = true;
+                    }
+                }
             }
 
-            $cookies.UserStories = JSON.stringify(vm.userstories);
-
-            if(vm.hus[0].horas_trabajas==0){
-                vm.hus[0]=vm.historialus;
-            }else if(vm.hus[1].horas_trabajas==0) {
-                vm.hus[1]=vm.historialus;
-            }else{
-                vm.hus.push(vm.historialus);
+            if (!vm.encontrado && vm.us.id!=0) {
+                vm.hus.us = vm.us;
+                console.log(vm.hus);
+                vm.hus.historial.push(vm.historial);
+                console.log(vm.hus);
+                vm.historialuss.push(vm.hus);
+                console.log('Veamos los Us');
+                console.log(vm.historialuss);
+                HistorialUS.setHistorialCookie(vm.historialuss);
             }
-
-            HistorialUS.setHistorialCookie(vm.hus);
-
-            console.log(vm.hus);
+            console.log('Verificando si guardo');
+            console.log(HistorialUS.getHistorialCookie());
+            //HistorialUS.setHistorialCookie('si guardo');
+            console.log(HistorialUS.getHistorialCookie());
+            console.log(HistorialUS.getHistorialCookie());
+            console.log(HistorialUS.getHistorialCookie());
 
             $location.url('/userstories');
+        }
+
+        function conseguirUS(us) {
+            var j = 0;
+            for (j = 0; j < vm.userstories.length; j++) {
+                if (us.id == vm.userstories[j].id) {
+                    return j;
+                }
+            }
+            return vm.usnulo;
         }
     }
 })();

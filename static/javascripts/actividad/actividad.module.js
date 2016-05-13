@@ -11,5 +11,5 @@
     .module('managers.actividad.controllers', []);//, ['ui.bootstrap', 'ui.bootstrap.datepicker']);
 
   angular
-    .module('managers.actividad.services', []);
+    .module('managers.actividad.services', ['ngCookies']);
 })();

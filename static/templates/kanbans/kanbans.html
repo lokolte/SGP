@@ -14,8 +14,8 @@
             <tbody>
                     <tr ng-repeat="us in vm.kanbanus track by $index">
                         <td ng-repeat="u in us track by $index">
-                            <details>{{ u.nombre }} </details>
-                            <details>{{ u.estado }} </details>
+                            <p>{{ u.nombre }}</p>
+                            <p>{{ u.estado }}</p>
                         </td>
                         <td>
                             <a ng-click="vm.avanzar(us)" class="btn btn-info">Avanzar US</a>

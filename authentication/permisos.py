@@ -3,6 +3,7 @@ from authentication.models import Usuario
 import json
 from proyectos.models import Proyecto
 from proyectos.serializers import ProyectoSerializer
+from roles.models import Miembro
 
 
 class IsAccountOwner(permissions.BasePermission):
@@ -13,19 +14,32 @@ class IsAccountOwner(permissions.BasePermission):
 
 
 class EsCliente(permissions.BasePermission):
-    def has_permission(self, request, view):
-        usuario = request.user
-        if not usuario.tipo:
-            return False
-        return usuario.tipo == Usuario.T_CLIENTE
+    def has_object_permission(self, request, view, proyecto):
+        miembro_proy = Miembro.objects.buscar_por_usuario(usuario_id=request.user.id).filter(proyecto_id=proyecto.id)
+        print(miembro_proy.get_rol())
+        return True
+
+#class EsCliente(permissions.BasePermission):
+#    def has_permission(self, request, view):
+#        usuario = request.user
+#        if not usuario.tipo:
+#            return False
+#        return usuario.tipo == Usuario.T_CLIENTE
 
 
 class EsEmpleado(permissions.BasePermission):
     def has_permission(self, request, view):
-        usuario = request.user
-        if not usuario.tipo:
-            return False
-        return usuario.tipo == Usuario.T_EMPLEADO
+        print('imprimio el primer permiso')
+        return True
+
+    #def has_permission(self, request, view):
+
+        #print('entro?? reconoce permisos')
+        #return True
+        #usuario = request.user
+        #if not usuario.tipo:
+        #    return False
+        #return usuario.tipo == Usuario.T_EMPLEADO
 
 
 class EsScrumMaster(permissions.BasePermission):
@@ -35,7 +49,7 @@ class EsScrumMaster(permissions.BasePermission):
             return False
         return (usuario.tipo == Usuario.T_EMPLEADO) and usuario.is_admin
 
-class EsClienteProyecto(permissions.BasePermission):
+class EsClienteProyecto(permissions.BasePermission): # a cambiar con los roles y miembros
     def has_permission(self, request, view):
         data = json.loads(request.body)
         print(data)
@@ -52,17 +66,17 @@ class EsClienteProyecto(permissions.BasePermission):
         else:
             return False
 
-class EsClienteScrumMasterProyecto(permissions.BasePermission):
+class EsClienteScrumMasterProyecto(permissions.BasePermission): # a cambiar
     def has_permission(self, request, view):
         data = json.loads(request.body)
         print(data)
         id = data.get('id', None)
         proyecto = Proyecto.objects.buscar_proyecto(id=id)
         usuario = request.user
-        ser = ProyectoSerializer(proyecto)
-        print(ser.data)
+        #ser = ProyectoSerializer(proyecto)
+        #print(ser.data)
 
-        print(proyecto.cliente.id)
+        #print(proyecto.cliente.id)
         print(usuario.id)
 
         if not usuario.tipo:
@@ -80,4 +94,4 @@ class EsClienteScrumMasterProyecto(permissions.BasePermission):
                     return proyecto.cliente.id == usuario.id
             else:
                 print('Entro 4')
-                return False
+                return True

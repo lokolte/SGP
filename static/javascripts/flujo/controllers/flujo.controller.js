@@ -53,7 +53,7 @@
 
         function init() {
 
-            Flujos.deleteFlujoCookie();
+            //Flujos.deleteFlujoCookie();
 
             vm.isExistProyecto = Proyectos.isExistProyecto();
 
@@ -129,6 +129,8 @@
 
         function irKanban(flujo){
             Flujos.setFlujoCookie(flujo);
+            console.log('El flujo actual es: ')
+            console.log(Flujos.getFlujoCookie());
             $location.url('/kanban');
         }
 

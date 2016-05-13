@@ -63,7 +63,7 @@
                     <label class="col-lg-2 control-label">Seleccione el Estado</label>
 
                     <div class="col-lg-10">
-                        <select ng-model="vm.idEstado" ng-options="e.id as e.estado for e in vm.estados"
+                        <select ng-model="vm.idEstado.e" ng-options="e as e.estado for e in vm.estados"
                                 ng-change="vm.agregarEstado()">
                             <option value="">-- elegir estado --</option>
                         </select>

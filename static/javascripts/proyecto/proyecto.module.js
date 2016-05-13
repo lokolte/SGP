@@ -14,5 +14,5 @@
     .module('managers.proyecto.controllers', []);//, ['ui.bootstrap', 'ui.bootstrap.datepicker']);
 
   angular
-    .module('managers.proyecto.services', []);
+    .module('managers.proyecto.services', ['ngCookies']);
 })();

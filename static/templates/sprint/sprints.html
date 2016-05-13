@@ -20,14 +20,16 @@
                 <td>{{ s.horasRest }}</td>
                 <td>
                     <a ng-click="vm.editar(s)" class="btn btn-info">Editar</a>
-                    <a ng-click="vm.irUserStories(s)" class="btn btn-info">Agregar User Stories</a>
+                    <a ng-click="vm.irUserStories(s)" class="btn btn-info">Agregar US</a>
+                    <a ng-click="vm.irSprintBl(s)" class="btn btn-info">Sprint Backlog</a>
+                    <a ng-click="vm.irProductBl(s)" class="btn btn-info">Product Backlog</a>
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
-<div class="panel panel-primary">
+<div class="panel panel-primary" ng-show="vm.isEdit">
     <div class="panel-heading">
         <h3 class="panel-title">Sprint de {{ vm.proyecto.nombre }}</h3>
     </div>
@@ -37,15 +39,15 @@
             <fieldset>
                 <legend>Datos del Sprint</legend>
 
-                <div>
-                    <label for="f_ini_input" class="col-lg-2 control-label">Fecha Inicio</label>
-                    <input type="date" id="f_ini_input" name="f_ini" ng-model="vm.sprint.fecha_ini"
+                <div class="form-group">
+                    <label for="fecha_ini_input" class="col-lg-2 control-label">Fecha Inicio</label>
+                    <input type="date" id="fecha_ini_input" name="fecha_ini" ng-model="vm.sprint.fecha_ini"
                            placeholder="yyyy-MM-dd" min="2013-01-01" max="2017-01-01" required/>
 
                     <div role="alert">
-                        <span class="error" ng-show="alta_proyectos.f_ini.$error.required">
+                        <span class="error" ng-show="vm.sprint.fecha_ini.$error.required">
                             Requerido!</span>
-                        <span class="error" ng-show="alta_proyectos.f_ini.$error.date">
+                        <span class="error" ng-show="vm.sprint.fecha_ini.$error.date">
                             Fecha invalida!</span>
                     </div>
 
@@ -65,7 +67,7 @@
                     <label class="col-lg-2 control-label">Seleccione el Estado</label>
 
                     <div class="col-lg-10">
-                        <select ng-model="vm.idEstado" ng-options="e.id as e.estado for e in vm.estados"
+                        <select ng-model="vm.idEstado.e" ng-options="e as e.estado for e in vm.estados"
                                 ng-change="vm.agregarEstado()">
                             <option value="">-- elegir estado --</option>
                         </select>
@@ -74,7 +76,7 @@
 
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
-                        <button type="reset" class="btn btn-fab-success" ng-click="vm.clear()">Cancel</button>
+                        <button type="reset" class="btn btn-danger" ng-click="vm.clear()">Cancel</button>
                         <button class="btn btn-primary" ng-click="vm.guardar()">Guardar</button>
                         <!-- <button class="btn btn-primary" ng-click="vm.irFlujos()">Crear Flujo</button> -->
                     </div>

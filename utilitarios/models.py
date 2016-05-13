@@ -1,8 +1,10 @@
 from django.db import models
 from datetime import datetime
+import json
 
 # Create your models here.
 class UtilsManager(models.Manager):
+
     def retornar_fecha(self, fecha=None):
         if fecha != None:
             print('La fecha recibida es: ' + fecha)
@@ -10,28 +12,52 @@ class UtilsManager(models.Manager):
         else:
             return Utils.NO_ENCONTRADO
 
-    def definirrespuesta(self, result=None):
-        if result == Utils.NO_ENCONTRADO:
-            Resultados.status = Utils.NO_ENCONTRADO
-            Resultados.message = 'Proyecto no encontrado.'
-            return Resultados
-        elif result == Utils.NO_PERMITIDO:
-            Resultados.status = Utils.NO_PERMITIDO
-            Resultados.message = 'La operacion no esta permitida.'
-            return Resultados
-        elif result == Utils.ERROR:
-            Resultados.status = Utils.ERROR
-            Resultados.message = 'Ocurrio algun error.'
-            return Resultados
-        elif result == Utils.SIN_EFECTOS:
-            Resultados.status = Utils.SIN_EFECTOS
-            Resultados.message = 'La operacion no tuvo efectos.'
-            return Resultados
-        else:
+    def definir_respuesta(self, result=None):
+        resultado = Resultados()
+
+        try:
+            print(result)
+
+            if result == Utils.NO_ENCONTRADO or result == None:
+                resultado.status = Utils.NO_ENCONTRADO
+                resultado.message = 'Proyecto no encontrado.'
+                return resultado
+
+            elif result == Utils.NO_PERMITIDO:
+                resultado.status = Utils.NO_PERMITIDO
+                resultado.message = 'Operacion invalida.'
+                return resultado
+
+            elif result == Utils.ERROR:
+                resultado.status = Utils.ERROR
+                resultado.message = 'Ocurrio algun error.'
+                return resultado
+
+            elif result == Utils.SIN_EFECTOS:
+                resultado.status = Utils.SIN_EFECTOS
+                resultado.message = 'La operacion no tuvo efectos.'
+                return resultado
+
+            elif result == Utils.BAD_REQUEST:
+                resultado.status = Utils.BAD_REQUEST
+                resultado.message = 'Bad Request.'
+
+            elif result != None:
+                print('Respuesta exitosa!..')
+                resultado.status = Utils.RESPUESTSA_EXITOSA
+                resultado.message = 'Respuesta exitosa!..'
+                return resultado
+
+            return resultado
+
+        except:
+            print('Es una instancia.')
+            print(result)
             print('Respuesta exitosa!..')
-            Resultados.status = Utils.RESPUESTSA_EXITOSA
-            Resultados.message = 'Respuesta exitosa!..'
-            return Resultados
+            resultado.status = Utils.RESPUESTSA_EXITOSA
+            resultado.message = 'Respuesta exitosa!..'
+            return resultado
+
 
 class Utils(models.Model):
     NO_ENCONTRADO = 'NE'
@@ -39,12 +65,15 @@ class Utils(models.Model):
     SIN_EFECTOS = 'SE'
     NO_PERMITIDO = 'NP'
     RESPUESTSA_EXITOSA = 'RE'
+    BAD_REQUEST = 'BD'
+
     RTA_MET = (
         ('NE', 'NO_ENCONTRADO'),
         ('SE', 'SIN_EFECTOS'),
         ('EE', 'ERROR'),
         ('NP', 'NO_PERMITIDO'),
         ('RE', 'RESPUESTSA_EXITOSA'),
+        ('BD', 'BAD_REQUEST'),
     )
 
     objects = UtilsManager()
@@ -52,3 +81,10 @@ class Utils(models.Model):
 class Resultados:
     status = ''
     message = ''
+
+    def __init__(self, status=None, message=None):
+        self.status = status
+        self.message = message
+
+    def to_json(self):
+        return json.dumps(self.__dict__)

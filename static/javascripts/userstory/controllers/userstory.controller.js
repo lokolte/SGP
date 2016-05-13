@@ -10,12 +10,12 @@
         .controller('UserStoriesController', UserStoriesController);
 
     UserStoriesController
-        .$inject = ['$location', '$scope', '$cookies', 'Flujos', 'Proyectos', 'Actividades', 'Authentication', 'Sprints', 'HistorialUS'];
+        .$inject = ['$location', '$scope', '$cookies', 'Flujos', 'Proyectos', 'Actividades', 'Authentication', 'Sprints', 'HistorialUS', 'UserStories'];
 
     /**
      * @namespace UserStoriesController
      */
-    function UserStoriesController($location, $scope, $cookies, Flujos, Proyectos, Actividades, Authentication, Sprints, HistorialUS) {
+    function UserStoriesController($location, $scope, $cookies, Flujos, Proyectos, Actividades, Authentication, Sprints, HistorialUS, UserStories) {
 
         var vm = this;
         //variables
@@ -23,7 +23,7 @@
 
         vm.userstories = [];
         vm.userstory = {};
-        vm.userstoryNulo = {};
+        vm.usnulo = {};
         vm.estados = [];
         vm.hus = [];
 
@@ -76,32 +76,52 @@
             ];
             //hacer el get para los flujos
 
-            vm.userstoryNulo.nombre = '';
-            vm.userstoryNulo.descripcionC = '';
-            vm.userstoryNulo.estado = '';
-            vm.userstoryNulo.tamanho = '';
+            vm.usnulo = {
+                'nombre': '',
+                'descripcionC': '',
+                'estado': '',
+                'tamanho': 0,
+                'fila': 0,
+                'Actividad': {
+                    'nombre': '',
+                    'estado': '',
+                    'orden': 0
+                }
+            };
 
-            if (!!$cookies.UserStories) {
-                vm.userstories = JSON.parse($cookies.UserStories);
+            if (UserStories.isUSSCookie()) {
+                vm.userstories = UserStories.getUSSCookie();
             } else {
                 vm.userstories = [
                     {
-                        'nombre': 'Desarrollo Login backend',
-                        'descripcionC': 'Dede ser Restful con djangorestframework',
-                        'estado': 'Finalizado',
-                        'tamanho': 5.00,
-                        'fila': 1
-                    },
-                    {
+                        'id': 1,
                         'nombre': 'Desarrollo Login frontend',
                         'descripcionC': 'Dede ser con AngularJS',
                         'estado': 'Pendiente',
                         'tamanho': 4.00,
-                        'fila': 2
+                        'fila': 2,
+                        'Actividad': {
+                            'nombre': 'Analisis',
+                            'estado': 'Doing',
+                            'orden': 1
+                        }
+                    },
+                    {
+                        'id': 2,
+                        'nombre': 'Desarrollo Login backend',
+                        'descripcionC': 'Dede ser Restful con djangorestframework',
+                        'estado': 'Finalizado',
+                        'tamanho': 5.00,
+                        'fila': 1,
+                        'Actividad': {
+                            'nombre': 'Desarrollo',
+                            'estado': 'To_do',
+                            'orden': 2
+                        }
                     }
                 ];
 
-                $cookies.UserStories = JSON.stringify(vm.userstories);
+                UserStories.setUSSCookie(vm.userstories);
             }
 
             console.log('user story actual');
@@ -126,27 +146,30 @@
             vm.flujoNulo.estado = '';
             vm.flujoNulo.observacion = '';
 
-            if (!!$cookies.Sprints) {
-                vm.sprints = JSON.parse($cookies.Sprints);
+            if (Sprints.isExistSprints()) {
+                vm.sprints = Sprints.getSprintsCookie();
+                console.log(vm.sprints);
+                console.log('leyo los sprints?');
             } else {
                 vm.sprints = [
                     {
                         'lugar': 1,
-                        'fecha_ini': new Date(),
+                        'fecha_ini': '2015-05-20T00:38:30.656Z',
                         'duracionHoras': 20.00,
                         'estado': 'Cerrado',
                         'horasRest': 0.00
                     },
                     {
                         'lugar': 2,
-                        'fecha_ini': new Date(),
+                        'fecha_ini': new Date(Date.parse('2015-05-12T00:38:30.656Z')),
                         'duracionHoras': 20.00,
                         'estado': 'Activo',
                         'horasRest': 20.00
                     }
                 ];
 
-                $cookies.Sprints = JSON.stringify(vm.sprints);
+                Sprints.setSprintsCookie(vm.sprints);
+                //$cookies.Sprints = JSON.stringify(vm.sprints);
             }
         }
 
@@ -172,17 +195,20 @@
         }
 
         function clear() {
-            vm.userstory = vm.userstoryNulo;
+            vm.userstory = vm.usnulo;
             vm.flujo = vm.flujoNulo;
         }
 
         function definirEstado(e) {
+
             if (e == 'Pendiente' || e == 'P') {
-                vm.idEstado = vm.estados[0];
-            } else if (e == 'Suspendido' || e == 'S') {
-                vm.idEstado = vm.estados[1];
-            } else if (e == 'Finalizado' || e == 'F') {
-                vm.idEstado = vm.estados[2];
+                if (e == 'Activo' || e == 'A') {
+                    vm.idEstado.e = vm.estados[0];
+                } else if (e == 'Suspendido' || e == 'S') {
+                    vm.idEstado.e = vm.estados[1];
+                } else if (e == 'Finalizado' || e == 'F') {
+                    vm.idEstado.e = vm.estados[2];
+                }
             }
         }
 
@@ -196,7 +222,7 @@
         }
 
         function verHistorial(us) {
-            $cookies.USActual = JSON.stringify(us);
+            UserStories.setUSCookie(us);
             $location.url('/historial');
         }
 
@@ -207,10 +233,13 @@
                     vm.sprints[i].horasRest = vm.sprints[i].horasRest - us.tamanho;
                 }
             }
+            console.log('Analizando los Sprints');
             console.log(vm.sprints);
-            $cookies.Sprints = JSON.stringify(vm.sprints);
-            console.log(JSON.parse($cookies.Sprints));
+            Sprints.deleteSprintsCookie();
+            Sprints.setSprintsCookie(vm.sprints);//$cookies.Sprints = JSON.stringify(vm.sprints);
+            console.log(Sprints.getSprintsCookie());
             $location.url('/sprints');
         }
     }
+
 })();

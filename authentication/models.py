@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from utilitarios.models import Utils
+#from roles.models import Miembro
 
 # Create your models here.
 
@@ -19,26 +21,30 @@ class UsuarioManager(BaseUserManager):
         :return: usuario
         '''
         if not username:
-            raise ValueError('Debe existir un nombre de usuario')
+            print('Debe existir un nombre de usuario')
+            return Utils.ERROR
 
         if not kwargs.get('email'):
-            raise ValueError('Debe tener una direccion de correo valida')
+            print('Debe tener una direccion de correo valida')
+            return Utils.ERROR
 
         if not kwargs.get('nombre'):
-            raise ValueError('El usuario debe tener un nombre')
+            print('El usuario debe tener un nombre')
+            return Utils.ERROR
 
         if not kwargs.get('apellido'):
-            raise ValueError('El usuario debe tener un apellido')
+            print('El usuario debe tener un apellido')
+            return Utils.ERROR
 
-        if kwargs.get('telefono'):
-            telefono = kwargs.get('telefono')
-        else:
+        if not kwargs.get('telefono'):
             telefono = ''
-
-        if kwargs.get('direccion'):
-            direccion = kwargs.get('direccion')
         else:
+            telefono = kwargs.get('telefono')
+
+        if not kwargs.get('direccion'):
             direccion = ''
+        else:
+            direccion = kwargs.get('direccion')
 
         usuario = self.model(
             username=username,
@@ -63,36 +69,9 @@ class UsuarioManager(BaseUserManager):
         @param kwargs: otros datos
         '''
         usuario = self.create_user(username, password, **kwargs)
-        usuario.tipo = Usuario.T_EMPLEADO
+        #usuario.tipo = Usuario.T_EMPLEADO
+
         usuario.is_admin = True
-        usuario.save()
-        return usuario
-
-    def crear_cliente(self, username, password=None, **kwargs):
-        '''
-        funcion B{crear cliente} funcion que crea usuarios de tipo cliente
-        @param username:: nombre del usuario del sistema
-        @type username: string de 40 caracteres
-        @param password: contrasenha del usuario
-        @type password: string agregado por el framework
-        @param kwargs: otros datos
-        '''
-        usuario = self.create_user(username, password, **kwargs)
-        usuario.tipo = Usuario.T_CLIENTE
-        usuario.save()
-        return usuario
-
-    def crear_empleado(self, username, password=None, **kwargs):
-        '''
-        funcion B{crear empleado} funcion que crea usuarios de tipo empleado
-        @param username:: nombre del usuario del sistema
-        @type username: string de 40 caracteres
-        @param password: contrasenha del usuario
-        @type password: string agregado por el framework
-        @param kwargs: otros datos
-        '''
-        usuario = self.create_user(username, password, **kwargs)
-        usuario.tipo = Usuario.T_EMPLEADO
         usuario.save()
         return usuario
 
@@ -105,16 +84,10 @@ class UsuarioManager(BaseUserManager):
 
 class Usuario(AbstractBaseUser):
     '''
-    @cvar Usuario: con I{nombre}, I{apellido}, I{email}, I{telefono}, I{direccion}, I{tipo de usuario} y I{estado}
+    @cvar Usuario: con I{nombre}, I{apellido}, I{email}, I{telefono}, I{direccion} y I{estado}
     I{email}, I{nombre} y I{apellido}
     I{nombre},I{apellido}: para I{get_nombre_completo}
     '''
-    T_CLIENTE = 'C'
-    T_EMPLEADO = 'E'
-    TIPOS_U = (
-        ('C', 'Cliente'),
-        ('E', 'Empleado')
-    )
 
     username = models.CharField(max_length=40, unique=True)
 
@@ -123,9 +96,6 @@ class Usuario(AbstractBaseUser):
     email = models.EmailField(unique=True)
     telefono = models.CharField(max_length=15, blank=True)
     direccion = models.CharField(max_length=50, blank=True)
-
-    # tipo = models.CharField(max_length=23)
-    tipo = models.CharField(max_length=1, choices=TIPOS_U)
 
     ## el atributo activo representa el estado, si es activo o inactivo
     activo = models.BooleanField(default=True)

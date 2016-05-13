@@ -14,7 +14,7 @@
                     <div class="col-lg-10">
                         <input class="form-control" id="inputHoras"
                                placeholder="Ex. 10." type="text"
-                               ng-model="vm.historialus.horas_trabajas">
+                               ng-model="vm.historial.horas_trabajadas">
                     </div>
                 </div>
 
@@ -24,13 +24,13 @@
                     <div class="col-lg-10">
                         <input class="form-control" id="inputDescripcion"
                                placeholder="Ex. Se desarrollo las vistas." type="text"
-                               ng-model="vm.historialus.descripcion_trabajo">
+                               ng-model="vm.historial.descripcion_trabajo">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
-                        <button type="reset" class="btn btn-fab-success" ng-click="vm.clear()">Cancel</button>
+                        <button type="reset" class="btn btn-danger" ng-click="vm.clear()">Cancel</button>
                         <button class="btn btn-primary" ng-click="vm.guardar()">Guardar</button>
                     </div>
                 </div>

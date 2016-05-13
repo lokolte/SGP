@@ -7,11 +7,10 @@ from authentication.serializers import UsuarioSerializer
 
 class ProyectoSerializer(serializers.ModelSerializer):
     owner = UsuarioSerializer(read_only=True, required=False)
-    cliente = UsuarioSerializer(read_only=True, required=False)
 
     class Meta:
         model = Proyecto
-        fields = ('id', 'nombre', 'owner', 'cliente', 'fecha_creacion', 'estado', 'fecha_ini',
+        fields = ('id', 'nombre', 'owner', 'fecha_creacion', 'estado', 'fecha_ini',
                   'fecha_fin', 'observacion')
         read_only_fields = ('fecha_creacion', 'fecha_modificacion',)
 
@@ -29,4 +28,4 @@ class ProyectoSerializer(serializers.ModelSerializer):
 
         exclusions = super(ProyectoSerializer, self).get_validation_exclusions()
 
-        return exclusions + ['owner', 'cliente']
+        return exclusions + ['owner']

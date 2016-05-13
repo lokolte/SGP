@@ -23,11 +23,13 @@
         return HistorialUS;
 
         function setHistorialCookie(historialus){
-            $cookies.byHistorial = JSON.stringify(historialus);
+            $cookies.his = JSON.stringify(historialus);
+            //$cookies.putObject('hist',historialus);
         }
 
         function isExistHistorial(){
-            return !!$cookies.byHistorial;
+            return !!$cookies.his;
+            //!!$cookies.getObject('hist');
         }
 
         function getHistorialCookie(){
@@ -35,11 +37,13 @@
                 return ;
             }
 
-            return JSON.parse($cookies.byHistorial);
+            return JSON.parse($cookies.his);
+            //return $cookies.getObject('historialuss');
         }
 
         function deleteHistorialCookie(){
-            delete $cookies.byHistorial;
+            delete $cookies.his;
+            //$cookies.remove('historialuss');
         }
 
     }

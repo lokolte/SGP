@@ -11,5 +11,5 @@
     .module('managers.userstory.controllers', []);
 
   angular
-    .module('managers.userstory.services', []);
+    .module('managers.userstory.services', ['ngCookies']);
 })();

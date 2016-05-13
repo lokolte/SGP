@@ -8,7 +8,7 @@
     ]);
 
   angular
-    .module('managers.kanban.controllers', []);
+    .module('managers.kanban.controllers', ['ngCookies']);
 
   angular
     .module('managers.kanban.services', []);

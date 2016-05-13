@@ -11,5 +11,5 @@
     .module('managers.historialus.controllers', []);
 
   angular
-    .module('managers.historialus.services', []);
+    .module('managers.historialus.services', ['ngCookies']);
 })();

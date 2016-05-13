@@ -92,6 +92,7 @@
              * @desc Set the authenticated account and redirect to index
              */
             function loginSuccessFn(data, status, headers, config) {
+                console.log(data.data);
                 Authentication.setAuthenticatedUsuario(data.data);
 
                 window.location = '/';
@@ -116,11 +117,11 @@
          * @memberOf managers.authentication.services.Authentication
          */
         function getAuthenticatedUsuario() {
-            if (!$cookies.authenticatedUsuario) {
+            if (!Authentication.isAuthenticated()) {
                 return;
             }
 
-            return JSON.parse($cookies.authenticatedUsuario);
+            return $cookies.getObject('authenticatedUsuario');//JSON.parse($cookies.authenticatedUsuario);
         }
 
         /**
@@ -130,18 +131,24 @@
          * @memberOf managers.authentication.services.Authentication
          */
         function isAuthenticated() {
-            return !!$cookies.authenticatedUsuario;
+            console.log('isAuthenticated: ');
+            console.log(!!$cookies.getObject('authenticatedUsuario'));
+            return !!$cookies.getObject('authenticatedUsuario');
         }
 
         /**
          * @name setAuthenticatedAccount
          * @desc Stringify the account object and store it in a cookie
-         * @param {Object} user The account object to be stored
+         * @param {Object} usuario The account object to be stored
          * @returns {undefined}
          * @memberOf managers.authentication.services.Authentication
          */
         function setAuthenticatedUsuario(usuario) {
-            $cookies.authenticatedUsuario = JSON.stringify(usuario);
+            console.log('Guardando usuario: ');
+            console.log(usuario);
+            $cookies.putObject('authenticatedUsuario', usuario);//.authenticatedUsuario = JSON.stringify(usuario);
+            console.log(Authentication.getAuthenticatedUsuario());
+            console.log(Authentication.isAuthenticated());
         }
 
         /**
@@ -151,7 +158,8 @@
          * @memberOf managers.authentication.services.Authentication
          */
         function unauthenticate() {
-            delete $cookies.authenticatedUsuario;
+            //delete
+            $cookies.remove('authenticatedUsuario');
         }
 
         /**

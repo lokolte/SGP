@@ -94,8 +94,7 @@ class Flujo(models.Model):
         ('DG', 'Doing'),
         ('DN', 'Done'),
     )
-    proyecto = models.ForeignKey(Proyecto,
-                                 related_name='Proyecto_Flujo')  #, editable=False)  #Proyecto al que corresponde el flujo
+    proyecto = models.ForeignKey(Proyecto, related_name='Proyecto_Flujo')
     owner = models.ForeignKey(Usuario, related_name='Usuario_Flujo',
                               null=True)  #, editable=False)  #usuario que lo creo
     nombre = models.CharField(max_length=100)
@@ -202,8 +201,11 @@ class ActividadManager(models.Manager):
     # no utilizar x el momento
     def modificar_actividad(self, id, **kwargs):
         actividad = Actividad.objects.buscar_actividad(id)
-        actividad.cantidadUS = kwargs.get('cantidadUS')  #cantidad de US pendientes
-        actividad.save()
+        if actividad!= None:
+            actividad.cantidadUS = kwargs.get('cantidadUS')  #cantidad de US pendientes
+            actividad.save()
+        else:
+            Utils.NO_ENCONTRADO
 
 
 class Actividad(models.Model):

@@ -18,7 +18,8 @@
             'managers.userstory',
             'managers.kanban',
             'managers.historialus',
-            'managers.table'
+            'managers.table',
+            'managers.bordownchart'
             //'managers.angular-bootstrap'
         ]);
 

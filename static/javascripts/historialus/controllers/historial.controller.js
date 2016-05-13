@@ -9,19 +9,26 @@
         .module('managers.historialus.controllers')
         .controller('HistorialController', HistorialController);
 
-    HistorialController.$inject = ['$location', '$scope', '$cookies', 'Authentication', 'Kanbans', 'HistorialUS'];
+    HistorialController.$inject = ['$location', '$scope', '$cookies', 'Authentication', 'Kanbans', 'HistorialUS', 'UserStories'];
 
     /**
      * @namespace HistorialController
      */
 
-    function HistorialController($location, $scope, $cookies, Authentication, Kanbans, HistorialUS) {
+    function HistorialController($location, $scope, $cookies, Authentication, Kanbans, HistorialUS, UserStories) {
 
         var vm = this;
 
-        vm.historialus = {};
-        vm.usactual = {};
-        vm.hus = [];
+        vm.historial = {};
+        vm.historial.horas_trabajadas = 0;
+        vm.historial.descripcion_trabajo = '';
+
+        vm.historialuss = [];
+        vm.hus = {};
+        vm.hus.us = {};
+        vm.hus.historial = [];
+
+        vm.us = {};
 
         vm.volver = volver;
 
@@ -30,31 +37,27 @@
         init();
 
         function init() {
-
-            if(HistorialUS.isExistHistorial()){
-                vm.hus = HistorialUS.getHistorialCookie();
-            }else{
-                vm.hus=[{'horas_trabajas': 0, 'descripcion_trabajo': '', 'us': 0}, {'horas_trabajas': 0, 'descripcion_trabajo': '', 'us': 0}];
-                HistorialUS.setHistorialCookie(vm.hus);
+            console.log('Empezamos el trabajo de ver historial');
+            if (HistorialUS.isExistHistorial()) {
+                vm.historialuss = HistorialUS.getHistorialCookie();
+                console.log(vm.historialuss);
             }
 
-            if(!!$cookies.USActual){
-                vm.usactual=JSON.parse($cookies.USActual);
-                console.log(vm.hus);
-                console.log(vm.usactual);
-                var i = 0;
-                for(i=0; i<vm.hus.length; i++){
-                    if(vm.hus[i].horas_trabajas==0){
-                        vm.hus.splice(i,1);
-                        console.log('elimino el cero?');
-                        i=i-1;
-                    }else if(vm.hus[i].us!=vm.usactual.fila){
-                        vm.hus.splice(i,1);
-                        console.log('elimino el que no es cero?');
-                        i=i-1;
+            if (UserStories.isExistUS()) {
+                vm.us = UserStories.getUSCookie();
+                console.log(vm.us);
+                if (HistorialUS.isExistHistorial()) {
+                    var i = 0;
+                    for (i = 0; i < vm.historialuss.length; i++) {
+                        if (vm.historialuss[i].us.id == vm.us.id) {
+                            vm.hus = vm.historialuss[i];
+                            console.log('Historial actual');
+                            console.log(vm.hus);
+                            break;
+                        }
                     }
                 }
-                console.log(vm.hus);
+
             }
 
         }

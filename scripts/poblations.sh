@@ -1,5 +1,5 @@
 #!/bin/bash
-workon primeraparte
+workon is2
 echo "migrando la bd...."
 cd ..
 python manage.py shell < cargadebd.py

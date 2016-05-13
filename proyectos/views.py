@@ -5,8 +5,9 @@ from rest_framework import permissions, viewsets, status, views
 from rest_framework.response import Response
 from authentication.models import Usuario
 from rest_framework.permissions import IsAuthenticated
-from utilitarios.models import Utils
+from utilitarios.models import Utils, Resultados
 from authentication.permisos import EsEmpleado, EsCliente, EsScrumMaster, EsClienteScrumMasterProyecto
+from rest_framework.decorators import detail_route, list_route, api_view
 from authentication.serializers import UsuarioSerializer
 
 from proyectos.models import Proyecto
@@ -14,171 +15,117 @@ from proyectos.serializers import ProyectoSerializer
 
 # Create your views here.
 
-class ProyectoViewSet(viewsets.ModelViewSet):
-    lookup_field = 'nombre'
+
+class ProyectoViewSet(viewsets.ModelViewSet): # view para los objetos
+    lookup_field = 'id'
     queryset = Proyecto.objects.all()
     serializer_class = ProyectoSerializer
 
-    def get_permissions(self):
-        return (permissions.AllowAny(), )
+    # def get_permissions(self):
+    #    return (permissions.AllowAny(), )
 
-    def create(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs): #oficialmente es el post para crear
+        print('Intentando crear objecto')
         serializer = self.serializer_class(data=request.data)
+        print('serializer estado?')
+        print(serializer)
+        print('0')
+        print(request.data)
+        print('1')
+        data = json.loads(request.data)
+
+        #print(request.body)
+        print('2')
+        print(data)
+        print('3')
+        print(data.get('estado'))
+        print('4')
+        print(serializer.is_valid())
+        print('serializer valido?')
+
+        print(serializer.data)
+
         if serializer.is_valid():
             Proyecto.objects.crear_proyecto(**serializer.validated_data)
 
             return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
 
-        return Response({
-            'status': 'Bad request',
-            'message': 'No se pudo crear Proyecto.'
-        }, status=status.HTTP_400_BAD_REQUEST)
+        return Response(Utils.objects.definir_respuesta(result=Utils.BAD_REQUEST).to_json(), status=status.HTTP_400_BAD_REQUEST)
 
-    def update(self, request, *args, **kwargs):
-        serializer = self.serializer_class(data=request.data)
+    def retrieve(self, request, *args, **kwargs): #oficialmente este es el get
+        print('llega? nose nada de este retrieve')
+        #print(request.body)
+        return Response(Utils.objects.definir_respuesta(Utils.RESPUESTSA_EXITOSA).to_json(), status=status.HTTP_200_OK)
+
+    def update(self, request, *args, **kwargs): #oficialmente este es el put
+        print('aca? 2')
+        print(self.get_object())
+        print('Entremedio..')
+        print(request.body)
+        print(request.data)
+        print('hasta aquiii')
+        proyecto = self.get_object()
+        print(proyecto)
+
+        print(ProyectoSerializer(proyecto).data)
+        print('Comprobando..')
+        serializer = ProyectoSerializer(self.get_object(), data=request.data)
+        print('holaaa')
+        print(serializer.is_valid())
         if serializer.is_valid():
+            print('ENtro??')
             Proyecto.objects.modificar_proyecto(**serializer.validated_data)
 
             return Response(serializer.validated_data, status=status.HTTP_202_ACCEPTED)
 
-        return Response({
-            'status': 'Bad request',
-            'message': 'No se pudo modificar el Proyecto.'
-        }, status=status.HTTP_400_BAD_REQUEST)
+        return Response(Utils.objects.definir_respuesta(result=Utils.BAD_REQUEST).to_json(), status=status.HTTP_400_BAD_REQUEST)
 
     def destroy(self, request, *args, **kwargs):
-        return Response({
-            'status': 'Bad request',
-            'message': 'No se pueden eliminar Proyectos.'
-        }, status=status.HTTP_400_BAD_REQUEST)
 
-class ProyectoOperations(views.APIView):
-    permission_classes = (IsAuthenticated, EsScrumMaster,)
-    #/api/proyectos/estado {id:#, estado: 'estado'}
+        try:
+
+            proyecto = self.get_object()
+
+            print('Se suspende el proyecto ' + proyecto.nombre + ' por el usuario') #  + request.user + '.')
+
+            print('Se notifica a los implicados...')
+
+            resultado = Proyecto.objects.cambiar_estado(id=proyecto.id, estado=Proyecto.SUSPENDIDO)
+            return Response(Utils.objects.definir_respuesta(result=resultado).to_json(), status=status.HTTP_202_ACCEPTED)
+
+        except:
+            print('No existe el proyecto.')
+            return Response(Utils.objects.definir_respuesta(result=Utils.NO_ENCONTRADO).to_json(), status=status.HTTP_200_OK)
+
+
+class ProyectoEstado(views.APIView): # oficialmente este es la forma de hacer los views personalizados
+
+    def get_permissions(self):
+        return (permissions.IsAuthenticated(), EsEmpleado(),)
+
+    # /api/proyecto/:id/estado {estado: 'estado'}
+    def post(self, request, pk, pk2, format=None):
+        print('llega la peticion?')
+        print('EL valor de pk es: ' + pk + ' el valor de pk2 es: ' + pk2)
+        data = json.loads(request.body)
+        print(request.body)
+        print(data)
+        print(data.get('estado'))
+
+        try:
+            print('intentando')
+            return Response(Utils.objects.definir_respuesta(Utils.RESPUESTSA_EXITOSA).to_json(), status=status.HTTP_200_OK)
+        except:
+
+            return Response(Utils.objects.definir_respuesta(Utils.RESPUESTSA_EXITOSA).to_json(), status=status.HTTP_200_OK)
+
+
+class cualquiera(views.APIView):
+
+    permission_classes = (permissions.IsAuthenticated,)
+
     def post(self, request, format=None):
-        data = json.loads(request.body)
-        print(request.body)
-        print(data)
-        print(data.get('id'))
 
-        id = -1
+        print('entro en la peticion?? de cualquiera..')
 
-        try:
-            print('buscando')
-            respuesta = None
-            id = data.get('id', None)
-            estado = data.get('estado', None)
-            print(estado)
-            print('buscando')
-            result = Proyecto.objects.cambiar_estado(id=id, estado=estado)
-            print('buscando')
-            result = Utils.objects.definirrespuesta(result=result)
-            ser = ProyectoSerializer(result)
-            print(ser.data)
-            return Response(ser.data, status=status.HTTP_200_OK)
-        except:
-            print('buscando')
-            result = {
-                'status': 'Bad request',
-                'message': 'Peticion invalida.'
-            }
-            print('buscando')
-            return Response(result, status=status.HTTP_200_OK)
-
-#/api/proyectos/modificar
-class ModificarProyectos(views.APIView):
-    permission_classes = (IsAuthenticated, EsScrumMaster,)
-    #sirve para modificar proyectos {'nombre': "", 'observacion':"", fecha_fin:""}
-    def post(self, request, format=None):
-        data = json.loads(request.body)
-        print(request.body)
-        print(data)
-        print(data.get('id'))
-
-        try:
-
-            id = data.get('id', None)
-            nombre = data.get('nombre', None)
-            observacion = data.get('observacion', None)
-            fecha_fin = data.get('fecha_fin', None)
-            print('buscando.. con datos: '+ id + ' ' + nombre+ ' '+ observacion+' '+ fecha_fin)
-
-            result = Proyecto.objects.modificar_proyecto(id, nombre=nombre, observacion=observacion, fecha_fin=fecha_fin)
-            metodo = Utils.objects.definirrespuesta(result=result)
-
-            print('El resultado es: ' + metodo.status)
-
-            if metodo.status == Utils.RESPUESTSA_EXITOSA:
-                print(result)
-                ser = ProyectoSerializer(result)
-                result = ser.data
-            else:
-                result = {'status': metodo.status, 'message': metodo.message}
-                #return Response(result, status=status.HTTP_200_O)
-
-            print(result)
-
-            return Response(result, status=status.HTTP_200_OK)
-        except:
-            print('buscando')
-            result = {
-                'status': 'Bad request',
-                'message': 'Peticion invalida.'
-            }
-            print('buscando')
-            return Response(result, status=status.HTTP_400_BAD_REQUEST)
-#/api/proyectos/get
-class ObtenerProyectos(views.APIView):
-    permission_classes = (IsAuthenticated, EsClienteScrumMasterProyecto,)
-    #recibe {'id': #} //para buscar el proyecto
-    def post(self, request, format=None):
-        print('llego en en servidor?')
-        data = json.loads(request.body)
-        print(request.body)
-        print(data)
-        print(data.get('id'))
-
-        try:
-            print('buscando')
-            id = data.get('id', None)
-            print('buscando')
-            result = Proyecto.objects.buscar_proyecto(id=id)
-            print('buscando')
-            ser = ProyectoSerializer(result)
-            return Response(ser.data, status=status.HTTP_200_OK)
-        except:
-            print('buscando')
-            result = {
-                'status': 'Bad request',
-                'message': 'Peticion de id Invalido.'
-            }
-            print('buscando')
-            return Response(result, status=status.HTTP_400_BAD_REQUEST)
-
-    def get(self, request, format=None):
-        print('llego en en servidor?')
-        data = json.loads(request.body)
-        print(request.body)
-        print(data)
-        print(data.get('id'))
-
-        try:
-            usuario = request.user
-            if usuario.tipo == Usuario.T_CLIENTE:
-                result = Proyecto.objects.filter(cliente=usuario)
-            elif usuario.tipo == Usuario.T_EMPLEADO and usuario.is_admin:
-                result = Proyecto.objects.all()
-            elif usuario.tipo == Usuario.T_EMPLEADO:
-                result = Proyecto.objects.filter(empleado=usuario)
-
-            print('buscando')
-            ser = ProyectoSerializer(result, many=True)
-            return Response(ser.data, status=status.HTTP_200_OK)
-        except:
-            print('buscando')
-            result = {
-                'status': 'Bad request',
-                'message': 'Peticion de id Invalido.'
-            }
-            print('buscando')
-            return Response(result, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': 'peticion success'}, status=status.HTTP_204_NO_CONTENT)

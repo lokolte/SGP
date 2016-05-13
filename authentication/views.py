@@ -1,29 +1,23 @@
 # coding=utf-8
 import json
-from django.views.generic.base import TemplateView
-from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import ensure_csrf_cookie
 from django.contrib.auth import authenticate, login, logout
 from rest_framework import permissions, viewsets, status, views
 from rest_framework.response import Response
 from authentication.models import Usuario
 from authentication.permisos import IsAccountOwner
 from authentication.serializers import UsuarioSerializer
+from utilitarios.models import Utils
+from proyectos.models import Proyecto
+from proyectos.serializers import ProyectoSerializer
+from roles.models import Miembro
 
 # Create your views here.
-
-class IndexView(TemplateView):
-    template_name = 'index.html'
-
-    @method_decorator(ensure_csrf_cookie)
-    def dispatch(self, *args, **kwargs):
-        return super(IndexView, self).dispatch(*args, **kwargs)
 
 class UsuarioViewSet(viewsets.ModelViewSet):
     '''
     Conjunto de vistas que maneja el ABM de usuarios.
     '''
-    lookup_field = 'username'
+    #lookup_field = 'username'
     queryset = Usuario.objects.all()
     serializer_class = UsuarioSerializer
 
@@ -36,9 +30,15 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             return (permissions.AllowAny(),)
 
         #Solo el dueño de una cuenta puede hacer update() o delete()
+        if self.request.method == 'DELETE':
+            print('Checkeando permisos para eliminacion de cuentas')
+            return  (permissions.IsAuthenticated(), IsAccountOwner())
+
         return (permissions.IsAuthenticated(), IsAccountOwner(),)
 
-    def create(self, request):
+
+    def create(self, request, *args, **kwargs):
+    #def create(self, request):
 
         serializer = self.serializer_class(data=request.data)
 
@@ -50,16 +50,32 @@ class UsuarioViewSet(viewsets.ModelViewSet):
             return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
 
         print('no entro :(')
-        return Response({
-            'status': 'Bad request',
-            'message': 'Account could not be created with received data.'
-        }, status=status.HTTP_400_BAD_REQUEST)
+        result = Utils.objects.definir_respuesta(result=Utils.ERROR)
+        return Response(result.to_json(), status=status.HTTP_400_BAD_REQUEST)
 
-#    def destroy(self, request, *args, **kwargs):
-#        serializer = self.serializer_class(data=request.data)
+    def update(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data)
 
-#        if serializer.is_valid():
+        if serializer.is_valid():
+            print('entroo')
+            print(request.data)
+            Usuario.objects.create_user(**serializer.validated_data)
 
+            return Response(serializer.validated_data, status=status.HTTP_201_CREATED)
+
+        print('no entro :(')
+        result = Utils.objects.definir_respuesta(result=Utils.ERROR)
+        return Response(result.to_json(), status=status.HTTP_400_BAD_REQUEST)
+        #return Response()
+
+    def destroy(self, request, *args, **kwargs):
+        print('Usted ha intentado eliminar la cuenta de alguien')
+        result = Utils.objects.definir_respuesta(result=Utils.NO_PERMITIDO)
+        print(result.status + ' ' + result.message)
+        return Response(
+            result.to_json(),
+            status=status.HTTP_405_METHOD_NOT_ALLOWED
+        )
 
 class LoginView(views.APIView):
 
@@ -98,6 +114,32 @@ class LogoutView(views.APIView):
 
     def post(self, request, format=None):
 
+        print('hizo logout kore')
+
         logout(request)
 
         return Response({'message': 'logout success'}, status=status.HTTP_204_NO_CONTENT)
+
+
+class UsuariosConProyectos(views.APIView):
+
+    def get_permissions(self):
+        return (permissions.IsAuthenticated(),)
+
+    #/api/user/:id/proyectos
+    def post(self, request, pk, format=None):
+
+        usuario = Usuario.objects.buscar_usuario(id=pk)
+
+        try:
+            if usuario != None:
+                proyectos = Miembro.objects.retornar_lista_proyectos_de_usuario(usuario_id=usuario.id)
+                print(proyectos)
+                if proyectos != None and proyectos != []:
+
+                    return Response(ProyectoSerializer(proyectos, many=True).data, status=status.HTTP_200_OK)
+                else:
+                    return Response(Utils.objects.definir_respuesta(Utils.NO_ENCONTRADO).to_json(), status=status.HTTP_404_NOT_FOUND)
+        except:
+
+            return Response(Utils.objects.definir_respuesta(Utils.BAD_REQUEST).to_json(), status=status.HTTP_400_BAD_REQUEST)

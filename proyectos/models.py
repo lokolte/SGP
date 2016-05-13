@@ -9,10 +9,12 @@ class ProyectoManager(models.Manager):
     def crear_proyecto(self, **kwargs):
 
         if not kwargs.get('nombre'):
-            raise ValueError('Debe existir un nombre de Proyecto')
+            print('Debe existir un nombre de Proyecto')
+            return Utils.ERROR
 
         if not kwargs.get('owner_id'):
-            raise ValueError('Debe existir un Usuario responsable')
+            print('Debe existir un Usuario responsable')
+            return Utils.ERROR
         else:
             owner = Usuario.objects.buscar_usuario(id=kwargs.get('owner_id'))
             if owner == None:
@@ -20,7 +22,8 @@ class ProyectoManager(models.Manager):
                 return Utils.NO_ENCONTRADO
 
         if not kwargs.get('cliente_id'):
-            raise ValueError('Debe existir un cliente de Proyecto')
+            print('Debe existir un cliente de Proyecto')
+            return Utils.ERROR
         else:
             cliente = Usuario.objects.buscar_usuario(id=kwargs.get('cliente_id'))
             if cliente == None:
@@ -28,10 +31,12 @@ class ProyectoManager(models.Manager):
                 return Utils.NO_ENCONTRADO
 
         if not kwargs.get('fecha_ini'):
-            raise ValueError('Debe existir una Fecha de Inicio')
+            print('Debe existir una Fecha de Inicio')
+            return Utils.ERROR
 
         if not kwargs.get('fecha_fin'):
-            raise ValueError('Debe existir una Fecha de Fin Estimado')
+            print('Debe existir una Fecha de Fin Estimado')
+            return Utils.ERROR
 
         if not kwargs.get('estado'):
             estado = Proyecto.SUSPENDIDO
@@ -42,7 +47,8 @@ class ProyectoManager(models.Manager):
                 estado = Proyecto.SUSPENDIDO
 
         if not kwargs.get('observacion'):
-            raise ValueError('Debe existir una observacion')
+            print('Debe existir una observacion')
+            return Utils.ERROR
 
         proyecto = self.model(
             nombre=kwargs.get('nombre'),
@@ -63,11 +69,11 @@ class ProyectoManager(models.Manager):
         except Proyecto.DoesNotExist:
             return None
 
-    #/api/proyectos/mod {id:#}
-    def modificar_proyecto(self, id, **kwargs):
+    #/api/proyectos/mod {id:#,{proyecto}}
+    def modificar_proyecto(self, id=None, **kwargs):
 
         proyecto = Proyecto.objects.buscar_proyecto(id)
-        print ('Entro al model: Estado del proyecto: '+ proyecto.estado)
+        print ('Modificando datos del proyecto: ' + proyecto.nombre)
         if proyecto != None:
             if proyecto.estado == Proyecto.ACTIVO:
                 #solo se cambian los campos que no es estado y solo si el proyecto esta activo
@@ -89,8 +95,15 @@ class ProyectoManager(models.Manager):
         #cambiar el estado solo si no esta finalizado
         proyecto = Proyecto.objects.buscar_proyecto(id)
 
+        print(proyecto.estado)
+
         if proyecto != None:
-            if proyecto.estado == Proyecto.ACTIVO:
+
+            if proyecto.estado == kwargs.get('estado'):
+                print('Sin cambios')
+                return Utils.SIN_EFECTOS
+
+            elif proyecto.estado == Proyecto.ACTIVO:
 
                 if kwargs.get('estado') == Proyecto.SUSPENDIDO or kwargs.get('estado') == Proyecto.FINALIZADO:
                     proyecto.estado = kwargs.get('estado')
@@ -104,13 +117,14 @@ class ProyectoManager(models.Manager):
                     proyecto.save()
                     return proyecto
 
-            elif proyecto.estado == kwargs.get('estado'):
-                print('Sin cambios')
-                return Utils.SIN_EFECTOS
+                elif kwargs.get('estado') == Proyecto.FINALIZADO:
+                    print('No esta permitido')
+                    return Utils.NO_PERMITIDO
 
             else:
                 print('No esta permitido')
                 return Utils.NO_PERMITIDO
+
         else:
             print('No existe el proyecto')
             return Utils.NO_ENCONTRADO
@@ -125,8 +139,8 @@ class Proyecto(models.Model):
         ('F', 'Finalizado'),
     )
     owner = models.ForeignKey(Usuario, related_name='Usuario_Proyecto', editable=False)  #usuario que lo creo
-    cliente = models.ForeignKey(Usuario, related_name='Cliente_Proyecto', blank=True, null=True, on_delete=models.SET_NULL)
-    empleado = models.ManyToManyField(Usuario, related_name='Empleado_Proyecto', blank=True, null=True)
+    #cliente = models.ForeignKey(Usuario, related_name='Cliente_Proyecto', blank=True, null=True, on_delete=models.SET_NULL)
+    #miembros = models.ManyToManyField(Usuario, related_name='Empleado_Proyecto', blank=True, null=True)
     nombre = models.CharField(max_length=100)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     fecha_modificacion = models.DateTimeField(auto_now=True)

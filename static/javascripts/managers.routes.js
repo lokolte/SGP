@@ -73,6 +73,10 @@
             controller: 'TableController',
             controllerAs: 'vm',
             templateUrl: '/static/templates/tabla/tabla.html'
+        }).when('/bordownchart', {
+            controller: 'bordownchartController',
+            controllerAs: 'vm',
+            templateUrl: '/static/templates/bordownchart/bordownchart.html'
         }).otherwise('/404');
     }
 })();
